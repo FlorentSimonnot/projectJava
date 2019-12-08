@@ -1,31 +1,33 @@
 package com.project.parser;
 
-import com.project.files.DirectoryClass;
+import com.project.files.DirectoryFile;
 import com.project.files.FileClass;
-import com.project.files.FileInterface;
+import com.project.files.FilesCollector;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 public class DirectoryParser implements FileParserInterface {
 
     @Override
-    public FileInterface parseMyFile(String name) {
-        return new DirectoryClass(name, listFilesForFolder(name));
+    public FilesCollector parseMyFile(String name) throws IllegalArgumentException {
+        return listFilesForFolder(name);
     }
 
-    private List<FileClass> listFilesForFolder(String name) {
-        var list = new ArrayList<FileClass>();
-        var folder = new File(name);
+    private FilesCollector listFilesForFolder(String name) {
+        var collector = new FilesCollector();
+        var folder = new File(Objects.requireNonNull(name));
         if(folder.isDirectory()){
             for(File fileEntry : Objects.requireNonNull(folder.listFiles())) {
-                if (!fileEntry.isDirectory()) {
-                    list.add(new FileClass(fileEntry.getName()));
+                if (!fileEntry.isDirectory() && fileEntry.getName().endsWith(".class")) {
+                    collector.addFile(new DirectoryFile(fileEntry.getName(), name));
                 }
             }
         }
-        return list;
+        else{
+            throw new IllegalArgumentException("Your directory is empty");
+        }
+        return collector;
     }
 }

@@ -1,14 +1,19 @@
 package com.project.files;
 
-import com.project.files.FileInterface;
 import org.objectweb.asm.ClassReader;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.jar.JarFile;
+import java.util.jar.JarInputStream;
+import java.util.zip.ZipEntry;
 
-public class FileClass implements FileInterface {
+public class FileClass implements FileInterface{
     private final String name;
 
     public FileClass(String name){
@@ -19,17 +24,19 @@ public class FileClass implements FileInterface {
 
     @Override
     public int getVersion(){
-        System.out.print(name);
-        try {
-            var reader = new ClassReader(Files.readAllBytes(Paths.get(name)));
-            return reader.readByte(7)-44;
-        } catch (IOException e) {
-            throw new IllegalStateException("Can't read the file " + name);
-        }
+        return createClassReader().readByte(7)-44;
     }
 
     @Override
     public String toString() {
         return name;
+    }
+
+    private ClassReader createClassReader(){
+        try {
+            return new ClassReader(new FileInputStream(name));
+        } catch (IOException e) {
+            throw new IllegalStateException("Can't read the file " + name);
+        }
     }
 }

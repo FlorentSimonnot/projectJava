@@ -1,37 +1,40 @@
 package com.project.parser;
 
 import com.project.files.FileClass;
-import com.project.files.FileInterface;
-import com.project.files.JarClass;
+import com.project.files.FilesCollector;
+import com.project.files.JarFileC;
 
-import java.io.File;
+import javax.sound.midi.SysexMessage;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import java.util.zip.ZipInputStream;
 
 public class JarParser implements FileParserInterface {
 
     @Override
-    public FileInterface parseMyFile(String name) {
-        Objects.requireNonNull(name);
-        return new JarClass(name, listFilesForFolder(name));
+    public FilesCollector parseMyFile(String name) throws IllegalArgumentException {
+        return listFilesForFolder(Objects.requireNonNull(name));
     }
 
-    private List<FileClass> listFilesForFolder(String name) {
-        var list = new ArrayList<FileClass>();
-        var zip = new ZipInputStream(new URL(name));
-        //var folder = new File(name);
-        /*for(File fileEntry : Objects.requireNonNull(folder.listFiles())) {
-            if (!fileEntry.isDirectory()) {
-                list.add(new FileClass(fileEntry.getName()));
+    private FilesCollector listFilesForFolder(String name) {
+        var collector = new FilesCollector();
+        try {
+            var jar = new JarFile(Objects.requireNonNull(name));
+            Enumeration<JarEntry> entries = jar.entries();
+            while(entries.hasMoreElements()) {
+                var n = entries.nextElement().getName();
+                var split = n.split("/");
+                if(split.length > 0){
+                    var nameFile = split[split.length-1];
+                    if(nameFile.endsWith(".class")){
+                        collector.addFile(new JarFileC(nameFile, n, name));
+                    }
+                }
             }
-        }*/
-        return list;
+        } catch (IOException e) {
+            throw new IllegalArgumentException();
+        }
+        return collector;
     }
 }
