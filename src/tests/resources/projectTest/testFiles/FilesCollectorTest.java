@@ -10,7 +10,7 @@ import java.util.StringJoiner;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FilesCollectorTest {
-    private final int[] versions = {10, 11, 12, 13};
+    private final int[] versions = {5, 7, 8, 10, 11, 12, 13};
 
     @Test
     void shouldAddSimplyFileWithSuccess(){
@@ -87,5 +87,19 @@ class FilesCollectorTest {
             joinerResult.add(v.getVersion()+"");
         });
         assertEquals(joinerExcpected.toString(), joinerResult.toString());
+    }
+
+    @Test
+    void shouldThrowNullPointerExceptionWhenActionInForEachIsNull(){
+        var collector = new FilesCollector();
+        collector.addFile(new FileClass("src/tests/resources/j13.class"));
+        assertThrows(NullPointerException.class, () -> {
+            collector.forEach(null);
+        });
+    }
+
+    @Test
+    void shouldReturnIsEmptyTrue(){
+        assertTrue(new FilesCollector().isEmpty());
     }
 }

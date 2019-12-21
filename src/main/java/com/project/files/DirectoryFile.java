@@ -21,10 +21,10 @@ public class DirectoryFile implements FileInterface {
 
     @Override
     public int getVersion() {
-        return createClassReader().readByte(7)-44;
+        return getClassReader().readByte(7)-44;
     }
 
-    private ClassReader createClassReader(){
+    public ClassReader getClassReader(){
         try {
             return new ClassReader(new FileInputStream(path+"/"+name));
         } catch (IOException e) {

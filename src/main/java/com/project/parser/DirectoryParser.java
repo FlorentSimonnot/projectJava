@@ -11,13 +11,15 @@ import java.util.Objects;
 public class DirectoryParser implements FileParserInterface {
 
     @Override
-    public FilesCollector parseMyFile(String name) throws IllegalArgumentException {
+    public FilesCollector parseMyFile(String name) throws ParserException {
         return listFilesForFolder(name);
     }
 
-    private FilesCollector listFilesForFolder(String name) {
+    private FilesCollector listFilesForFolder(String name) throws ParserException {
+        if(Objects.requireNonNull(name).contains("."))
+            throw new ParserException("We can't accept this type of file");
         var collector = new FilesCollector();
-        var folder = new File(Objects.requireNonNull(name));
+        var folder = new File(name);
         if(folder.isDirectory()){
             for(File fileEntry : Objects.requireNonNull(folder.listFiles())) {
                 if (!fileEntry.isDirectory() && fileEntry.getName().endsWith(".class")) {
@@ -26,7 +28,7 @@ public class DirectoryParser implements FileParserInterface {
             }
         }
         else{
-            throw new IllegalArgumentException("Your directory is empty");
+            throw new ParserException();
         }
         return collector;
     }

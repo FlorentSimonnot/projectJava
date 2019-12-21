@@ -28,4 +28,5 @@ class FileClassTest {
     void testGetVersionMethod(){
         assertEquals(13, new FileClass("src/tests/resources/j13.class").getVersion());
     }
+
 }

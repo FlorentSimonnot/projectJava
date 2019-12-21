@@ -1,6 +1,7 @@
 package projectTest.testParser;
 
 import com.project.parser.DirectoryParser;
+import com.project.parser.ParserException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,8 +33,8 @@ class DirectoryParserTest {
     }*/
 
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenIsNotDirectory(){
-        assertThrows(IllegalArgumentException.class, () -> {
+    void shouldThrowParserExceptionWhenIsNotDirectory(){
+        assertThrows(ParserException.class, () -> {
            new DirectoryParser().parseMyFile("j13.class");
         });
     }

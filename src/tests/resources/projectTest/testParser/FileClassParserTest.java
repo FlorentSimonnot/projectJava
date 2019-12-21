@@ -1,6 +1,7 @@
 package projectTest.testParser;
 
 import com.project.parser.FileClassParser;
+import com.project.parser.ParserException;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -11,7 +12,9 @@ class FileClassParserTest {
 
     @Test
     void shouldReturnOneFile(){
-        assertEquals(1, new FileClassParser().parseMyFile("src/tests/resources/j13.class").getSize());
+        assertAll (
+                () -> assertEquals(1, new FileClassParser().parseMyFile("src/tests/resources/j13.class").getSize())
+        );
     }
 
     @Test
@@ -23,7 +26,7 @@ class FileClassParserTest {
 
     @Test
     void shouldThrowIllegalArgumentExceptionWhenFileIsNotAClassFile(){
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ParserException.class, () -> {
             new FileClassParser().parseMyFile("notAClassFile.txt");
         });
     }

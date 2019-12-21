@@ -24,7 +24,7 @@ public class FileClass implements FileInterface{
 
     @Override
     public int getVersion(){
-        return createClassReader().readByte(7)-44;
+        return getClassReader().readByte(7)-44;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class FileClass implements FileInterface{
         return name;
     }
 
-    private ClassReader createClassReader(){
+    public ClassReader getClassReader(){
         try {
             return new ClassReader(new FileInputStream(name));
         } catch (IOException e) {

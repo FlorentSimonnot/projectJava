@@ -4,6 +4,6 @@ import com.project.files.FilesCollector;
 
 public interface FileParserInterface {
 
-    FilesCollector parseMyFile(String name) throws IllegalArgumentException;
+    FilesCollector parseMyFile(String name) throws ParserException;
 
 }

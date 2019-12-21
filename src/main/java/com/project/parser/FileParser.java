@@ -2,24 +2,18 @@ package com.project.parser;
 
 import com.project.files.FilesCollector;
 
+import javax.swing.text.html.parser.Parser;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 public class FileParser {
 
 
-    public static FilesCollector parseFile(String name, FileFactory factory){
-        Objects.requireNonNull(factory);
+    public static FilesCollector parseFile(String name) throws IOException, ParserException {
         Objects.requireNonNull(name);
-        for(var entry : factory.map.entrySet()) {
-            if (Pattern.matches(entry.getKey(), name)) {
-                try {
-                    return entry.getValue().parseMyFile(name);
-                } catch (IllegalArgumentException e) {
-                    throw new IllegalArgumentException("Please verify your file extension");
-                }
-            }
-        }
-        throw new IllegalStateException();
+        return ParserFactory.createParser(Paths.get(name)).parseMyFile(name);
     }
 }

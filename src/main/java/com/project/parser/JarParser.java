@@ -13,12 +13,14 @@ import java.util.jar.JarFile;
 public class JarParser implements FileParserInterface {
 
     @Override
-    public FilesCollector parseMyFile(String name) throws IllegalArgumentException {
+    public FilesCollector parseMyFile(String name) throws ParserException {
         return listFilesForFolder(Objects.requireNonNull(name));
     }
 
-    private FilesCollector listFilesForFolder(String name) {
+    private FilesCollector listFilesForFolder(String name) throws ParserException {
         var collector = new FilesCollector();
+        if(!name.endsWith(".jar"))
+            throw new ParserException();
         try {
             var jar = new JarFile(Objects.requireNonNull(name));
             Enumeration<JarEntry> entries = jar.entries();
@@ -33,7 +35,7 @@ public class JarParser implements FileParserInterface {
                 }
             }
         } catch (IOException e) {
-            throw new IllegalArgumentException();
+            throw new ParserException();
         }
         return collector;
     }

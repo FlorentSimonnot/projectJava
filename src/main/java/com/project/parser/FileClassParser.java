@@ -8,11 +8,12 @@ import java.util.Objects;
 public class FileClassParser implements FileParserInterface {
 
     @Override
-    public FilesCollector parseMyFile(String name) throws IllegalArgumentException {
+    public FilesCollector parseMyFile(String name) throws ParserException {
+        Objects.requireNonNull(name);
         var collector = new FilesCollector();
         if(!name.endsWith(".class"))
-            throw new IllegalArgumentException();
-        collector.addFile(new FileClass(Objects.requireNonNull(name)));
+            throw new ParserException();
+        collector.addFile(new FileClass(name));
         return collector;
     }
 }
