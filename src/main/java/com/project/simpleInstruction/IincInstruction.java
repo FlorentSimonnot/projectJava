@@ -1,5 +1,7 @@
 package com.project.simpleInstruction;
 
+import org.objectweb.asm.MethodVisitor;
+
 public class IincInstruction implements Instruction {
 	private final int var;
 	private final int increment;

@@ -59,7 +59,8 @@ public class MyMethodVisitor extends MethodVisitor{
     @Override
     public void visitIincInsn(int var, int increment) {
         //System.out.println("\tIINC INSN\t" + var + " " + increment);
-        super.visitIincInsn(var, increment);
+        myMethod.addInstruction(new IincInstruction(var, increment));
+    	super.visitIincInsn(var, increment);
     }
 
     @Override
@@ -139,8 +140,9 @@ public class MyMethodVisitor extends MethodVisitor{
 
     @Override
     public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
-        System.out.println("\tLOOKUP SWITCH INSN\t" + dflt + " " + keys + " " + labels);
-        super.visitLookupSwitchInsn(dflt, keys, labels);
+//        System.out.println("\tLOOKUP SWITCH INSN\t" + dflt + " " + keys + " " + labels);
+        myMethod.addInstruction(new LookupSwitchInstruction(dflt, keys, labels));
+    	super.visitLookupSwitchInsn(dflt, keys, labels);
     }
 
     @Override
