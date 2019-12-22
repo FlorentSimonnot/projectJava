@@ -1,12 +1,14 @@
 package com.project.featuresInstruction;
 
-import com.project.simpleInstruction.Instruction;
-import com.project.simpleInstruction.InstructionsCollector;
-import jdk.internal.org.objectweb.asm.Type;
+import java.util.StringJoiner;
+
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
-import java.util.StringJoiner;
+import com.project.simpleInstruction.Instruction;
+import com.project.simpleInstruction.InstructionsCollector;
+
+import org.objectweb.asm.Type;
 
 public class ConcatenationInstruction implements Instruction {
     private static final int VERSION = Opcodes.V9;

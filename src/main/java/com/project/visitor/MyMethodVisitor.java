@@ -154,7 +154,8 @@ public class MyMethodVisitor extends MethodVisitor{
 
     @Override
     public void visitTableSwitchInsn(int min, int max, Label dflt, Label... labels) {
-        System.out.println("\tTABLE SWITCH INSN\t" + min + " " + max + " " + dflt);
+//        System.out.println("\tTABLE SWITCH INSN\t" + min + " " + max + " " + dflt);
+    	myMethod.addInstruction(new TableSwitchInstruction(min, max, dflt, labels));
         super.visitTableSwitchInsn(min, max, dflt, labels);
     }
 
@@ -175,6 +176,12 @@ public class MyMethodVisitor extends MethodVisitor{
         if(opcode != Opcodes.ATHROW)
             myMethod.addInstruction(new NopInstruction(opcode));
         super.visitInsn(opcode);
+    }
+    
+    @Override
+    public void visitTryCatchBlock(Label start, Label end, Label handler, String type) {
+    	myMethod.addInstruction(new TryCatchBlockInstruction(start, end, handler, type));
+    	super.visitTryCatchBlock(start, end, handler, type);
     }
 
     @Override
