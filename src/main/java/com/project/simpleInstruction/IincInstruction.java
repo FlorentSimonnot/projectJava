@@ -20,7 +20,7 @@ public class IincInstruction implements Instruction {
 	}
 	
 	@Override
-	void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
+	public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
 		mv.visitIincInsn(var, increment);
 	}
 	

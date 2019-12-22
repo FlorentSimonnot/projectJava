@@ -1,6 +1,7 @@
 package com.project.simpleInstruction;
 
 import org.objectweb.asm.Label;
+import org.objectweb.asm.MethodVisitor;
 
 public class LookupSwitchInstruction implements Instruction {
 	private final Label dflt;
@@ -26,7 +27,7 @@ public class LookupSwitchInstruction implements Instruction {
 	}
 	
 	@Override
-	void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruciton) {
+	public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruciton) {
 		mv.visitLookupSwitchInsn(dflt, keys, labels);
 	}
 	

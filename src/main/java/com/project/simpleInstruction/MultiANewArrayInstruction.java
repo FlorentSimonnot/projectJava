@@ -1,8 +1,8 @@
 package com.project.simpleInstruction;
 
+import org.objectweb.asm.MethodVisitor;
 
-
-public class MultiANewArrayInstruction {
+public class MultiANewArrayInstruction implements Instruction {
 	private final String descriptor;
 	private final int numDimensions;
 
@@ -20,7 +20,7 @@ public class MultiANewArrayInstruction {
 	}
 	
 	@Override
-	void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
+	public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
 		mv.visitMultiANewArrayInsn(descriptor, numDimensions);
 	}
 	

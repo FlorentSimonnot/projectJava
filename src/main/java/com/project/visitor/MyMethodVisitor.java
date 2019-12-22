@@ -147,7 +147,8 @@ public class MyMethodVisitor extends MethodVisitor{
 
     @Override
     public void visitMultiANewArrayInsn(String descriptor, int numDimensions) {
-        System.out.println("\tMULTI A NEW ARRAY INSN\t" + descriptor + " " + numDimensions);
+//        System.out.println("\tMULTI A NEW ARRAY INSN\t" + descriptor + " " + numDimensions);
+    	myMethod.addInstruction(new MultiANewArrayInstruction(descriptor, numDimensions));
         super.visitMultiANewArrayInsn(descriptor, numDimensions);
     }
 
