@@ -29,7 +29,7 @@ public class MyClassVisitor extends ClassVisitor {
 
     @Override
     public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
-        myClass = new MyClass(access, name, superName);
+        myClass = new MyClass(access, name, superName, interfaces);
         if(myClass.isRecordClass()){
             observers.forEach(o -> o.onFeatureDetected(name + " is a record class", "record"));
         }
@@ -99,7 +99,7 @@ public class MyClassVisitor extends ClassVisitor {
         MethodVisitor mv;
         mv = cv.visitMethod(access, name, descriptor, signature, exceptions);
         if (mv != null) {
-            mv = new MyMethodVisitor(mv, observers, myClass.getAllMethods(), new Method(access, name, descriptor, signature, false, exceptions), myClass);
+            mv = new MyMethodVisitor(mv, observers, myClass.getAllMethods(), new Method(access, name, descriptor, signature, false, exceptions), myClass, exceptions);
         }
         return mv;
     }

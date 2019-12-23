@@ -13,13 +13,15 @@ public class MyMethodVisitor extends MethodVisitor{
     private final Method myMethod;
     private final MyClass ownerClass;
     private String lastInvoke = "";
+    private final String[] exceptions;
 
-    MyMethodVisitor(MethodVisitor methodVisitor, List<FeatureObserver> observers, List<Method> methods, Method myMethod, MyClass ownerClass) {
+    MyMethodVisitor(MethodVisitor methodVisitor, List<FeatureObserver> observers, List<Method> methods, Method myMethod, MyClass ownerClass, String[] exceptions) {
         super(Opcodes.ASM7, methodVisitor);
         this.observers = observers;
         this.methods = methods;
         this.myMethod = myMethod;
         this.ownerClass = ownerClass;
+        this.exceptions = exceptions;
     }
 
     @Override
