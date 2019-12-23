@@ -12,6 +12,18 @@ int lo = 3;
 	sb.append("la");
 	return sb.toString();
 }
+
+	private int test33(int i){
+		System.out.println(lo+" * "+a+" = "+i );
+		return i+1;
+	}
+
+	private String test33P(String s){
+		String c = s.concat("a").concat("b");
+		System.out.println(lo+" * "+a+" = "+3L+" / "+3.0 + new TestConcat().toString() + c.concat("c"));
+		return c;
+	}
+
   private static void testConcat() throws URISyntaxException {
     URI uri = new URI("http://www.u-pem.fr");
     int value = 5;
@@ -53,6 +65,8 @@ return res;
 TestConcat obj = new TestConcat();
 	String res = obj.a;
 	System.out.println(obj.getA());
+	System.out.println(obj.test33(33));
+System.out.println(obj.test33P("Siiis"));
 	
   }
 }

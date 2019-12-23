@@ -7,5 +7,7 @@ public interface Instruction {
     void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction);
     default boolean isAloadInstruction(){return false;}
     default boolean isRecordInvokeInit(){return false;}
-    default String getType(){return "()";}
+    default String getType(){return "(V)";}
+    default boolean isInvokeVirtual(){return false;}
+    default boolean isNew(){return false;}
 }
