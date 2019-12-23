@@ -24,4 +24,5 @@ public class NopInstruction implements Instruction {
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitInsn(opcode);
     }
+
 }

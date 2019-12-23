@@ -49,12 +49,9 @@ public class Method {
 
     public void writeAllInstructions(int version, MethodVisitor mv){
         instructions.writeAllInstruction(version, mv);
-        /*instructions.forEach(i -> {
-            i.writeInstruction(version, mv);
-        });*/
     }
 
-    public void createConcatenationInstruction(int nArgs, String format){
+    public void createConcatenationInstruction(int nArgs, List<String> format){
         var map = instructions.createConcatenationInstruction(nArgs, format);
         instructions.clear();
         instructions.addAll(map);

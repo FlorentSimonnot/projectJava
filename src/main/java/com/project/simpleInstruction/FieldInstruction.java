@@ -35,7 +35,6 @@ public class FieldInstruction implements Instruction {
             case Opcodes.ALOAD:
                 return "(Ljava/lang/Object;)";
             case Opcodes.GETFIELD :
-                System.out.println(descriptor);
                 return "("+descriptor+")";
             default:
                 return "()";
@@ -48,8 +47,9 @@ public class FieldInstruction implements Instruction {
 
     @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
-        if(opcode == Opcodes.GETFIELD && !lastInstruction.isAloadInstruction())
+        if(opcode == Opcodes.GETFIELD && !lastInstruction.isAloadInstruction()) {
             mv.visitVarInsn(Opcodes.ALOAD, 0);
+        }
         mv.visitFieldInsn(opcode, owner, name, descriptor);
     }
 

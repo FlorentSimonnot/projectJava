@@ -32,6 +32,10 @@ public class MethodInstruction implements Instruction {
             case Opcodes.LLOAD: return "(J)";
             case Opcodes.DLOAD: return "(D)";
             case Opcodes.ALOAD : return "(Ljava/lang/Object;)";
+            case Opcodes.INVOKEVIRTUAL: {
+                var split = descriptor.split("\\)");
+                return "("+split[1]+")";
+            }
             default : return "()";
         }
     }
@@ -63,4 +67,6 @@ public class MethodInstruction implements Instruction {
     public boolean isRecordInvokeInit() {
         return owner.equals("java/lang/Record");
     }
+
+    public boolean isInvokeVirtual(){return !descriptor.equals("()V");}
 }

@@ -9,13 +9,13 @@ import java.util.function.Consumer;
 public class InstructionsCollector {
     private final List<Instruction> instructions;
 
-    InstructionsCollector(){instructions = new LinkedList<>();}
+    public InstructionsCollector(){instructions = new LinkedList<>();}
 
     public int size(){return instructions.size();}
 
     public Instruction getInstruction(int index){return instructions.get(index);}
 
-    void add(Instruction instruction){
+    public void add(Instruction instruction){
         instructions.add(instructions.size(), instruction);
     }
 
@@ -23,7 +23,7 @@ public class InstructionsCollector {
         instructions.addAll(collector);
     }
 
-    void clear(){instructions.clear();}
+    public void clear(){instructions.clear();}
 
     public void forEach(Consumer<? super Instruction> consumer) {
         instructions.forEach(consumer);
@@ -32,6 +32,7 @@ public class InstructionsCollector {
     void writeAllInstruction(int version, MethodVisitor methodVisitor){
         Instruction lastInstruction = new NopInstruction(0);
         for(Instruction i : instructions){
+            //System.out.println("LST " + lastInstruction);
             i.writeInstruction(version, methodVisitor, lastInstruction);
             lastInstruction = i;
         }
@@ -44,7 +45,7 @@ public class InstructionsCollector {
         return joiner.toString();
     }
 
-    List<Instruction> createConcatenationInstruction(int nArgs, String format) {
+    List<Instruction> createConcatenationInstruction(int nArgs, List<String> format) {
         var newCollector = new InstructionsCollector();
         var concatCollector = new InstructionsCollector();
         var count = 0;
@@ -52,7 +53,9 @@ public class InstructionsCollector {
         for(var i = size()-1; i >= 0; i--){
             var e = instructions.get(i);
             if(count < nArgs){
-                if(e.isAloadInstruction()){count++;}
+                if(e.isAloadInstruction() || e.isNew()){
+                    count++;
+                }
                 concatCollector.add(e);
             }
             else{

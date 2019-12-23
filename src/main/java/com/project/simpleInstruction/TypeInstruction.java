@@ -26,4 +26,9 @@ public class TypeInstruction implements Instruction {
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitTypeInsn(opcode, owner);
     }
+
+    @Override
+    public boolean isNew() {
+        return opcode == Opcodes.NEW;
+    }
 }

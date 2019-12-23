@@ -11,6 +11,11 @@ record TestRecord(int lo, int hi, String a) {
 
 	public static void main(String[] args){
 		var r = new TestRecord(3, 6, "a"); 
+		var r2 = new TestRecord(3, 12, "b");
+		System.out.println(r.equals(r2));
+		System.out.println(r.equals(r));
+		System.out.println(r);
 		System.out.println(r.getA());
+		System.out.println(r.hashCode());
 	}
 }

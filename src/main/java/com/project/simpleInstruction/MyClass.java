@@ -11,13 +11,15 @@ public class MyClass {
     private final String ownerClassName;
     private final int privacy;
     private int lineNumber;
+    private final String[] interfaces;
 
-    public MyClass(int privacy, String className, String ownerClassName){
+    public MyClass(int privacy, String className, String ownerClassName, String[] interfaces){
         this.privacy = privacy;
         this.className = className;
         this.ownerClassName = ownerClassName;
         this.fields = new ArrayList<>();
         this.methods = new ArrayList<>();
+        this.interfaces = interfaces;
     }
 
     /* *************************************** */

@@ -13,13 +13,15 @@ public class MyMethodVisitor extends MethodVisitor{
     private final Method myMethod;
     private final MyClass ownerClass;
     private String lastInvoke = "";
+    private final String[] exceptions;
 
-    MyMethodVisitor(MethodVisitor methodVisitor, List<FeatureObserver> observers, List<Method> methods, Method myMethod, MyClass ownerClass) {
+    MyMethodVisitor(MethodVisitor methodVisitor, List<FeatureObserver> observers, List<Method> methods, Method myMethod, MyClass ownerClass, String[] exceptions) {
         super(Opcodes.ASM7, methodVisitor);
         this.observers = observers;
         this.methods = methods;
         this.myMethod = myMethod;
         this.ownerClass = ownerClass;
+        this.exceptions = exceptions;
     }
 
     @Override
@@ -81,17 +83,17 @@ public class MyMethodVisitor extends MethodVisitor{
         super.visitJumpInsn(opcode, label);
     }
 
-    private void getInstructionCalledBeforeInvokeDynamic(Object... args){
+    private void getInstructionCalledBeforeConcatenation(Object... args){
         var arguments = (String) args[0];
-        var format = arguments.replace("\u0001", " arg ");
-        var split = format.split(" ");
-        var nArgs = 0;
+        var listFormat = Utils.createListOfConstantForConcatenation(arguments);
+        myMethod.createConcatenationInstruction(Utils.numberOfOccurrence(listFormat, "arg"), listFormat);
+    }
 
-        for(String c : split){
-            if(c.equals("arg")){nArgs++;}
+    private void getInstructionCalledBeforeLambda(Object... args){
+        System.out.println("---------LALALA--------------\n");
+        for(Object arg : args){
+            System.out.println("ARG " + arg);
         }
-
-        myMethod.createConcatenationInstruction(nArgs, format);
     }
 
     @Override
@@ -102,7 +104,7 @@ public class MyMethodVisitor extends MethodVisitor{
             observers.forEach(o -> o.onFeatureDetected(
                     "CONCATENATION at " + ownerClass.getClassName() + "." + myMethod.getName() + myMethod.getDescriptor() + " (" + ownerClass.getSourceName() + ":"+ownerClass.getLineNumber()+") : pattern " + bootstrapMethodArguments[0].toString().replace("\u0001", "%1")
                     , "concatenation"));
-            getInstructionCalledBeforeInvokeDynamic(bootstrapMethodArguments);
+            getInstructionCalledBeforeConcatenation(bootstrapMethodArguments);
         }
 
         if(bootstrapMethodHandle.getName().equals("metafactory")){
@@ -112,6 +114,7 @@ public class MyMethodVisitor extends MethodVisitor{
             observers.forEach(o -> o.onFeatureDetected(
                     "LAMBDA at " + ownerClass.getClassName() + "." + myMethod.getName() + myMethod.getDescriptor() + " (" + ownerClass.getSourceName() + ":"+ownerClass.getLineNumber()+ ") : lambda " + Utils.takeOwnerFunction(descriptor) + " calling " + bootstrap.split(" ")[0],
                     "lambda"));
+            getInstructionCalledBeforeLambda(bootstrapMethodArguments);
         }
         super.visitInvokeDynamicInsn(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments);
     }
@@ -187,6 +190,7 @@ public class MyMethodVisitor extends MethodVisitor{
     @Override
     public void visitEnd() {
         methods.add(myMethod);
+        //myMethod.printInstructions();
         super.visitEnd();
     }
 
