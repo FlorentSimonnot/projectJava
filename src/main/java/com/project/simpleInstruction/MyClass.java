@@ -58,6 +58,8 @@ public class MyClass {
         return privacy;
     }
 
+    public String[] getInterfaces(){return interfaces;}
+
     public void setSourceName(String sourceName){this.sourceName = sourceName;}
 
     public void setLineNumber(int lineNumber){this.lineNumber = lineNumber;}
@@ -71,8 +73,6 @@ public class MyClass {
     public List<Method> getAllMethods() {
         return methods;
     }
-
-    public void incrementLineNumber(){this.lineNumber++;}
 
     public String getSourceName() {
         return sourceName;

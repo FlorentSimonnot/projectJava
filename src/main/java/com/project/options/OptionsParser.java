@@ -5,8 +5,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * 
+ * @author SIMONNOT Florent
+ * A class that allows to parse all the options of the project Retro.
+ *
+ */
 public class OptionsParser {
 
+	/**
+	 * Creates a list of Option according to the arguments of the run command of Retro.
+	 * @param args - the arguments of the run command
+	 * @param factory - an OptionFactory
+	 * @return the list of Option according to the arguments of the run command of Retro.
+	 */
     public static Options parseOptions(String[] args, OptionFactory factory){
         Objects.requireNonNull(factory);
         var optionsList = new ArrayList<Option>();

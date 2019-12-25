@@ -5,10 +5,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * 
+ * @author SIMONNOT Florent
+ * A class that provides tools to verify all the options given by the user when you run the project Retro.
+ *
+ */
 public class OptionUtils {
     private static final String[] featuresArray = new String[]{"try-with-resources", "nestMember", "lambda", "record", "concatenation"};
     private static final List<String> featuresList = new ArrayList<>(Arrays.asList(featuresArray));
 
+    /**
+     * Gets the arguments of the options [--target] or [--features].
+     * @param optionEnum - an OptionEnum that can be TARGET or FEATURES
+     * @param argument - the arguments of the option given
+     * @return all the arguments of an option given.
+     */
     public static String checkArgument(Option.OptionEnum optionEnum, String argument){
         Objects.requireNonNull(optionEnum, argument);
         switch(optionEnum){
@@ -18,6 +30,11 @@ public class OptionUtils {
         }
     }
 
+    /**
+     * Tests if an option is followed by arguments.
+     * @param option - an Option
+     * @return true if the option given is followed by arguments, false if not.
+     */
     static boolean lastOptionWaitingArgument(Option option){
         if(option.getOption() == Option.OptionEnum.TARGET || option.getOption() == Option.OptionEnum.FEATURES){
             return option.argsIsEmpty();

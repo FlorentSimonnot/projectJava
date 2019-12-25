@@ -5,11 +5,18 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.function.Consumer;
 
+/**
+ * 
+ * @author SIMONNOT Florent
+ * A class that represents a list of FileInterface.
+ * All FileInterface are used when you want to visit those files with a ClassVisitor or a MethodVisitor.
+ *
+ */
 public class FilesCollector {
     private final List<FileInterface> collector = new ArrayList<>();
 
     /**
-     * public boolean addFile(FileInterface fileClass)
+     * Adds a FileInterface into the list collector.
      * @param fileClass - the fileClass we want to add in the collector
      * @return true (as specified by Collection.add(E))
      * @throws UnsupportedOperationException - if the add operation is not supported by this list
@@ -22,8 +29,7 @@ public class FilesCollector {
     }
 
     /**
-     * public String getVersions()
-     * return a string which show the java version for each file in the collector
+     * Gets the java version for each file in the collector
      * @return a string
      */
     public String getVersions(){
@@ -37,8 +43,7 @@ public class FilesCollector {
     }
 
     /**
-     * public int getSize()
-     * Compute the size of the collector.
+     * Computes the size of the collector.
      * @return the size of the collector.
      */
     public int getSize(){
@@ -46,22 +51,25 @@ public class FilesCollector {
     }
 
     /**
-     * public void forEach(Consumer<\? super FileInterface> action)
+     * Performs the given action for each element of the Iterable until all elements have been processed or the action throws an exception.
      * @param action - The action to be performed for each element
      * @throws NullPointerException - if the specified element is null
-     * Performs the given action for each element of the Iterable until all elements have been processed or the action throws an exception.
      */
     public void forEach(Consumer<? super FileInterface> action){
         collector.forEach(action);
     }
 
+    /**
+     * Gets the FileInterface according to an index
+     * @param index - the index you want to have the FileInterface
+     * @return a FileInterface corresponding to your index in the collector
+     */
     public FileInterface get(int index){
         return collector.get(index);
     }
 
     /**
-     * public boolean isEmpty()
-     * Verify if the collector is empty
+     * Verifies if the collector is empty
      * @return true - if the collector is empty
      */
     public boolean isEmpty(){

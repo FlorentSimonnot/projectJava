@@ -18,9 +18,9 @@ import java.util.StringJoiner;
 /**
  * 
  * @author SIMONNOT Florent
- * A class that allows to write concatenation in bytecode into different versions.
+ * A class that allows to write a concatenation instruction in bytecode into different versions.
  * It is stored as an Instruction of a Method. And this Method object is used into a MethodVisitor also used into a ClassVisitor.
- * The ClassVisitor will visit a .class file and write a code block corresponding to a concatenation from the .class file on a new .class file according to the version required.
+ * The ClassVisitor will visit a .class file and write a code block in bytecode corresponding to a concatenation from the .class file on a new .class file according to the version required.
  *
  */
 

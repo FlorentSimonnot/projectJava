@@ -13,9 +13,19 @@ public class InstructionsCollector {
 
     public int size(){return instructions.size();}
 
-    public Instruction getInstruction(int index){return instructions.get(index);}
+    public Instruction getInstruction(int index){
+        if(index > -1)
+            return instructions.get(index);
+        throw new IllegalArgumentException("Index out of Bounds in instructions collector");
+    }
 
-    public void add(Instruction instruction){
+    private Instruction getLastInstruction(){
+        if(instructions.size() == 0)
+            throw new IllegalArgumentException("List of instructions is empty");
+        return instructions.get(instructions.size()-1);
+    }
+
+    public void add(Instruction instruction) {
         instructions.add(instructions.size(), instruction);
     }
 
@@ -23,7 +33,7 @@ public class InstructionsCollector {
         instructions.addAll(collector);
     }
 
-    public void clear(){instructions.clear();}
+    void clear(){instructions.clear();}
 
     public void forEach(Consumer<? super Instruction> consumer) {
         instructions.forEach(consumer);

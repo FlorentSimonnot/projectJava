@@ -14,6 +14,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author SIMONNOT Florent
+ * A class that represents the project Retro.
+ * It can take a directory, a .class file or a .jar file as input and detect all the features detected on it according to the option [--features].
+ * [--features] contains a list of features that can be try-with-resources, lambda, nest mates, concatenation or record.
+ * If [--features] is absent, then all the features mentioned above are asked.
+ * It has to have a [--target] version of java which you want to write your new bytecode files.
+ * The option [--info] displays all the features detected for each file.
+ * The option [--force] forces the writing of new bytecode files even if the java version is not compatible.
+ *
+ */
 public class App {
 
     public static void main(String[] args) throws IOException, ParserException {
@@ -28,7 +40,6 @@ public class App {
         var tryWithResources = "src/tests/resources/ForaxTests/TestTryWithResource.class";
         var concat = "src/tests/resources/ForaxTests/TestConcat.class";
 
-        
         var observers = FeaturesManager.createObservers(options.getArgsOption(Option.OptionEnum.FEATURES), observersFactory);
 
         FileParser.parseFile(lambda).forEach(f -> {
