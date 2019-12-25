@@ -90,15 +90,15 @@ public class MyMethodVisitor extends MethodVisitor{
     }
 
     private void getInstructionCalledBeforeLambda(Object... args){
-        System.out.println("---------LALALA--------------\n");
+//        System.out.println("---------LALALA--------------\n");
         for(Object arg : args){
-            System.out.println("ARG " + arg);
+//            System.out.println(arg);
         }
     }
 
     @Override
     public void visitInvokeDynamicInsn(String name, String descriptor, Handle bootstrapMethodHandle, Object... bootstrapMethodArguments) {
-        //System.out.println("\tINVOKE DYNAMIC INSN\t" + name + " " + descriptor + " " + bootstrapMethodHandle.getName() + " " +bootstrapMethodHandle.getDesc());
+//        System.out.println("\tINVOKE DYNAMIC INSN\t" + name + " " + descriptor + " " + bootstrapMethodHandle.getName() + " " +bootstrapMethodHandle.getDesc());
         myMethod.addInstruction(new InvokeDynamicInstruction(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments));
         if(bootstrapMethodHandle.getName().equals("makeConcatWithConstants")){
             observers.forEach(o -> o.onFeatureDetected(

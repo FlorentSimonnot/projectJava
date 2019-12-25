@@ -8,8 +8,10 @@ public class LambdaObserver implements FeatureObserver {
 
     @Override
     public void onFeatureDetected(String methodName, String featureName) {
-        if(featureName.equals("lambda"))
-            features.add(methodName);
+        if(featureName.equals("lambda")) {
+        	features.add(methodName);
+        }
+        
     }
 
     @Override

@@ -23,11 +23,29 @@ public class App {
         var observersFactory = createObserverFactory();
 
         var options = OptionsParser.parseOptions(args, optionFactory);
+        
+        var lambda = "src/tests/resources/ForaxTests/TestLambda.class";
+        var tryWithResources = "src/tests/resources/ForaxTests/TestTryWithResource.class";
+        var concat = "src/tests/resources/ForaxTests/TestConcat.class";
 
-        var file = "src/tests/resources/ForaxTests/TestLambda.class";
+        
         var observers = FeaturesManager.createObservers(options.getArgsOption(Option.OptionEnum.FEATURES), observersFactory);
 
-        FileParser.parseFile(file).forEach(f -> {
+        FileParser.parseFile(lambda).forEach(f -> {
+            var mv = new MyVisitor(f, observers);
+            var cv = mv.getClassVisitor();
+            mv.getClassReader().accept(cv, 0);
+            visitors.add(cv);
+        });
+        
+        FileParser.parseFile(tryWithResources).forEach(f -> {
+            var mv = new MyVisitor(f, observers);
+            var cv = mv.getClassVisitor();
+            mv.getClassReader().accept(cv, 0);
+            visitors.add(cv);
+        });
+        
+        FileParser.parseFile(concat).forEach(f -> {
             var mv = new MyVisitor(f, observers);
             var cv = mv.getClassVisitor();
             mv.getClassReader().accept(cv, 0);
@@ -44,10 +62,12 @@ public class App {
 
         visitors.forEach(cv -> {
             var myWriter = new MyWriter(cv.getMyClass(), Opcodes.V1_7);
+            System.out.println(cv.getMyClass());
             myWriter.createClass();
             myWriter.writeFields();
             myWriter.writeConstructors();
             myWriter.writeMethods();
+            System.out.println("App.java");
             String res = null;
             try {
                 res = myWriter.createFile();

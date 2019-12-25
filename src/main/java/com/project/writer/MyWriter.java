@@ -82,6 +82,7 @@ public class MyWriter {
             mw.visitInsn(Opcodes.RETURN);
             // this code uses a maximum of one stack element and one local variable
             mw.visitMaxs(0, 0);
+            System.out.println("aaa");
             mw.visitEnd();
         }
     }
