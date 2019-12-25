@@ -31,6 +31,7 @@ public class App {
     public static void main(String[] args) throws IOException, ParserException {
         List<MyClassVisitor> visitors = new ArrayList<>();
 
+        System.out.println("bonjour");
         var optionFactory = createOptionFactory();
         var observersFactory = createObserverFactory();
 
