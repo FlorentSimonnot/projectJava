@@ -7,4 +7,5 @@ public interface FileInterface {
     public String getName();
     public int getVersion();
     public ClassReader getClassReader();
+    public String getPath();
 }

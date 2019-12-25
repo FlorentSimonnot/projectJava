@@ -21,7 +21,7 @@ public class MyWriter {
 
     public MyWriter(MyClass myClass, int version){
         this.myClass = myClass;
-        this.cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+        this.cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
         this.version = version;
     }
 
@@ -30,7 +30,7 @@ public class MyWriter {
      * create the class in according to it privacy, name.
      */
     public void createClass(){
-        cw.visit(version, myClass.getPrivacy(), myClass.getClassName(), null, "java/lang/Object", null);
+        cw.visit(version, myClass.getPrivacy(), myClass.getClassName(), null, "java/lang/Object", myClass.getInterfaces());
     }
 
     /**
@@ -78,10 +78,11 @@ public class MyWriter {
             }
         }else{
             mw = cw.visitMethod(m.getAccess(), m.getName(), m.getDescriptor(), null, null);
+            mw.visitCode();
             m.writeAllInstructions(version, mw);
-            mw.visitInsn(Opcodes.RETURN);
+            //mw.visitInsn(Opcodes.RETURN);
             // this code uses a maximum of one stack element and one local variable
-            mw.visitMaxs(0, 0);
+            //mw.visitMaxs(0, 0);
             mw.visitEnd();
         }
     }
@@ -100,7 +101,7 @@ public class MyWriter {
     }
 
     private void writeToStringMethodForRecord(Method m){
-        mw = cw.visitMethod(m.getAccess(), m.getName(), m.getDescriptor(), null, null);
+        mw = cw.visitMethod(m.getAccess(), m.getName(), m.getDescriptor(), null, m.getExceptions());
 
         mw.visitTypeInsn(Opcodes.NEW, "java/lang/StringBuilder");
         mw.visitInsn(Opcodes.DUP);

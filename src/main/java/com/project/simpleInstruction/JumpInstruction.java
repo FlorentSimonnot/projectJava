@@ -2,6 +2,7 @@ package com.project.simpleInstruction;
 
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 public class JumpInstruction implements Instruction {
     private final int opcode;
@@ -10,6 +11,13 @@ public class JumpInstruction implements Instruction {
     public JumpInstruction(int opcode, Label label) {
         this.opcode = opcode;
         this.label = label;
+    }
+
+    @Override
+    public String toString() {
+        if(opcode == Opcodes.GOTO)
+            return "GOTO INSN " + label;
+        return "JUMP INSN " + label;
     }
 
     @Override

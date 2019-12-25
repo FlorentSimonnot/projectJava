@@ -38,6 +38,8 @@ public class Method {
 
     public String getSignature(){return signature;}
 
+    public String[] getExceptions(){return exceptions;}
+
     public Instruction getLastInstruction(){return instructions.getInstruction(instructions.size()-1);}
 
     /* ********************************** *\
@@ -56,6 +58,8 @@ public class Method {
         instructions.clear();
         instructions.addAll(map);
     }
+
+    public boolean collectorIsEmpty(){return instructions.size() == 0;}
 
     /* ********************************** *\
                     DEBUG

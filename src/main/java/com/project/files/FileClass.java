@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
@@ -30,6 +31,18 @@ public class FileClass implements FileInterface{
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public String getPath() {
+        var split = name.split("/");
+        var sb = new StringBuilder("");
+        Arrays.stream(split).forEach(s -> {
+            if(!s.contains(".class")){
+                sb.append(s).append("/");
+            }
+        });
+        return sb.toString();
     }
 
     public ClassReader getClassReader(){

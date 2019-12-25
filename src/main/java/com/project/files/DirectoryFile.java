@@ -24,6 +24,11 @@ public class DirectoryFile implements FileInterface {
         return getClassReader().readByte(7)-44;
     }
 
+    @Override
+    public String getPath() {
+        return  path;
+    }
+
     public ClassReader getClassReader(){
         try {
             return new ClassReader(new FileInputStream(path+"/"+name));

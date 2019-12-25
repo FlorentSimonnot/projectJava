@@ -15,11 +15,6 @@ public class MyClassVisitor extends ClassVisitor {
     private final List<String> nestMates = new ArrayList<>();
     private MyClass myClass;
 
-    public MyClassVisitor(int api, List<FeatureObserver> observers) {
-        super(api);
-        this.observers = observers;
-    }
-
     public MyClassVisitor(int api, ClassVisitor cv, List<FeatureObserver> observers) {
         super(api, cv);
         this.observers = observers;

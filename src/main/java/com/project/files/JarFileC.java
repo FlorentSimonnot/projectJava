@@ -27,6 +27,11 @@ public class JarFileC implements FileInterface {
         return getClassReader().readByte(7)-44;
     }
 
+    @Override
+    public String getPath() {
+        return zipName;
+    }
+
     public ClassReader getClassReader(){
         try {
             return new ClassReader(new java.util.jar.JarFile(zipName).getInputStream(new ZipEntry(entry)));

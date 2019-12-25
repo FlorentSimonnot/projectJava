@@ -24,7 +24,7 @@ public class App {
 
         var options = OptionsParser.parseOptions(args, optionFactory);
 
-        var file = "src/tests/resources/ForaxTests/TestLambda.class";
+        var file = "src/tests/resources/TestFdpByLouis.class";
         var observers = FeaturesManager.createObservers(options.getArgsOption(Option.OptionEnum.FEATURES), observersFactory);
 
         FileParser.parseFile(file).forEach(f -> {
