@@ -8,9 +8,20 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+/**
+ * 
+ * @author SIMONNOT Florent
+ * A class that allows to parse a directory.
+ *
+ */
 public class DirectoryParser implements FileParserInterface {
 
     @Override
+    /**
+     * Collects all the .class files of a directory.
+     * @param name - the name of the directory you want to parse
+     * @return the FilesCollector of all .class files in the directory given
+     */
     public FilesCollector parseMyFile(String name) throws ParserException {
         return listFilesForFolder(name);
     }

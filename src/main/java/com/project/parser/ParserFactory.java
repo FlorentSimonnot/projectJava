@@ -13,11 +13,16 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.zip.ZipFile;
 
+/**
+ * 
+ * @author SIMONNOT Florent
+ * A Factory that allows to create a parser for directory, .class file or .jar file.
+ *
+ */
 public class ParserFactory {
 
     /**
-     * public static FileParserInterface createParser(Path path) throws IOException
-     * create a parser according to the type of file
+     * Creates a parser according to the type of file
      * @param path - the path of the file
      * @return FileParserInterface - a parser according to the type of file
      * @throws IOException - if we can't read the file

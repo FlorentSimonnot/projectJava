@@ -10,9 +10,20 @@ import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+/**
+ * 
+ * @author SIMONNOT Florent
+ * A class that allows to parse a .jar file.
+ *
+ */
 public class JarParser implements FileParserInterface {
 
     @Override
+    /**
+     * Collects all .class files from a .jar file.
+     * @param name - the name of the .jar file
+     * @return the FilesCollector of all .class files of the .jar file given.
+     */
     public FilesCollector parseMyFile(String name) throws ParserException {
         return listFilesForFolder(Objects.requireNonNull(name));
     }
