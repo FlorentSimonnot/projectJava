@@ -1,9 +1,7 @@
 package com.project.parser;
 
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.Objects;
-import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import com.project.files.FilesCollector;
@@ -40,6 +38,7 @@ public class JarParser implements FileParserInterface {
         		collector.addFile(new JarFileC(f.getRealName(), f.getName(), name));
         	}
         }
+        jar.close();
         return collector;
     }
 }

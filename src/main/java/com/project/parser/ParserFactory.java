@@ -1,17 +1,9 @@
 package com.project.parser;
 
-import com.project.files.DirectoryFile;
-import com.project.files.FileClass;
-import com.project.files.JarFileC;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Objects;
-import java.util.regex.Pattern;
-import java.util.zip.ZipFile;
 
 /**
  * 
