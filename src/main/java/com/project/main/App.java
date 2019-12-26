@@ -28,98 +28,117 @@ import java.util.List;
  */
 public class App {
 
-    public static void main(String[] args) throws IOException, ParserException {
-        List<MyClassVisitor> visitors = new ArrayList<>();
+	public static void main(String[] args) throws IOException, ParserException {
+		List<MyClassVisitor> visitors = new ArrayList<>();
 
-        System.out.println("bonjour");
-        var optionFactory = createOptionFactory();
-        var observersFactory = createObserverFactory();
+		System.out.println("bonjour");
+		var optionFactory = createOptionFactory();
+		var observersFactory = createObserverFactory();
 
-        var options = OptionsParser.parseOptions(args, optionFactory);
-        
-        var lambda = "src/tests/resources/ForaxTests/TestLambda.class";
-        var tryWithResources = "src/tests/resources/ForaxTests/TestTryWithResource.class";
-        var concat = "src/tests/resources/ForaxTests/TestConcat.class";
+		var options = OptionsParser.parseOptions(args, optionFactory);
 
-        var observers = FeaturesManager.createObservers(options.getArgsOption(Option.OptionEnum.FEATURES), observersFactory);
+		//        var lambda = "src/tests/resources/ForaxTests/TestLambda.class";
+		//        var tryWithResources = "src/tests/resources/ForaxTests/TestTryWithResource.class";
+		//        var concat = "src/tests/resources/ForaxTests/TestConcat.class";
 
-        FileParser.parseFile(lambda).forEach(f -> {
-            var mv = new MyVisitor(f, observers);
-            var cv = mv.getClassVisitor();
-            mv.getClassReader().accept(cv, 0);
-            visitors.add(cv);
-        });
-        
-        FileParser.parseFile(tryWithResources).forEach(f -> {
-            var mv = new MyVisitor(f, observers);
-            var cv = mv.getClassVisitor();
-            mv.getClassReader().accept(cv, 0);
-            visitors.add(cv);
-        });
-        
-        FileParser.parseFile(concat).forEach(f -> {
-            var mv = new MyVisitor(f, observers);
-            var cv = mv.getClassVisitor();
-            mv.getClassReader().accept(cv, 0);
-            visitors.add(cv);
-        });
+		var jar = "src/tests/resources/dirTest/testJar.jar";
 
+		var observers = FeaturesManager.createObservers(options.getArgsOption(Option.OptionEnum.FEATURES), observersFactory);
 
-        observers.forEach(FeatureObserver::showFeatures);
-
-
-        /*      ************************************************     */
-        /*        CREATE A NEW CLASS FILE WITH A NEW VERSION         */
-        /*      ************************************************     */
-
-        visitors.forEach(cv -> {
-            var myWriter = new MyWriter(cv.getMyClass(), Opcodes.V1_7);
-            System.out.println(cv.getMyClass());
-            myWriter.createClass();
-            myWriter.writeFields();
-            myWriter.writeConstructors();
-            myWriter.writeMethods();
-            System.out.println("App.java");
-            String res = null;
-            try {
-                res = myWriter.createFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            MyVisitor mv2 = null;
-            try {
-                mv2 = new MyVisitor(FileParser.parseFile(res).get(0), observers);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ParserException e) {
-                e.printStackTrace();
-            }
-            var cv2 = mv2.getClassVisitor();
-            mv2.getClassReader().accept(cv2, 0);
-        });
+		var jarParser = new JarParser();
+		var files = jarParser.parseMyFile(jar);
+		
+		files.forEach(f -> {
+			try {
+				System.out.println(f.getName());
+				FileParser.parseFile(f.getName()).forEach(k -> {
+					var mv = new MyVisitor(f, observers);
+					var cv = mv.getClassVisitor();
+					mv.getClassReader().accept(cv, 0);
+					visitors.add(cv);
+				});;
+			} catch (IOException | ParserException e) {
+				e.printStackTrace();
+			}
+		});
+		
+		//        FileParser.parseFile(lambda).forEach(f -> {
+		//            var mv = new MyVisitor(f, observers);
+		//            var cv = mv.getClassVisitor();
+		//            mv.getClassReader().accept(cv, 0);
+		//            visitors.add(cv);
+		//        });
+		//        
+		//        FileParser.parseFile(tryWithResources).forEach(f -> {
+		//            var mv = new MyVisitor(f, observers);
+		//            var cv = mv.getClassVisitor();
+		//            mv.getClassReader().accept(cv, 0);
+		//            visitors.add(cv);
+		//        });
+		//        
+		//        FileParser.parseFile(concat).forEach(f -> {
+		//            var mv = new MyVisitor(f, observers);
+		//            var cv = mv.getClassVisitor();
+		//            mv.getClassReader().accept(cv, 0);
+		//            visitors.add(cv);
+		//        });
 
 
-    }
+		observers.forEach(FeatureObserver::showFeatures);
 
-    private static OptionFactory createOptionFactory(){
-        var optionFactory = new OptionFactory();
-        optionFactory.register("--help", new Option(Option.OptionEnum.HELP));
-        optionFactory.register("--info", new Option(Option.OptionEnum.INFO));
-        optionFactory.register("--target", new Option(Option.OptionEnum.TARGET));
-        optionFactory.register("--features", new Option(Option.OptionEnum.FEATURES));
-        return optionFactory;
-    }
 
-    private static FeaturesObserverFactory createObserverFactory(){
-        var observersFactory = new FeaturesObserverFactory();
-        observersFactory.register("try-with-resources", new TryWithResourcesObserver());
-        observersFactory.register("nestMember", new NestMemberObserver());
-        observersFactory.register("concatenation", new ConcatenationObserver());
-        observersFactory.register("lambda", new LambdaObserver());
-        observersFactory.register("record", new RecordObserver());
-        return observersFactory;
-    }
+		/*      ************************************************     */
+		/*        CREATE A NEW CLASS FILE WITH A NEW VERSION         */
+		/*      ************************************************     */
+
+		visitors.forEach(cv -> {
+			var myWriter = new MyWriter(cv.getMyClass(), Opcodes.V1_7);
+			System.out.println(cv.getMyClass());
+			myWriter.createClass();
+			myWriter.writeFields();
+			myWriter.writeConstructors();
+			myWriter.writeMethods();
+			System.out.println("App.java");
+			String res = null;
+			try {
+				res = myWriter.createFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			MyVisitor mv2 = null;
+			try {
+				mv2 = new MyVisitor(FileParser.parseFile(res).get(0), observers);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParserException e) {
+				e.printStackTrace();
+			}
+			var cv2 = mv2.getClassVisitor();
+			mv2.getClassReader().accept(cv2, 0);
+		});
+
+
+	}
+
+	private static OptionFactory createOptionFactory(){
+		var optionFactory = new OptionFactory();
+		optionFactory.register("--help", new Option(Option.OptionEnum.HELP));
+		optionFactory.register("--info", new Option(Option.OptionEnum.INFO));
+		optionFactory.register("--target", new Option(Option.OptionEnum.TARGET));
+		optionFactory.register("--features", new Option(Option.OptionEnum.FEATURES));
+		return optionFactory;
+	}
+
+	private static FeaturesObserverFactory createObserverFactory(){
+		var observersFactory = new FeaturesObserverFactory();
+		observersFactory.register("try-with-resources", new TryWithResourcesObserver());
+		observersFactory.register("nestMember", new NestMemberObserver());
+		observersFactory.register("concatenation", new ConcatenationObserver());
+		observersFactory.register("lambda", new LambdaObserver());
+		observersFactory.register("record", new RecordObserver());
+		return observersFactory;
+	}
 
 
 }

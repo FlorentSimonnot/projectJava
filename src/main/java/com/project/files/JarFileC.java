@@ -19,7 +19,9 @@ public class JarFileC implements FileInterface {
 
     /**
      * Creates a new JarFileC.
-     * @param name - the name of the .jar file.
+     * @param name - the name of the .class file from the .jar file
+     * @param entry - 
+     * @param zipName - the name of .jar file
      */
     public JarFileC(String name, String entry, String zipName){
         this.name = name;

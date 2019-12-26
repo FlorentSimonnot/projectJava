@@ -1,5 +1,7 @@
 package com.project.parser;
 
+import java.io.IOException;
+
 import com.project.files.FilesCollector;
 
 /**
@@ -16,6 +18,6 @@ public interface FileParserInterface {
 	 * @return the FilesCollector of all type of file of the file given
 	 * @throws ParserException
 	 */
-    FilesCollector parseMyFile(String name) throws ParserException;
+    FilesCollector parseMyFile(String name) throws ParserException, IOException;
 
 }
