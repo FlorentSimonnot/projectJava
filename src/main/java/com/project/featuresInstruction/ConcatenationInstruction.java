@@ -44,9 +44,6 @@ public class ConcatenationInstruction implements Instruction {
 
     /**
      * Writes the bytecode corresponding to the concatenation instruction according to the version given.
-     * @param version - the target version of the concatenation instruction
-     * @param mv - the MethodVisitor attached to this ConcatenationInstruction
-     * @param lastInstruction - the instruction preceding this ConcatenationInstruction
      */
     @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {

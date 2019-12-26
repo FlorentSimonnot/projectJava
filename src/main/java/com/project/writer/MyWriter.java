@@ -13,12 +13,23 @@ import org.objectweb.asm.Opcodes;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/**
+ * 
+ * @author CHU Jonathan
+ * A class that allows to write a new .class file according to a .class file you visit.
+ *
+ */
 public class MyWriter {
     private final MyClass myClass;
     private final ClassWriter cw;
     private final int version;
     private MethodVisitor mw;
 
+    /**
+     * Creates a new MyWriter.
+     * @param myClass - the .class file you want to link your MyWriter with
+     * @param version - the target version of your new .class file
+     */
     public MyWriter(MyClass myClass, int version){
         this.myClass = myClass;
         this.cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
@@ -26,16 +37,14 @@ public class MyWriter {
     }
 
     /**
-     * void createClass()
-     * create the class in according to it privacy, name.
+     * Creates the new .class file according to its privacy and its name.
      */
     public void createClass(){
         cw.visit(version, myClass.getPrivacy(), myClass.getClassName(), null, "java/lang/Object", myClass.getInterfaces());
     }
 
     /**
-     * void writeFields()
-     * write all fields of the current class.
+     * Writes all fields of the current class.
      */
     public void writeFields(){
         myClass.getFields().forEach(this::writeField);
@@ -47,16 +56,14 @@ public class MyWriter {
     }
 
     /**
-     * void writeConstructors()
-     * write all constructors of the current class.
+     * Writes all constructors of the current class.
      */
     public void writeConstructors(){
         myClass.getConstructors().forEach(this::writeMethod);
     }
 
     /**
-     * void writeMethods()
-     * write all methods of the current class
+     * Writes all methods of the current class.
      */
     public void writeMethods(){
         myClass.getMethods().forEach(this::writeMethod);
@@ -90,8 +97,7 @@ public class MyWriter {
     }
 
     /**
-     * String createFile() throws IOException
-     * Create a new file with the bytecode.
+     * Create< a new .class file with the bytecode.
      * @return the path of the file which contain the bytecode
      * @throws IOException - if problem occurred during the creating or writing of the file.
      */

@@ -28,9 +28,6 @@ public class TryWithResourcesInstruction implements Instruction {
 
     /**
      * Writes the bytecode corresponding to the try-with-resources instruction according to the version given.
-     * @param version - the target version of the try-with-resources instruction
-     * @param mv - the MethodVisitor attached to this TryWithResourcesInstruction
-     * @param lastInstruction - the instruction preceding this TryWithResourcesInstruction
      */
     @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {

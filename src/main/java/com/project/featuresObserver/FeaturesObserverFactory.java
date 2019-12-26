@@ -14,8 +14,8 @@ public class FeaturesObserverFactory {
 
     /**
      * Registers a feature and its observer in the register.
-     * @param feature
-     * @param observer
+     * @param feature - the name of a feature
+     * @param observer - the FeatureObserver linked to the feature
      */
     public void register(String feature, FeatureObserver observer){
         this.register.putIfAbsent(feature, observer);

@@ -16,8 +16,6 @@ public class RecordObserver implements FeatureObserver {
 
     /**
      * Adds the text format into the list of String when the record feature is detected.
-     * @param memthodName - the text format that is displayed when the record is detected
-     * @param featureName - the feature's name
      * 
      */
     @Override
