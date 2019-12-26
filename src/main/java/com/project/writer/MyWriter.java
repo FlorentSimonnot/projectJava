@@ -75,7 +75,7 @@ public class MyWriter {
                 case "<init>" : writeConstructor(m); break;
                 case "toString" : writeToStringMethodForRecord(m); break;
                 default: {
-                    mw = cw.visitMethod(m.getAccess(), m.getName(), m.getDescriptor(), null, null);
+                    mw = cw.visitMethod(m.getAccess(), m.getName(), m.getDescriptor(), null, m.getExceptions());
                     m.writeAllInstructions(version, mw);
                     mw.visitInsn(Opcodes.RETURN);
                     // this code uses a maximum of one stack element and one local variable
@@ -84,14 +84,10 @@ public class MyWriter {
                 } break;
             }
         }else{
-            mw = cw.visitMethod(m.getAccess(), m.getName(), m.getDescriptor(), null, null);
+            mw = cw.visitMethod(m.getAccess(), m.getName(), m.getDescriptor(), null, m.getExceptions());
             mw.visitCode();
             m.writeAllInstructions(version, mw);
-            //mw.visitInsn(Opcodes.RETURN);
-            // this code uses a maximum of one stack element and one local variable
             mw.visitMaxs(0, 0);
-            System.out.println("aaa");
-            //mw.visitMaxs(0, 0);
             mw.visitEnd();
         }
     }

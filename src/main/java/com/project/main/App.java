@@ -38,14 +38,14 @@ public class App {
 		var options = OptionsParser.parseOptions(args, optionFactory);
 
 		//        var lambda = "src/tests/resources/ForaxTests/TestLambda.class";
-		//        var tryWithResources = "src/tests/resources/ForaxTests/TestTryWithResource.class";
+		var tryWithResources = "src/tests/resources/TryWithResourcesMultiple.class";
 		//        var concat = "src/tests/resources/ForaxTests/TestConcat.class";
 
-		var jar = "src/tests/resources/dirTest/testJar.jar";
+		//var jar = "src/tests/resources/dirTest/testJar.jar";
 
 		var observers = FeaturesManager.createObservers(options.getArgsOption(Option.OptionEnum.FEATURES), observersFactory);
 
-		var jarParser = new JarParser();
+		/*var jarParser = new JarParser();
 		var files = jarParser.parseMyFile(jar);
 		
 		files.forEach(f -> {
@@ -60,16 +60,9 @@ public class App {
 			} catch (IOException | ParserException e) {
 				e.printStackTrace();
 			}
-		});
+		});*/
 		
 		//        FileParser.parseFile(lambda).forEach(f -> {
-		//            var mv = new MyVisitor(f, observers);
-		//            var cv = mv.getClassVisitor();
-		//            mv.getClassReader().accept(cv, 0);
-		//            visitors.add(cv);
-		//        });
-		//        
-		//        FileParser.parseFile(tryWithResources).forEach(f -> {
 		//            var mv = new MyVisitor(f, observers);
 		//            var cv = mv.getClassVisitor();
 		//            mv.getClassReader().accept(cv, 0);
@@ -82,6 +75,13 @@ public class App {
 		//            mv.getClassReader().accept(cv, 0);
 		//            visitors.add(cv);
 		//        });
+		//        
+		FileParser.parseFile(tryWithResources).forEach(f -> {
+			var mv = new MyVisitor(f, observers);
+			var cv = mv.getClassVisitor();
+			mv.getClassReader().accept(cv, 0);
+			visitors.add(cv);
+		});
 
 
 		observers.forEach(FeatureObserver::showFeatures);

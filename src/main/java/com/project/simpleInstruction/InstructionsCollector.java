@@ -42,10 +42,17 @@ public class InstructionsCollector {
     void writeAllInstruction(int version, MethodVisitor methodVisitor){
         Instruction lastInstruction = new NopInstruction(0);
         for(Instruction i : instructions){
-            //System.out.println("LST " + lastInstruction);
             i.writeInstruction(version, methodVisitor, lastInstruction);
             lastInstruction = i;
         }
+    }
+
+    String printAllInstruction(int indent){
+        var sb = new StringBuilder();
+        for(Instruction i : instructions){
+            sb.append("-".repeat(indent)).append("> ").append(i).append("\n");
+        }
+        return sb.toString();
     }
 
     @Override

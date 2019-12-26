@@ -26,6 +26,6 @@ public class IntInstruction implements Instruction {
 
     @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
-        mv.visitVarInsn(opcode, operand);
+        mv.visitIntInsn(opcode, operand);
     }
 }
