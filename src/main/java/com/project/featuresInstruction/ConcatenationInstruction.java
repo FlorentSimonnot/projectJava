@@ -7,9 +7,6 @@ import com.project.simpleInstruction.MethodInstruction;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
-import com.project.simpleInstruction.Instruction;
-import com.project.simpleInstruction.InstructionsCollector;
-import org.objectweb.asm.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,6 +41,9 @@ public class ConcatenationInstruction implements Instruction {
 
     /**
      * Writes the bytecode corresponding to the concatenation instruction according to the version given.
+     * @param version - the target version of the concatenation instruction
+     * @param mv - the MethodVisitor attached to this ConcatenationInstruction
+     * @param lastInstruction - the instruction preceding this ConcatenationInstruction
      */
     @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
@@ -78,6 +78,7 @@ public class ConcatenationInstruction implements Instruction {
                     instructionsList.getInstruction(i).writeInstruction(version, mv, li);
                     li = instructionsList.getInstruction(i);
                 }
+                System.err.println(li + " " + li.getType());
                 mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, type.getInternalName(), "append", li.getType() + "Ljava/lang/StringBuilder;", false);
                 index++;
             }

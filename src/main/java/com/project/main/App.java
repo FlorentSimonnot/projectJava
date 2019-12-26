@@ -40,6 +40,7 @@ public class App {
 		//        var lambda = "src/tests/resources/ForaxTests/TestLambda.class";
 		var tryWithResources = "src/tests/resources/TryWithResourcesMultiple.class";
 		//        var concat = "src/tests/resources/ForaxTests/TestConcat.class";
+		var testRecord = "src/tests/resources/TestRecord.class";
 
 		//var jar = "src/tests/resources/dirTest/testJar.jar";
 
@@ -75,7 +76,9 @@ public class App {
 		//            mv.getClassReader().accept(cv, 0);
 		//            visitors.add(cv);
 		//        });
-		//        
+		//
+
+
 		FileParser.parseFile(tryWithResources).forEach(f -> {
 			var mv = new MyVisitor(f, observers);
 			var cv = mv.getClassVisitor();
