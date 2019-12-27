@@ -5,11 +5,11 @@ class TestConcat {
 String a = "A";
 int lo = 3;
 
-  public String toString(){
+  public String toString() throws IllegalArgumentException{
 	   StringBuilder sb = new StringBuilder("");
 	double val2 = 4.0;
-	sb.append("lo").append(5).append(val2);
-	sb.append("la");
+	sb.append("lo ").append(5).append(val2);
+	sb.append(" la");
 	return sb.toString();
 }
 
@@ -20,7 +20,7 @@ int lo = 3;
 
 	private String test33P(String s){
 		String c = s.concat("a").concat("b");
-		System.out.println(lo+" * "+a+" = "+3L+" / "+3.0 + new TestConcat().toString() + c.concat("c"));
+		System.out.println(lo+" * "+a+" = "+3L+" / "+3.0 + " " + new TestConcat().toString() + " " + c.concat("c"));
 		return c;
 	}
 

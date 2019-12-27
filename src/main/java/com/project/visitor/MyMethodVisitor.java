@@ -112,7 +112,6 @@ public class MyMethodVisitor extends MethodVisitor{
 
     @Override
     public void visitIntInsn(int opcode, int operand) {
-        System.out.println("VISIT INC INSN " + opcode + " "  + operand);
         addInstruction(new IntInstruction(opcode, operand));
         super.visitIntInsn(opcode, operand);
     }
@@ -134,7 +133,6 @@ public class MyMethodVisitor extends MethodVisitor{
 
     @Override
     public void visitInvokeDynamicInsn(String name, String descriptor, Handle bootstrapMethodHandle, Object... bootstrapMethodArguments) {
-        //myMethod.addInstruction(new InvokeDynamicInstruction(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments));
         //System.out.println("\tINVOKE DYNAMIC INSN\t" + name + " " + descriptor + " " + bootstrapMethodHandle.getName() + " " +bootstrapMethodHandle.getDesc());
         addInstruction(new InvokeDynamicInstruction(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments));
         if(bootstrapMethodHandle.getName().equals("makeConcatWithConstants")){
@@ -224,7 +222,6 @@ public class MyMethodVisitor extends MethodVisitor{
 
     @Override
     public void visitMaxs(int maxStack, int maxLocals) {
-        //addInstruction(new MaxInstruction(maxStack, maxLocals));
         super.visitMaxs(maxStack, maxLocals);
     }
 

@@ -14,7 +14,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_STRING" value="--enable-preview" />
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="projectJava" options="--enable-preview --add-exports=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED" />
+      <module name="projectJava" options="" />
     </option>
   </component>
 </project>

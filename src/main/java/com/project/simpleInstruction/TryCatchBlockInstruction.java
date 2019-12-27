@@ -39,7 +39,7 @@ public class TryCatchBlockInstruction implements Instruction {
 	
 	@Override
 	public String toString() {
-		return "TRY CATCH BLOCK INSN";
+		return "TRY CATCH BLOCK INSN " + type ;
 	}
 
 }

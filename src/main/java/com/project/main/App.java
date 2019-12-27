@@ -38,8 +38,8 @@ public class App {
 		var options = OptionsParser.parseOptions(args, optionFactory);
 
 		//        var lambda = "src/tests/resources/ForaxTests/TestLambda.class";
-		var tryWithResources = "src/tests/resources/TryWithResourcesMultiple.class";
-		//        var concat = "src/tests/resources/ForaxTests/TestConcat.class";
+		var tryWithResources = "src/tests/resources/TestTryWithResources.class";
+		var concat = "src/tests/resources/ForaxTests/TestConcat.class";
 		var testRecord = "src/tests/resources/TestRecord.class";
 
 		//var jar = "src/tests/resources/dirTest/testJar.jar";
@@ -77,7 +77,6 @@ public class App {
 		//            visitors.add(cv);
 		//        });
 		//
-
 
 		FileParser.parseFile(tryWithResources).forEach(f -> {
 			var mv = new MyVisitor(f, observers);

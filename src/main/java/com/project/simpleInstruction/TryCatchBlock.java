@@ -112,7 +112,6 @@ public class TryCatchBlock implements Instruction {
         }
 
         private void writeAllInstruction(int version, MethodVisitor mv, Instruction lastInstruction){
-            //mv.visitTryCatchBlock(start, end, handler, type);
             this.instructions.writeAllInstruction(version, mv);
         }
 
