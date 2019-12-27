@@ -1,9 +1,7 @@
 package com.project.featuresInstruction;
 
 import com.project.simpleInstruction.Instruction;
-import com.project.simpleInstruction.InstructionsCollector;
 import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
 
 /**
  * 
@@ -15,16 +13,16 @@ import org.objectweb.asm.Opcodes;
  */
 
 public class TryWithResourcesInstruction implements Instruction {
-    private static final int VERSION = Opcodes.V1_7;
-    private final InstructionsCollector instructions;
+//    private static final int VERSION = Opcodes.V1_7;
+//    private final InstructionsCollector instructions;
 
     /**
      * Creates a new TryWithResourcesInstruction.
      * @param instructions - the instructions block attached to this try-with-resources instruction
      */
-    public TryWithResourcesInstruction(InstructionsCollector instructions) {
-        this.instructions = instructions;
-    }
+//    public TryWithResourcesInstruction(InstructionsCollector instructions) {
+//        this.instructions = instructions;
+//    }
 
     /**
      * Writes the bytecode corresponding to the try-with-resources instruction according to the version given.

@@ -1,7 +1,6 @@
 package com.project.simpleInstruction;
 
 import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
 
 public class FrameInstruction implements Instruction {
     private final int type;

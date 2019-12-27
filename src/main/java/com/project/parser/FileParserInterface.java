@@ -18,6 +18,6 @@ public interface FileParserInterface {
 	 * @return the FilesCollector of all type of file of the file given
 	 * @throws ParserException
 	 */
-    FilesCollector parseMyFile(String name) throws ParserException, IOException;
+    FilesCollector parseMyFile(String name) throws IOException;
 
 }

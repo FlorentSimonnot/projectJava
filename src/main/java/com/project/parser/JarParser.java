@@ -21,13 +21,13 @@ public class JarParser implements FileParserInterface {
      * @param name - the name of the .jar file
      * @return the FilesCollector of all .class files of the .jar file given.
      */
-    public FilesCollector parseMyFile(String name) throws ParserException, IOException {
+    public FilesCollector parseMyFile(String name) throws IOException {
         return listFilesForFolder(Objects.requireNonNull(name));
     }
 
-    private FilesCollector listFilesForFolder(String name) throws ParserException, IOException {
+    private FilesCollector listFilesForFolder(String name) throws IOException {
         if(!name.endsWith(".jar"))
-            throw new ParserException();
+            throw new IllegalArgumentException();
         var collector = new FilesCollector();
         var jar = new JarFile(Objects.requireNonNull(name));
         var entries = jar.entries();

@@ -6,6 +6,7 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -45,8 +46,9 @@ public class MyVisitor {
     /**
      * Gets the ClassReader attached to the .class file.
      * @return the ClassReader attached to the file.
+     * @throws IOException 
      */
-    public ClassReader getClassReader(){
+    public ClassReader getClassReader() throws IOException{
         return file.getClassReader();
     }
 

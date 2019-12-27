@@ -8,9 +8,7 @@ import org.objectweb.asm.Type;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.StringJoiner;
 
 /**
  * 
@@ -23,7 +21,7 @@ import java.util.StringJoiner;
 
 public class ConcatenationInstruction implements Instruction {
     private static final int VERSION = Opcodes.V9;
-    private final int nArgs;
+//    private final int nArgs;
     private final InstructionsCollector instructions;
     private final List<String> format;
 
@@ -33,17 +31,13 @@ public class ConcatenationInstruction implements Instruction {
      * @param instructions - the instructions block attached to this concatenation instruction
      * @param format - the format of the line corresponding to the concatenation code block
      */
-    public ConcatenationInstruction(int nArgs, InstructionsCollector instructions, List<String> format){
-        this.nArgs = nArgs;
+    public ConcatenationInstruction(InstructionsCollector instructions, List<String> format){
         this.instructions = instructions;
         this.format = format;
     }
 
     /**
      * Writes the bytecode corresponding to the concatenation instruction according to the version given.
-     * @param version - the target version of the concatenation instruction
-     * @param mv - the MethodVisitor attached to this ConcatenationInstruction
-     * @param lastInstruction - the instruction preceding this ConcatenationInstruction
      */
     @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {

@@ -1,10 +1,8 @@
 package com.project.writer;
 
-import com.project.Utils;
 import com.project.simpleInstruction.Field;
 import com.project.simpleInstruction.Method;
 import com.project.simpleInstruction.MyClass;
-import com.project.simpleInstruction.NopInstruction;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
@@ -153,8 +151,8 @@ public class MyWriter {
         mw.visitEnd();
     }
 
-    private void writeEqualsMethodForRecord(){
-
-    }
+//    private void writeEqualsMethodForRecord(){
+//
+//    }
 
 }

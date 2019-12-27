@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class App {
 
-	public static void main(String[] args) throws IOException, ParserException {
+	public static void main(String[] args) throws IOException {
 		List<MyClassVisitor> visitors = new ArrayList<>();
 
 		System.out.println("bonjour");
@@ -39,8 +39,8 @@ public class App {
 
 		//        var lambda = "src/tests/resources/ForaxTests/TestLambda.class";
 		var tryWithResources = "src/tests/resources/TestTryWithResources.class";
-		var concat = "src/tests/resources/ForaxTests/TestConcat.class";
-		var testRecord = "src/tests/resources/TestRecord.class";
+//		var concat = "src/tests/resources/ForaxTests/TestConcat.class";
+//		var testRecord = "src/tests/resources/TestRecord.class";
 
 		//var jar = "src/tests/resources/dirTest/testJar.jar";
 
@@ -81,7 +81,11 @@ public class App {
 		FileParser.parseFile(tryWithResources).forEach(f -> {
 			var mv = new MyVisitor(f, observers);
 			var cv = mv.getClassVisitor();
-			mv.getClassReader().accept(cv, 0);
+			try {
+				mv.getClassReader().accept(cv, 0);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			visitors.add(cv);
 		});
 
@@ -101,23 +105,17 @@ public class App {
 			myWriter.writeConstructors();
 			myWriter.writeMethods();
 			System.out.println("App.java");
-			String res = null;
-			try {
-				res = myWriter.createFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 
+			String res = null;
 			MyVisitor mv2 = null;
 			try {
+				res = myWriter.createFile();
 				mv2 = new MyVisitor(FileParser.parseFile(res).get(0), observers);
+				var cv2 = mv2.getClassVisitor();
+				mv2.getClassReader().accept(cv2, 0);
 			} catch (IOException e) {
 				e.printStackTrace();
-			} catch (ParserException e) {
-				e.printStackTrace();
 			}
-			var cv2 = mv2.getClassVisitor();
-			mv2.getClassReader().accept(cv2, 0);
 		});
 
 

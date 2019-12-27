@@ -4,20 +4,14 @@ import org.objectweb.asm.ClassReader;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.jar.JarFile;
-import java.util.jar.JarInputStream;
-import java.util.zip.ZipEntry;
 
 /**
  * 
  * @author SIMONNOT Florent
  * A class that describes a .class file.
+ * This class is used when you run the project Retro with a simple .class file as argument.
  *
  */
 public class FileClass implements FileInterface{

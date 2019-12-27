@@ -1,7 +1,6 @@
 package com.project.options;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,6 +8,7 @@ import java.util.Objects;
  * 
  * @author SIMONNOT Florent
  * A class that allows to parse all the options of the project Retro.
+ * It creates a list of options according to the arguments when you run the project Retro.
  *
  */
 public class OptionsParser {

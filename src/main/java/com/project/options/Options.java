@@ -1,6 +1,5 @@
 package com.project.options;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -8,6 +7,7 @@ import java.util.function.Consumer;
  * 
  * @author SIMONNOT Florent
  * A class that stores all options given when you run the project Retro.
+ * It is mainly used by the OptionsParser.
  *
  */
 public class Options {

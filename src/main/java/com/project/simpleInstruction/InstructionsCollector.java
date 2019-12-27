@@ -19,11 +19,11 @@ public class InstructionsCollector {
         throw new IllegalArgumentException("Index out of Bounds in instructions collector");
     }
 
-    private Instruction getLastInstruction(){
-        if(instructions.size() == 0)
-            throw new IllegalArgumentException("List of instructions is empty");
-        return instructions.get(instructions.size()-1);
-    }
+//    private Instruction getLastInstruction() {
+//        if(instructions.size() == 0)
+//            throw new IllegalArgumentException("List of instructions is empty");
+//        return instructions.get(instructions.size()-1);
+//    }
 
     public void add(Instruction instruction) {
         instructions.add(instructions.size(), instruction);
@@ -84,7 +84,7 @@ public class InstructionsCollector {
         Collections.reverse(concatCollector.instructions);
         Collections.reverse(newCollector.instructions);
         res.addAll(newCollector.instructions);
-        res.add(new ConcatenationInstruction(nArgs, concatCollector, format));
+        res.add(new ConcatenationInstruction(concatCollector, format));
         return res.instructions;
     }
 }

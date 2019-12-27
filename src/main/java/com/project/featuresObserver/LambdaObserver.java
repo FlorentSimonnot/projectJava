@@ -7,6 +7,7 @@ import java.util.List;
  * 
  * @author SIMONNOT Florent
  * A class that allows to observe the behavior of a lambda instruction.
+ * It allows to notify the user when a lambda instruction is detected in the .class file.
  *
  */
 public class LambdaObserver implements FeatureObserver {

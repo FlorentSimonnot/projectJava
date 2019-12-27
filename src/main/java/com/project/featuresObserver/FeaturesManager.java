@@ -8,7 +8,7 @@ import java.util.List;
  * 
  * @author SIMONNOT Florent
  * A class that allows to create a list of observers for the features.
- * This class will be used by the ClassVisitor and the MethodVisitor.
+ * This class will be used by the ClassVisitor and the MethodVisitor to check what features you want to detect and/or to write in java bytecode.
  *
  */
 public class FeaturesManager {

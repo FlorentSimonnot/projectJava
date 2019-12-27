@@ -7,6 +7,7 @@ import java.util.List;
  * 
  * @author SIMONNOT Florent
  * A class that allows to observe the behavior of a nest member instruction.
+ * It allows to notify the user when a nest-member instruction is detected in the .class file.
  *
  */
 public class NestMemberObserver implements FeatureObserver {

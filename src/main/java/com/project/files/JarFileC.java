@@ -1,15 +1,16 @@
 package com.project.files;
 
-import org.objectweb.asm.ClassReader;
-
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
+
+import org.objectweb.asm.ClassReader;
 
 /**
  * 
  * @author SIMONNOT Florent
  * A class that describes a .jar file.
+ * This class is used when you run the project Retro with a .jar file as argument.
  *
  */
 public class JarFileC implements FileInterface {
@@ -41,7 +42,7 @@ public class JarFileC implements FileInterface {
     /**
      * Gets the java version of the .jar file.
      */
-    public int getVersion() {
+    public int getVersion() throws IOException{
         return getClassReader().readByte(7)-44;
     }
 
@@ -55,12 +56,12 @@ public class JarFileC implements FileInterface {
 
     /**
      * Gets the ClassReader of the .jar file.
+     * @throws IOException 
      */
-    public ClassReader getClassReader(){
-        try {
-            return new ClassReader(new java.util.jar.JarFile(zipName).getInputStream(new ZipEntry(entry)));
-        } catch (IOException e) {
-            throw new IllegalStateException("Can't read the file " + name + " in " + zipName);
+    public ClassReader getClassReader() throws IOException{
+        try (var jar = new JarFile(zipName)) {
+        	var inputStream = jar.getInputStream(new ZipEntry(entry));
+        	return new ClassReader(inputStream);
         }
     }
 }

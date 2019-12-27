@@ -1,12 +1,13 @@
 package com.project.featuresObserver;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * 
  * @author SIMONNOT Florent
- * A Factory that associate a feature as String with a FeatureObserver.
+ * A Factory that associates a feature as String with a FeatureObserver.
+ * It allows to check what features you want to detect and/or write in java bytecode.
+ * This class is used in the class App.
  *
  */
 public class FeaturesObserverFactory {

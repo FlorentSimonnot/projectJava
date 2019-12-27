@@ -5,7 +5,6 @@ import com.project.simpleInstruction.*;
 import com.project.featuresObserver.FeatureObserver;
 import org.objectweb.asm.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,8 +142,8 @@ public class MyMethodVisitor extends MethodVisitor{
         }
 
         if(bootstrapMethodHandle.getName().equals("metafactory")){
-            var split = descriptor.split("/");
-            var type = split[split.length-1].replace(";", "");
+//            var split = descriptor.split("/");
+//            var type = split[split.length-1].replace(";", "");
             var bootstrap = bootstrapMethodArguments[1].toString();
             observers.forEach(o -> o.onFeatureDetected(
                     "LAMBDA at " + ownerClass.getClassName() + "." + myMethod.getName() + myMethod.getDescriptor() + " (" + ownerClass.getSourceName() + ":"+ownerClass.getLineNumber()+ ") : lambda " + Utils.takeOwnerFunction(descriptor) + " calling " + bootstrap.split(" ")[0],

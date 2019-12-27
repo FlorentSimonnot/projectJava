@@ -1,11 +1,12 @@
 package com.project.options;
 
-import java.util.List;
 
 /**
  * 
  * @author SIMONNOT Florent
  * A class that describes all the options given into the run command.
+ * This class is used when you run the project Retro.
+ * It can contains the options: [--help], [--info], [--target] or [--features].
  *
  */
 public class Option {

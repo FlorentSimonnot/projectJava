@@ -8,7 +8,8 @@ import java.util.List;
 /**
  * 
  * @author SIMONNOT Florent
- * A class that allows to observe the behavior of a record.
+ * A class that allows to observe the behavior of a record feature.
+ * It allows to notify the user when a record feature is detected in the .class file.
  *
  */
 public class RecordObserver implements FeatureObserver {

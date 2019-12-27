@@ -1,6 +1,5 @@
 package com.project.simpleInstruction;
 
-import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
 import java.util.*;

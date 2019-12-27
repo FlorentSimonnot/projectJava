@@ -1,11 +1,12 @@
 package com.project.featuresObserver;
 
-import java.util.List;
 
 /**
  * 
  * @author SIMONNOT Florent
- * A class that allows to observe the behavior of an Instruction
+ * A class that allows to observe the behavior of an Instruction.
+ * It allows to notify the user when an Instruction is detected in the .class file.
+ * This class is used by the classes MyMethodVisitor and MyClassVisitor.
  *
  */
 public interface FeatureObserver {

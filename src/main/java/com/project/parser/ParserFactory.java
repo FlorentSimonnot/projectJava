@@ -9,7 +9,7 @@ import java.util.Objects;
  * 
  * @author SIMONNOT Florent
  * A Factory that allows to create a parser for directory, .class file or .jar file.
- *
+ * 
  */
 public class ParserFactory {
 
