@@ -126,7 +126,7 @@ public class MyClassVisitor extends ClassVisitor {
         MethodVisitor mv;
         mv = cv.visitMethod(access, name, descriptor, signature, exceptions);
         if (mv != null) {
-            mv = new MyMethodVisitor(mv, observers, myClass.getAllMethods(), new Method(access, name, descriptor, signature, false, exceptions), myClass, exceptions);
+            mv = new MyMethodVisitor(mv, observers, myClass.getAllMethods(), new Method(access, name, descriptor, signature, false, exceptions), myClass);
         }
         return mv;
     }
