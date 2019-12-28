@@ -1,4 +1,4 @@
-package fr.project.options;
+package com.project.options;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -7,19 +7,18 @@ import java.util.function.Consumer;
  * 
  * @author SIMONNOT Florent
  * A class that stores all options given when you run the project Retro.
+ * It is mainly used by the OptionsParser.
  *
  */
 public class Options {
     private final List<Option> options;
-    private final String file;
 
     /**
      * Creates a new Options.
      * @param options - a list of Option
      */
-    public Options(List<Option> options, String file){
+    public Options(List<Option> options){
         this.options = options;
-        this.file = file;
     }
 
     /**
@@ -36,18 +35,6 @@ public class Options {
      */
     public boolean helpIsDemanding(){
         return options.contains(new Option(Option.OptionEnum.HELP));
-    }
-
-    public boolean infoIsDemanding(){
-        return options.contains(new Option(Option.OptionEnum.INFO));
-    }
-
-    public boolean rewritingIsDemanding(){
-        return options.contains(new Option(Option.OptionEnum.TARGET));
-    }
-
-    public String getFile() {
-        return file;
     }
 
     /**
@@ -76,14 +63,6 @@ public class Options {
                 return true;
         }
         return false;
-    }
-
-    @Override
-    public String toString() {
-        var sb = new StringBuilder();
-        options.forEach(o -> sb.append(o).append("\n"));
-        sb.append("File : ").append(file);
-        return sb.toString();
     }
 
     private Option findOption(Option.OptionEnum option){

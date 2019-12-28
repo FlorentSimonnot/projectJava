@@ -1,9 +1,13 @@
-package fr.project.options;
+package com.project.options;
+
+import com.project.options.Option.OptionEnum;
 
 /**
  * 
  * @author SIMONNOT Florent
  * A class that describes all the options given into the run command.
+ * This class is used when you run the project Retro.
+ * It can contains the options: [--help], [--info], [--target] or [--features].
  *
  */
 public class Option {
@@ -74,15 +78,4 @@ public class Option {
         return option.name() + space;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(!(obj instanceof Option)) return false;
-        var opt = (Option) obj;
-        return opt.option == this.option;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 }

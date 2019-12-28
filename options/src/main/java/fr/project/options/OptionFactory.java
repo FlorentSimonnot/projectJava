@@ -1,11 +1,12 @@
-package fr.project.options;
+package com.project.options;
 
 import java.util.HashMap;
 
 /**
  * 
  * @author SIMONNOT Florent
- * A Factory that associate an option as String with an Option.
+ * A Factory that associates an option as String with an Option.
+ * It is mainly used by the class App. It creates options according to what you give as argument when you run the project Retro.
  *
  */
 public class OptionFactory {

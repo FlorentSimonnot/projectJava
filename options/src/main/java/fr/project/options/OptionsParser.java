@@ -1,15 +1,14 @@
-package fr.project.options;
+package com.project.options;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * 
  * @author SIMONNOT Florent
  * A class that allows to parse all the options of the project Retro.
+ * It creates a list of options according to the arguments when you run the project Retro.
  *
  */
 public class OptionsParser {
@@ -23,13 +22,11 @@ public class OptionsParser {
     public static Options parseOptions(String[] args, OptionFactory factory){
         Objects.requireNonNull(factory);
         var optionsList = new ArrayList<Option>();
-        for (String arg : Arrays.stream(args).limit(args.length-1).collect(Collectors.toList())) {
-            //Add new option
+        for (String arg : Objects.requireNonNull(args)) {
             if (arg.startsWith("--")) {
                 checkLastArgument(optionsList);
                 optionsList.add(factory.createOption(arg));
             }
-            //Set arg for last option
             else{
                 if(optionsList.size() > 0) {
                     optionsList.get(optionsList.size() - 1).setArgs(arg);
@@ -37,7 +34,7 @@ public class OptionsParser {
             }
         }
         checkLastArgument(optionsList);
-        return new Options(optionsList, args[args.length-1]);
+        return new Options(optionsList);
     }
 
 
