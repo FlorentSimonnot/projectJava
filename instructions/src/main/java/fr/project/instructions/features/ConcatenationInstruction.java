@@ -1,9 +1,9 @@
-package fr.project.instructions.features;
+package com.project.featuresInstruction;
 
 import java.util.StringJoiner;
-import fr.project.instructions.simple.Instruction;
-import fr.project.instructions.simple.InstructionsCollector;
-import fr.project.instructions.simple.MethodInstruction;
+import com.project.simpleInstruction.Instruction;
+import com.project.simpleInstruction.InstructionsCollector;
+import com.project.simpleInstruction.MethodInstruction;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
@@ -21,7 +21,6 @@ import java.util.List;
 
 public class ConcatenationInstruction implements Instruction {
     private static final int VERSION = Opcodes.V9;
-    private final int nArgs;
     private final InstructionsCollector instructions;
     private final List<String> format;
 
@@ -31,19 +30,15 @@ public class ConcatenationInstruction implements Instruction {
      * @param instructions - the instructions block attached to this concatenation instruction
      * @param format - the format of the line corresponding to the concatenation code block
      */
-    public ConcatenationInstruction(int nArgs, InstructionsCollector instructions, List<String> format){
-        this.nArgs = nArgs;
+    public ConcatenationInstruction(InstructionsCollector instructions, List<String> format){
         this.instructions = instructions;
         this.format = format;
     }
 
+    @Override
     /**
      * Writes the bytecode corresponding to the concatenation instruction according to the version given.
-     * @param version - the target version of the concatenation instruction
-     * @param mv - the MethodVisitor attached to this ConcatenationInstruction
-     * @param lastInstruction - the instruction preceding this ConcatenationInstruction
      */
-    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         if(version < VERSION){
             writeInstructionOldVersion(version, mv, lastInstruction);
@@ -119,10 +114,10 @@ public class ConcatenationInstruction implements Instruction {
         return "Concatenation : \n---> " + joiner;
     }
 
+    @Override
     /**
      * Returns if this instruction is an aload instruction.
      */
-    @Override
     public boolean isAloadInstruction() {
         return false;
     }

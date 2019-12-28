@@ -1,5 +1,14 @@
-package fr.project.instructions.simple;
+package com.project.simpleInstruction;
 
+import com.project.simpleInstruction.Field;
+
+/**
+ * 
+ * @author CHU Jonathan
+ * A class that allows to represent a simple field of a .class file.
+ * It is stored as an Field of a MyClass. And this MyClass object is used into a MyClassVisitor.
+ *
+ */
 public class Field {
     private final int access;
     private final String name;
@@ -7,6 +16,14 @@ public class Field {
     private final String signature;
     private final Object value;
 
+    /**
+     * Creates a new Field.
+     * @param access - the visibility of the field
+     * @param name - the name of the field
+     * @param descriptor - the type of the field
+     * @param signature - the signature of the field
+     * @param value - the value of the field
+     */
     public Field(int access, String name, String descriptor, String signature, Object value){
         this.access = access;
         this.name = name;
@@ -15,22 +32,42 @@ public class Field {
         this.value = value;
     }
 
+    /**
+     * Gets the access of the Field.
+     * @return the access of the Field
+     */
     public int getAccess() {
         return access;
     }
 
+    /**
+     * Gets the name of the Field.
+     * @return the name of the Field
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the descriptor of the Field.
+     * @return the descriptor of the Field
+     */
     public String getDescriptor() {
         return descriptor;
     }
 
+    /**
+     * Gets the signature of the Field.
+     * @return the signature of the Field
+     */
     public String getSignature() {
         return signature;
     }
 
+    /**
+     * Gets the value of the Field.
+     * @return the value of the Field
+     */
     public Object getValue() {
         return value;
     }
