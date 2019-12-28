@@ -5,6 +5,13 @@ import org.objectweb.asm.MethodVisitor;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author CHU Jonathan
+ * A class that allows to detect and write a try catch block instruction of a .class file.
+ * It is stored as an Instruction of a Method.
+ *
+ */
 public class TryCatchBlock implements Instruction {
     private final TryCatchBlockGroup tryCatchBlockGroup;
 
@@ -12,10 +19,18 @@ public class TryCatchBlock implements Instruction {
         this.tryCatchBlockGroup = group;
     }
 
+    /**
+     * Creates a new TryCatchBlock.
+     * @param instruction - the instructions of the try catch block
+     * @return a new TryCatchBlock object
+     */
     public static TryCatchBlock createTryCatchBlock(TryCatchBlockInstruction instruction){
         return new TryCatchBlock(new TryCatchBlockGroup(instruction));
     }
 
+    /**
+     * Adds an Instruction into 
+     */
     public void addInstruction(Instruction instruction){
         for(var i = this.tryCatchBlockGroup; i != null; i = i.next){
             if(!i.isClosed){

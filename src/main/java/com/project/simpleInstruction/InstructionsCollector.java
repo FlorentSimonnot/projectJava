@@ -106,7 +106,7 @@ public class InstructionsCollector {
     }
 
     /**
-     * Creates a concatenation of a the lasts Instruction.
+     * Creates a concatenation of all Instruction.
      * @param nArgs - a number of arguments
      * @param format - a text format
      * @return a new list of Instruction

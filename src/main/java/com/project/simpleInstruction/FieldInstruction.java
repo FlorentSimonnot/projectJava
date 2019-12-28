@@ -20,7 +20,7 @@ public class FieldInstruction implements Instruction {
      * Creates a new FieldInstruction.
      * @param name - the name of the field
      * @param owner - the name of the Method that contains the field
-     * @param opcode - the opcode of the field instruction
+     * @param opcode - the opcode of the instruction to be visited
      * @param descriptor - the descriptor of the field
      */
     public FieldInstruction(String name, String owner, int opcode, String descriptor) {
@@ -28,22 +28,6 @@ public class FieldInstruction implements Instruction {
         this.owner = owner;
         this.opcode = opcode;
         this.descriptor = descriptor;
-    }
-
-    /**
-     * Gets the name of the field.
-     * @return the name of the field instruction
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Gets the name of the method that contains the field instruction.
-     * @return the name of the method that contains the field instruction
-     */
-    public String getOwner() {
-        return owner;
     }
 
     /**
@@ -65,14 +49,6 @@ public class FieldInstruction implements Instruction {
             default:
                 return "()";
         }
-    }
-
-    /**
-     * Gets the descriptor of the field instruction.
-     * @return the descriptor of the field instruction
-     */
-    public String getDescriptor() {
-        return descriptor;
     }
 
     @Override
