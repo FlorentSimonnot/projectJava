@@ -1,4 +1,4 @@
-package com.project.simpleInstruction;
+package fr.project.instructions.simple;
 
 import java.util.ArrayList;
 import java.util.List;

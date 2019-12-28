@@ -1,4 +1,4 @@
-package com.project.simpleInstruction;
+package fr.project.instructions.simple;
 
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;

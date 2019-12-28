@@ -1,4 +1,4 @@
-package com.project.featuresInstruction;
+package fr.project.instructions.features;
 
 import java.util.StringJoiner;
 import com.project.simpleInstruction.Instruction;

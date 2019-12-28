@@ -1,4 +1,4 @@
-package com.project.simpleInstruction;
+package fr.project.instructions.simple;
 
 import com.project.simpleInstruction.Field;
 

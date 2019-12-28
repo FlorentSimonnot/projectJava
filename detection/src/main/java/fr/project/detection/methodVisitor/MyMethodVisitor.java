@@ -1,4 +1,4 @@
-package com.project.visitor;
+package fr.project.detection.methodVisitor;
 
 import com.project.Utils;
 import com.project.simpleInstruction.*;

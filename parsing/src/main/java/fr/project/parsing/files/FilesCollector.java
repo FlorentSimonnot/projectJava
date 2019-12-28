@@ -1,4 +1,4 @@
-package com.project.files;
+package fr.project.parsing.files;
 
 import java.io.IOException;
 import java.util.ArrayList;

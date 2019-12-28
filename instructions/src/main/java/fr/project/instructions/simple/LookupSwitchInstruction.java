@@ -1,4 +1,4 @@
-package com.project.simpleInstruction;
+package fr.project.instructions.simple;
 
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;

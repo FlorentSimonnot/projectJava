@@ -1,4 +1,5 @@
 package fr.project.instructions.simple;
+
 import org.objectweb.asm.Opcodes;
 
 import java.util.ArrayList;

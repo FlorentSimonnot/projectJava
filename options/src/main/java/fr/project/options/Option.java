@@ -1,4 +1,4 @@
-package com.project.options;
+package fr.project.options;
 
 import com.project.options.Option.OptionEnum;
 

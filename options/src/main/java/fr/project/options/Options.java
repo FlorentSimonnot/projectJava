@@ -1,4 +1,4 @@
-package com.project.options;
+package fr.project.options;
 
 import java.util.List;
 import java.util.function.Consumer;

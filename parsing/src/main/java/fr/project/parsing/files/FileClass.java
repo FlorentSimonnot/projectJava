@@ -1,4 +1,4 @@
-package com.project.files;
+package fr.project.parsing.files;
 
 import org.objectweb.asm.ClassReader;
 

@@ -1,4 +1,4 @@
-package com.project.parser;
+package fr.project.parsing.parser;
 
 import com.project.files.FilesCollector;
 
