@@ -1,9 +1,5 @@
-package projectTest.testParser;
+package fr.project.parsing.parser;
 
-import project.parser.DirectoryParser;
-import project.parser.FileClassParser;
-import project.parser.JarParser;
-import project.parser.ParserFactory;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;

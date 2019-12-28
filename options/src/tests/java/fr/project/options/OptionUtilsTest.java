@@ -1,7 +1,5 @@
-package projectTest.testOptions;
+package fr.project.options;
 
-import project.options.Option;
-import project.options.OptionUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,7 +1,5 @@
-package projectTest.testParser;
+package fr.project.parsing.parser;
 
-import project.parser.DirectoryParser;
-import project.parser.ParserException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,13 +22,6 @@ class DirectoryParserTest {
             new DirectoryParser().parseMyFile(null);
         });
     }
-
-    /*@Test
-    void shouldThrowIllegalArgumentExceptionWhenDirectoryIsEmpty(){
-        assertThrows(NullPointerException.class, () -> {
-            new DirectoryParser().parseMyFile("src/tests/resources/EmptyDirectory");
-        });
-    }*/
 
     @Test
     void shouldThrowParserExceptionWhenIsNotDirectory(){

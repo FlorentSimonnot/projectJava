@@ -1,7 +1,5 @@
-package projectTest.testFiles;
+package fr.project.parsing.files;
 
-import fr.retro.parser.FileClass;
-import fr.retro.parser.FilesCollector;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -10,25 +8,26 @@ import java.util.StringJoiner;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FilesCollectorTest {
+    private final String path = "src/tests/resources/";
     private final int[] versions = {5, 7, 8, 10, 11, 12, 13};
 
     @Test
     void shouldAddSimplyFileWithSuccess(){
-        assertTrue(new FilesCollector().addFile(new FileClass("src/tests/resources/j13.class")));
+        assertTrue(new FilesCollector().addFile(new FileClass(path+"j13.class")));
     }
 
     @Test
     void shouldAddSeveralFilesWithSuccess(){
         var collector = new FilesCollector();
         Arrays.stream(versions).forEach(v -> {
-            assertTrue(collector.addFile(new FileClass("src/tests/resources/j"+v+".class")));
+            assertTrue(collector.addFile(new FileClass(path+"j"+v+".class")));
         });
     }
 
     @Test
     void testGetSizeWithOneFileAdding(){
         var collector = new FilesCollector();
-        collector.addFile(new FileClass("src/tests/resources/j13.class"));
+        collector.addFile(new FileClass(path+"j13.class"));
         assertEquals(1, collector.getSize());
     }
 
@@ -36,7 +35,7 @@ class FilesCollectorTest {
     void testGetSizeWithManyFilesAdding(){
         var collector = new FilesCollector();
         Arrays.stream(versions).forEach(v -> {
-            collector.addFile(new FileClass("src/tests/resources/j"+v+".class"));
+            collector.addFile(new FileClass(path+"j"+v+".class"));
         });
         assertEquals(versions.length, collector.getSize());
     }
@@ -49,20 +48,20 @@ class FilesCollectorTest {
     @Test
     void testGetVersionsWithOnFileAdding(){
         var collector = new FilesCollector();
-        collector.addFile(new FileClass("src/tests/resources/j13.class"));
-        assertEquals("src/tests/resources/j13.class - Java 13", collector.getVersions());
+        collector.addFile(new FileClass(path+"j13.class"));
+        assertEquals(path+"j13.class - Java 13", collector.getVersions());
     }
 
     @Test
     void testGetVersionsWithManyFilesAdding(){
         var collector = new FilesCollector();
         Arrays.stream(versions).forEach(v -> {
-            collector.addFile(new FileClass("src/tests/resources/j"+v+".class"));
+            collector.addFile(new FileClass(path+"j"+v+".class"));
         });
 
         var joiner = new StringJoiner("\n");
         Arrays.stream(versions).forEach(v ->{
-            joiner.add("src/tests/resources/j"+v+".class"+" - Java "+v);
+            joiner.add(path+"j"+v+".class"+" - Java "+v);
         });
         assertEquals(joiner.toString(), collector.getVersions());
     }
@@ -72,13 +71,13 @@ class FilesCollectorTest {
         /* ADD FILES */
         var collector = new FilesCollector();
         Arrays.stream(versions).forEach(v -> {
-            collector.addFile(new FileClass("src/tests/resources/j"+v+".class"));
+            collector.addFile(new FileClass(path+"j"+v+".class"));
         });
 
         /* Compute the sum of versions in array */
-        var joinerExcpected = new StringJoiner("\n");
+        var joinerExpected = new StringJoiner("\n");
         Arrays.stream(versions).forEach(v ->{
-            joinerExcpected.add(v+"");
+            joinerExpected.add(v+"");
         });
 
         /* Compute the sum of versions in array */
@@ -86,13 +85,13 @@ class FilesCollectorTest {
         collector.forEach(v ->{
             joinerResult.add(v.getVersion()+"");
         });
-        assertEquals(joinerExcpected.toString(), joinerResult.toString());
+        assertEquals(joinerExpected.toString(), joinerResult.toString());
     }
 
     @Test
     void shouldThrowNullPointerExceptionWhenActionInForEachIsNull(){
         var collector = new FilesCollector();
-        collector.addFile(new FileClass("src/tests/resources/j13.class"));
+        collector.addFile(new FileClass(path+"j13.class"));
         assertThrows(NullPointerException.class, () -> {
             collector.forEach(null);
         });

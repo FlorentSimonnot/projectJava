@@ -1,7 +1,5 @@
-package projectTest.testParser;
+package fr.project.parsing.parser;
 
-import project.parser.FileClassParser;
-import project.parser.ParserException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

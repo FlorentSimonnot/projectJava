@@ -1,11 +1,11 @@
-package projectTest.testFiles;
+package fr.project.parsing.files;
 
-import fr.retro.parser.FileClass;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FileClassTest {
+    private final String path = "src/tests/resources/";
 
     @Test
     void shouldThrowNullPointerExceptionWhenNameFileIsNull(){
@@ -16,17 +16,17 @@ class FileClassTest {
 
     @Test
     void testToStringMethod(){
-        assertEquals("src/tests/resources/j13.class", new FileClass("src/tests/resources/j13.class").toString());
+        assertEquals(path+"j13.class", new FileClass(path+"j13.class").toString());
     }
 
     @Test
     void testGetNameMethod(){
-        assertEquals("src/tests/resources/j13.class", new FileClass("src/tests/resources/j13.class").getName());
+        assertEquals(path+"j13.class", new FileClass(path+"j13.class").getName());
     }
 
     @Test
     void testGetVersionMethod(){
-        assertEquals(13, new FileClass("src/tests/resources/j13.class").getVersion());
+        assertEquals(13, new FileClass(path+"j13.class").getVersion());
     }
 
 }

@@ -1,8 +1,5 @@
-package projectTest.testParser;
+package fr.project.parsing.parser;
 
-import project.parser.DirectoryParser;
-import project.parser.JarParser;
-import project.parser.ParserException;
 import org.junit.jupiter.api.Test;
 
 
@@ -37,7 +34,7 @@ class JarParserTest {
     @Test
     void shouldThrowParserExceptionWhenPathNameIsNotAJarFile(){
         assertThrows(ParserException.class, () -> {
-            new JarParser().parseMyFile("src/tests/resources/j13.class");
+            new JarParser().parseMyFile("./main/src/tests/resources/j13.class");
         });
     }
 }

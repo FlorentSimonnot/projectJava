@@ -1,8 +1,5 @@
-package projectTest.testOptions;
+package fr.project.options;
 
-import project.options.Option;
-import project.options.OptionFactory;
-import project.options.OptionsParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +24,8 @@ class OptionsParserTest {
             "--target",
             "7",
             "--features",
-            "[try-with-resources, lambda]"
+            "[try-with-resources, lambda]",
+            "myFile.class"
         };
         assertEquals(4, OptionsParser.parseOptions(args, optionFactory).getOptions().size());
     }
@@ -40,7 +38,8 @@ class OptionsParserTest {
                 "--target",
                 "7",
                 "--feat",
-                "[try-with-resources, lambda]"
+                "[try-with-resources, lambda]",
+                "myFile.class"
         };
         assertThrows(IllegalStateException.class, () -> OptionsParser.parseOptions(args, optionFactory));
     }
@@ -67,8 +66,8 @@ class OptionsParserTest {
 
     @Test
     void shouldThrowIllegalStateExceptionWhenOptionWaitingArgumentButDoesntReceiveIt(){
-        var args = new String[]{"--help", "--info", "--target", "--features"};
-        var args2 = new String[]{"--help", "--info", "--features"};
+        var args = new String[]{"--help", "--info", "--target", "--features", "myFile.class"};
+        var args2 = new String[]{"--help", "--info", "--features", "myFile.class"};
         assertAll(
             () -> {
                 assertThrows(IllegalStateException.class, () -> {

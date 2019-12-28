@@ -11,7 +11,8 @@ public class Utils {
         if(split.length != 2){
             throw new IllegalStateException();
         }
-        return split[1].replace(";", "") + " capture [" + split[0].replace("(", "").replace(")", "") + "]";
+        return split[1].replace(";", "") +
+                " capture [" + split[0].replace("(", "").replace(")", "") + "]";
     }
 
     public static String getOwnerOfVarInstruction(int opcode){

@@ -1,7 +1,5 @@
-package projectTest.testOptions;
+package fr.project.options;
 
-import project.options.Option;
-import project.options.OptionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

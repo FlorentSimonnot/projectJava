@@ -1,4 +1,4 @@
-package projectTest.testOptions;
+package fr.project.options;
 
 import org.junit.jupiter.api.Test;
 

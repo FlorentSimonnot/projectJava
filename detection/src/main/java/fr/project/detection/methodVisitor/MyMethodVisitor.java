@@ -15,7 +15,6 @@ public class MyMethodVisitor extends MethodVisitor{
     private final Method myMethod;
     private final MyClass ownerClass;
     private String lastInvoke = "";
-    //private final String[] exceptions;
     private final Map<Label, TryCatchBlockInstruction> tryCatchBlockList = new HashMap<>();
     private boolean inTryCatchBlock = false;
     private boolean closeCalled = false;
@@ -134,6 +133,7 @@ public class MyMethodVisitor extends MethodVisitor{
     public void visitInvokeDynamicInsn(String name, String descriptor, Handle bootstrapMethodHandle, Object... bootstrapMethodArguments) {
         //System.out.println("\tINVOKE DYNAMIC INSN\t" + name + " " + descriptor + " " + bootstrapMethodHandle.getName() + " " +bootstrapMethodHandle.getDesc());
         addInstruction(new InvokeDynamicInstruction(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments));
+
         if(bootstrapMethodHandle.getName().equals("makeConcatWithConstants")){
             observers.forEach(o -> o.onFeatureDetected(
                     "CONCATENATION at " + ownerClass.getClassName() + "." + myMethod.getName() + myMethod.getDescriptor() + " (" + ownerClass.getSourceName() + ":"+ownerClass.getLineNumber()+") : pattern " + bootstrapMethodArguments[0].toString().replace("\u0001", "%1")
@@ -161,6 +161,7 @@ public class MyMethodVisitor extends MethodVisitor{
 
     @Override
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
+        //System.out.println(opcode + " " + owner + " " + name + " " + descriptor);
         if(opcode == Opcodes.INVOKEVIRTUAL || opcode == Opcodes.INVOKEINTERFACE){
             if(!name.equals("addSuppressed"))
                 lastInvoke = owner;

@@ -59,6 +59,7 @@ public class MyClassVisitor extends ClassVisitor {
 
     @Override
     public void visitInnerClass(String name, String outerName, String innerName, int access) {
+        System.out.println(name + " " + outerName + " "  + innerName + " " + access);
         super.visitInnerClass(name, outerName, innerName, access);
     }
 
