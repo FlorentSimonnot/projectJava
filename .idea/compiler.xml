@@ -7,14 +7,24 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="project" />
-        <module name="projectJava" />
+        <module name="writing" />
+        <module name="instructions" />
+        <module name="options" />
+        <module name="detection" />
+        <module name="parsing" />
+        <module name="main" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_STRING" value="--enable-preview" />
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="projectJava" options="" />
+      <module name="detection" options="" />
+      <module name="instructions" options="" />
+      <module name="main" options="" />
+      <module name="options" options="" />
+      <module name="parsing" options="" />
+      <module name="writing" options="" />
     </option>
   </component>
 </project>
