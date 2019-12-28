@@ -31,7 +31,7 @@ public class LineNumberInstruction implements Instruction {
 
     @Override
     /**
-     * Writes the line number instruction according to a version into a .class file.
+     * Writes the line number instruction into a .class file.
      */
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitLineNumber(lineNumber, start);

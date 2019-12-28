@@ -37,7 +37,7 @@ public class InvokeDynamicInstruction implements Instruction {
 
     @Override
     /**
-     * Writes the invoke dynamic instruction according to a version into a .class file.
+     * Writes the invoke dynamic instruction into a .class file.
      */
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitInvokeDynamicInsn(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments);

@@ -28,7 +28,7 @@ public class LabelInstruction implements Instruction {
 
     @Override
     /**
-     * Writes the label instruction according to a version into a .class file.
+     * Writes the label instruction into a .class file.
      */
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitLabel(label);

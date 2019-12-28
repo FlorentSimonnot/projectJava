@@ -29,7 +29,7 @@ public class TryCatchBlock implements Instruction {
     }
 
     /**
-     * Adds an Instruction into 
+     * Adds an Instruction at the end of the try catch block.
      */
     public void addInstruction(Instruction instruction){
         for(var i = this.tryCatchBlockGroup; i != null; i = i.next){
@@ -40,12 +40,20 @@ public class TryCatchBlock implements Instruction {
         }
     }
 
+    /**
+     * Adds a TryCatchBlockInstruction at the end of the TryCatchBlockGroup.
+     * @param instruction - a TryCatchBlockInstruction to add
+     */
     public void addTryCatchBlockGroup(TryCatchBlockInstruction instruction){
         var i = this.tryCatchBlockGroup;
         while(i.next != null){i = i.next;}
         i.next = new TryCatchBlockGroup(instruction);
     }
 
+    /**
+     * Gets all the closed try catch blocks.
+     * @return all closed try catch blocks
+     */
     public ArrayList<Label> allOfClosedTryCatchBlock(){
         var res = new ArrayList<Label>();
         for(var i = this.tryCatchBlockGroup; i != null; i = i.next){
@@ -56,6 +64,11 @@ public class TryCatchBlock implements Instruction {
         return res;
     }
 
+    /**
+     * Closes the last try catch block instruction of the group.
+     * @param label - the end of the exception handler's scope
+     * @return true if the last try catch block instruction is successfully closed, false if not
+     */
     public boolean closeLastTryCatchBlock(Label label){
         if(isClosed()){
             throw new IllegalStateException("Block is already close");
@@ -80,6 +93,10 @@ public class TryCatchBlock implements Instruction {
         return sb.toString();
     }
 
+    /**
+     * Gets the number of try catch blocks in the TryCatchBlockGroup.
+     * @return the number of try catch blocks
+     */
     int sizeOfTryCatchBlock(){
         var count = 0;
         for(var i = tryCatchBlockGroup; i != null; i = i.next){
@@ -88,11 +105,18 @@ public class TryCatchBlock implements Instruction {
         return count;
     }
 
+    /**
+     * Tests if the TryCatchBlockGroup is closed.
+     * @return true if it is closed, false if not
+     */
     public boolean isClosed(){
         return tryCatchBlockGroup.isClosed;
     }
 
     @Override
+    /**
+     * Writes all the try catch block instructions into a .class file.
+     */
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         tryCatchBlockGroup.writeAllInstruction(version, mv, lastInstruction);
         for(var g = tryCatchBlockGroup; g != null; g = g.next){

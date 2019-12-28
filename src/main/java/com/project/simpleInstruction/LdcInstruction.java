@@ -22,7 +22,7 @@ public class LdcInstruction implements Instruction {
 
     @Override
     /**
-     * Writes the ldc instruction according to a version into a .class file.
+     * Writes the ldc instruction into a .class file.
      */
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitLdcInsn(value);

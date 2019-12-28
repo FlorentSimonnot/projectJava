@@ -53,7 +53,7 @@ public class FieldInstruction implements Instruction {
 
     @Override
     /**
-     * Writes the field instruction according to a version into a .class file.
+     * Writes the field instruction into a .class file.
      */
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         if(opcode == Opcodes.GETFIELD && !lastInstruction.isAloadInstruction()) {

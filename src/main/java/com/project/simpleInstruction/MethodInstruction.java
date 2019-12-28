@@ -66,7 +66,7 @@ public class MethodInstruction implements Instruction {
 
     @Override
     /**
-     * Writes the method instruction according to a version into a .class file.
+     * Writes the method instruction into a .class file.
      */
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         if(isRecordInvokeInit()){

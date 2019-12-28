@@ -25,7 +25,7 @@ public class MultiANewArrayInstruction implements Instruction {
 	
 	@Override
 	/**
-	 * Writes the multi a new array instruction according to a version into a .class file.
+	 * Writes the multi a new array instruction into a .class file.
 	 */
 	public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
 		mv.visitMultiANewArrayInsn(descriptor, numDimensions);

@@ -5,7 +5,7 @@ import org.objectweb.asm.MethodVisitor;
 /**
  * 
  * @author CHU Jonathan
- * A class that allows to detect and write a iinc instruction of a .class file.
+ * A class that allows to detect and write a increment instruction of a .class file.
  * It is stored as an Instruction of a Method.
  *
  */
@@ -25,7 +25,7 @@ public class IincInstruction implements Instruction {
 	
 	@Override
 	/**
-	 * Writes the iinc instruction according to a version into a .class file.
+	 * Writes the increment instruction into a .class file.
 	 */
 	public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
 		mv.visitIincInsn(var, increment);

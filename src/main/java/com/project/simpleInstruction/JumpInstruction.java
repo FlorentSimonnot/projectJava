@@ -34,7 +34,7 @@ public class JumpInstruction implements Instruction {
 
     @Override
     /**
-     * Writes the jump instruction according to a version into a .class file.
+     * Writes the jump instruction into a .class file.
      */
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitJumpInsn(opcode, label);

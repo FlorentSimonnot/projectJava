@@ -30,7 +30,7 @@ public class LookupSwitchInstruction implements Instruction {
 	
 	@Override
 	/**
-	 * Writes the lookup switch instruction according to a version into a .class file.
+	 * Writes the lookup switch instruction into a .class file.
 	 */
 	public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruciton) {
 		mv.visitLookupSwitchInsn(dflt, keys, labels);

@@ -73,7 +73,7 @@ public class InstructionsCollector {
     }
 
     /**
-     * Writes all the Instruction of the InstructionsCollector into a .class file.
+     * Writes all the Instruction of the InstructionsCollector according to a version into a .class file.
      * @param version - the target version
      * @param methodVisitor - the MethodVisitor linked to a .class file
      */

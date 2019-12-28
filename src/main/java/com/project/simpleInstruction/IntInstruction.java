@@ -45,7 +45,7 @@ public class IntInstruction implements Instruction {
 
     @Override
     /**
-     * Writes the int instruction according to a version into a .class file.
+     * Writes the int instruction into a .class file.
      */
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitIntInsn(opcode, operand);
