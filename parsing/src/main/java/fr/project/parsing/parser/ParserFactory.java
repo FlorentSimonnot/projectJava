@@ -1,4 +1,4 @@
-package fr.project.parsing.parser;
+package com.project.parser;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import java.util.Objects;
  * 
  * @author SIMONNOT Florent
  * A Factory that allows to create a parser for directory, .class file or .jar file.
- *
+ * 
  */
 public class ParserFactory {
 

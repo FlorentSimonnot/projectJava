@@ -1,4 +1,4 @@
-package fr.project.parsing.files;
+package com.project.files;
 
 import org.objectweb.asm.ClassReader;
 
@@ -9,6 +9,7 @@ import java.io.IOException;
  * 
  * @author SIMONNOT Florent
  * A class that describes a directory that contains the .class files.
+ * This class is used when you run the project Retro with a directory as argument.
  *
  */
 public class DirectoryFile implements FileInterface {
