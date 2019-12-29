@@ -34,7 +34,7 @@ public class OptionsParser {
             }
         }
         checkLastArgument(optionsList);
-        return new Options(optionsList);
+        return new Options(optionsList, args[args.length-1]);
     }
 
 

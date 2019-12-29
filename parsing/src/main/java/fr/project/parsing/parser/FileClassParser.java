@@ -1,7 +1,7 @@
 package fr.project.parsing.parser;
 
-import com.project.files.FileClass;
-import com.project.files.FilesCollector;
+import fr.project.parsing.files.FileClass;
+import fr.project.parsing.files.FilesCollector;
 
 import java.util.Objects;
 

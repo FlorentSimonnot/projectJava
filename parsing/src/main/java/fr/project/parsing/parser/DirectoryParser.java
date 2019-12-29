@@ -1,7 +1,7 @@
 package fr.project.parsing.parser;
 
-import com.project.files.DirectoryFile;
-import com.project.files.FilesCollector;
+import fr.project.parsing.files.DirectoryFile;
+import fr.project.parsing.files.FilesCollector;
 
 import java.io.IOException;
 import java.nio.file.Files;

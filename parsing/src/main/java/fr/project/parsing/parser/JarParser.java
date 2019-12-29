@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.jar.JarFile;
 
-import com.project.files.FilesCollector;
-import com.project.files.JarFileC;
+import fr.project.parsing.files.FilesCollector;
+import fr.project.parsing.files.JarFileC;
 
 /**
  * 

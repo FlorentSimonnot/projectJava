@@ -1,6 +1,5 @@
 package fr.project.instructions.simple;
 
-import com.project.simpleInstruction.Field;
 
 /**
  * 

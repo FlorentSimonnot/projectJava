@@ -1,6 +1,6 @@
 package fr.project.instructions.simple;
 
-import com.project.featuresInstruction.ConcatenationInstruction;
+import fr.project.instructions.features.ConcatenationInstruction;
 import org.objectweb.asm.MethodVisitor;
 
 import java.util.*;

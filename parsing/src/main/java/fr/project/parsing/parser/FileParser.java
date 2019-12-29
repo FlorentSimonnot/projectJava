@@ -1,6 +1,6 @@
 package fr.project.parsing.parser;
 
-import com.project.files.FilesCollector;
+import fr.project.parsing.files.FilesCollector;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -23,7 +23,7 @@ public class FileParser {
 	 * @throws IOException
 	 * @throws ParserException
 	 */
-    public static FilesCollector parseFile(String name) throws IOException {
+    public static FilesCollector parseFile(String name) throws IOException, ParserException {
         Objects.requireNonNull(name);
         return ParserFactory.createParser(Paths.get(name)).parseMyFile(name);
     }

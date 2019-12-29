@@ -47,10 +47,14 @@ public class App {
 		var observers = FeaturesManager.createObservers(options.getArgsOption(Option.OptionEnum.FEATURES), observersFactory);
 
 		FileParser.parseFile(options.getFile()).forEach(f -> {
-			var mv = new MyVisitor(f, observers);
-			var cv = mv.getClassVisitor();
-			mv.getClassReader().accept(cv, 0);
-			visitors.add(cv);
+			try {
+				var mv = new MyVisitor(f, observers);
+				var cv = mv.getClassVisitor();
+				mv.getClassReader().accept(cv, 0);
+				visitors.add(cv);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		});
 
 		if(options.infoIsDemanding())
@@ -79,11 +83,11 @@ public class App {
 				MyVisitor mv2 = null;
 				try {
 					mv2 = new MyVisitor(FileParser.parseFile(res).get(0), observers);
+					var cv2 = mv2.getClassVisitor();
+					mv2.getClassReader().accept(cv2, 0);
 				} catch (IOException | ParserException e) {
 					e.printStackTrace();
 				}
-				var cv2 = mv2.getClassVisitor();
-				mv2.getClassReader().accept(cv2, 0);
 			});
 		}
 

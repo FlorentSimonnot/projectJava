@@ -1,9 +1,9 @@
 package fr.project.instructions.features;
 
 import java.util.StringJoiner;
-import com.project.simpleInstruction.Instruction;
-import com.project.simpleInstruction.InstructionsCollector;
-import com.project.simpleInstruction.MethodInstruction;
+import fr.project.instructions.simple.Instruction;
+import fr.project.instructions.simple.InstructionsCollector;
+import fr.project.instructions.simple.MethodInstruction;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;

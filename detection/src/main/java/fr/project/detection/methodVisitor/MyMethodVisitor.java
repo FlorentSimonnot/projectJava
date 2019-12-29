@@ -1,8 +1,8 @@
 package fr.project.detection.methodVisitor;
 
-import com.project.Utils;
-import com.project.simpleInstruction.*;
-import com.project.featuresObserver.FeatureObserver;
+import fr.project.instructions.simple.Utils;
+import fr.project.instructions.simple.*;
+import fr.project.detection.observers.FeatureObserver;
 import org.objectweb.asm.*;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class MyMethodVisitor extends MethodVisitor{
 	 * @param ownerClass - the class that contains the method myMethod
 	 * @param exceptions - all the exceptions thrown by the class
 	 */
-	MyMethodVisitor(MethodVisitor methodVisitor, List<FeatureObserver> observers, List<Method> methods, Method myMethod, MyClass ownerClass) {
+	public MyMethodVisitor(MethodVisitor methodVisitor, List<FeatureObserver> observers, List<Method> methods, Method myMethod, MyClass ownerClass, String[] exceptions) {
 		super(Opcodes.ASM7, methodVisitor);
 		this.observers = observers;
 		this.methods = methods;

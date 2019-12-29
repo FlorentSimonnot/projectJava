@@ -12,13 +12,15 @@ import java.util.function.Consumer;
  */
 public class Options {
     private final List<Option> options;
+    private final String file;
 
     /**
      * Creates a new Options.
      * @param options - a list of Option
      */
-    public Options(List<Option> options){
+    public Options(List<Option> options, String file){
         this.options = options;
+        this.file = file;
     }
 
     /**
@@ -35,6 +37,18 @@ public class Options {
      */
     public boolean helpIsDemanding(){
         return options.contains(new Option(Option.OptionEnum.HELP));
+    }
+    
+    public boolean infoIsDemanding(){
+        return options.contains(new Option(Option.OptionEnum.INFO));
+    }
+
+    public boolean rewritingIsDemanding(){
+        return options.contains(new Option(Option.OptionEnum.TARGET));
+    }
+
+    public String getFile() {
+        return file;
     }
 
     /**

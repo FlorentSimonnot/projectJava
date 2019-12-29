@@ -1,6 +1,6 @@
 package fr.project.options;
 
-import com.project.options.Option.OptionEnum;
+import fr.project.options.Option.OptionEnum;
 
 /**
  * 
