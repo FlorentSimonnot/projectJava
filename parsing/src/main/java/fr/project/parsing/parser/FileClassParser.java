@@ -7,9 +7,9 @@ import java.util.Objects;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that allows to parse a .class file.
  * It simply creates a .class file according to a file name.
+ * @author SIMONNOT Florent
  *
  */
 public class FileClassParser implements FileParserInterface {

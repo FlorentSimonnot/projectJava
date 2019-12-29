@@ -7,10 +7,10 @@ import org.objectweb.asm.Opcodes;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A Class that allows to write a try-with-resources in bytecode into different versions.
  * It is stored as an Instruction of a Method. And this Method object is used into a MethodVisitor also used into a ClassVisitor.
  * The ClassVisitor will visit a .class file and write a code block in bytecode corresponding to a try-with-resources from the .class file on a new .class file according to the version required.
+ * @author SIMONNOT Florent
  *
  */
 

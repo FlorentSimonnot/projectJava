@@ -5,9 +5,9 @@ import java.util.List;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that allows to observe the behavior of a try-with-resources instruction.
  * It allows to notify the user when a try-with-resources instruction is detected in the .class file.
+ * @author SIMONNOT Florent
  *
  */
 public class TryWithResourcesObserver implements FeatureObserver {

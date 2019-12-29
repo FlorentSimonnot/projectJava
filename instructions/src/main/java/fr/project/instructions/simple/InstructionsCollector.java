@@ -8,8 +8,8 @@ import java.util.function.Consumer;
 
 /**
  * 
- * @author CHU Jonathan
  * A class that allows to store a list of Instruction.
+ * @author CHU Jonathan
  *
  */
 public class InstructionsCollector {

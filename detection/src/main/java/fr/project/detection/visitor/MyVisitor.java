@@ -14,8 +14,8 @@ import java.io.IOException;
 
 /**
  * 
- * @author CHU Jonathan
  * A class that allows to visit a .class file, to detect features asked by the user of the project Retro and to rewrite them if the user wants it.
+ * @author CHU Jonathan
  *
  */
 public class MyVisitor {
@@ -47,6 +47,7 @@ public class MyVisitor {
     /**
      * Gets the ClassReader attached to the .class file.
      * @return the ClassReader attached to the file.
+     * @throws IOException - if the file cannot be opened
      */
     public ClassReader getClassReader() throws IOException {
         return file.getClassReader();

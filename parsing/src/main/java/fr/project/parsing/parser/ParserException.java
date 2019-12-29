@@ -2,8 +2,8 @@ package fr.project.parsing.parser;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that allows to throw exceptions when you parse your files for the project Retro.
+ * @author SIMONNOT Florent
  *
  */
 public class ParserException extends Exception {

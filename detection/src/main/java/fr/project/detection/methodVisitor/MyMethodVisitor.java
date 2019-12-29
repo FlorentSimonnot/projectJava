@@ -12,8 +12,8 @@ import java.util.Map;
 
 /**
  * 
- * @author CHU Jonathan
  * A class that allows to visit a method of a .class file. It contains observers that can react when the visitor detects some features.
+ * @author CHU Jonathan
  *
  */
 public class MyMethodVisitor extends MethodVisitor{
@@ -30,7 +30,7 @@ public class MyMethodVisitor extends MethodVisitor{
 	 * Creates a new MyMethodVisitor
 	 * @param methodVisitor - a MethodVisitor you want to link with
 	 * @param observers - a list of FeatureObserver you want to link with
-	 * @param methods
+	 * @param methods - a list of Method
 	 * @param myMethod - an object that represents the method you are visiting
 	 * @param ownerClass - the class that contains the method myMethod
 	 * @param exceptions - all the exceptions thrown by the class

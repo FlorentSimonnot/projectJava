@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 /**
  * 
- * @author CHU Jonathan
  * A class that allows to detect and write a try catch block instruction of a .class file.
  * It is stored as an Instruction of a Method.
+ * @author CHU Jonathan
  *
  */
 public class TryCatchBlock implements Instruction {

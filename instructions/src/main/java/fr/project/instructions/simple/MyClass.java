@@ -5,9 +5,9 @@ import java.util.List;
 
 /**
  * 
- * @author CHU Jonathan
  * A class that represents a class of a .class file.
  * It contains methods that allow to dectect and write fields and methods of the class.
+ * @author CHU Jonathan
  *
  */
 public class MyClass {

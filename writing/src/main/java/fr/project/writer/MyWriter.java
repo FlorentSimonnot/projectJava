@@ -90,7 +90,7 @@ public class MyWriter {
     }
 
     /**
-     * Create< a new .class file with the bytecode.
+     * Creates a new .class file with the bytecode.
      * @return the path of the file which contain the bytecode
      * @throws IOException - if problem occurred during the creating or writing of the file.
      */

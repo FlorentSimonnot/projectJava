@@ -9,9 +9,9 @@ import java.util.Objects;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that describes a .class file.
  * This class is used when you run the project Retro with a simple .class file as argument.
+ * @author SIMONNOT Florent
  *
  */
 public class FileClass implements FileInterface{

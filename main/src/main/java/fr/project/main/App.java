@@ -3,9 +3,9 @@ package fr.project.main;
 import fr.project.detection.classVisitor.MyClassVisitor;
 import fr.project.detection.observers.*;
 import fr.project.detection.visitor.MyVisitor;
-import fr.project.options.Option;
-import fr.project.options.OptionFactory;
-import fr.project.options.OptionsParser;
+import fr.project.optionsCommand.Option;
+import fr.project.optionsCommand.OptionFactory;
+import fr.project.optionsCommand.OptionsParser;
 import fr.project.parsing.parser.FileParser;
 import fr.project.parsing.parser.ParserException;
 import fr.project.writer.MyWriter;
@@ -17,7 +17,6 @@ import java.util.List;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that represents the project Retro.
  * It can take a directory, a .class file or a .jar file as input and detect all the features detected on it according to the option [--features].
  * [--features] contains a list of features that can be try-with-resources, lambda, nest mates, concatenation or record.
@@ -25,6 +24,7 @@ import java.util.List;
  * It has to have a [--target] version of java which you want to write your new bytecode files.
  * The option [--info] displays all the features detected for each file.
  * The option [--force] forces the writing of new bytecode files even if the java version is not compatible.
+ * @author SIMONNOT Florent
  *
  */
 public class App {

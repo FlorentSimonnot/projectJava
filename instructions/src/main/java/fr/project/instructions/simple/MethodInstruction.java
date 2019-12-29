@@ -5,9 +5,9 @@ import org.objectweb.asm.Opcodes;
 
 /**
  * 
- * @author CHU Jonathan
  * A class that allows to detect and write a method instruction of a .class file.
  * It is stored as an Instruction of a Method.
+ * @author CHU Jonathan
  *
  */
 public class MethodInstruction implements Instruction {

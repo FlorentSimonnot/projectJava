@@ -8,9 +8,9 @@ import java.util.function.Consumer;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that represents a list of FileInterface.
  * All FileInterface are used when you want to visit those files with a ClassVisitor or a MethodVisitor.
+ * @author SIMONNOT Florent
  *
  */
 public class FilesCollector {

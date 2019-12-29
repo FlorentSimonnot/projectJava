@@ -13,9 +13,9 @@ import java.util.StringJoiner;
 
 /**
  * 
- * @author CHU Jonathan
  * A class that allows to visit a .class file. It contains observers that can react when the visitor detects some features.
  * It also contains a list of nest-mates of the class and store them into a field.
+ * @author CHU Jonathan
  *
  */
 public class MyClassVisitor extends ClassVisitor {

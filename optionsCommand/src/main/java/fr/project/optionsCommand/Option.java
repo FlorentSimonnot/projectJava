@@ -1,13 +1,13 @@
-package fr.project.options;
+package fr.project.optionsCommand;
 
-import fr.project.options.Option.OptionEnum;
+import fr.project.optionsCommand.Option.OptionEnum;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that describes all the options given into the run command.
  * This class is used when you run the project Retro.
  * It can contains the options: [--help], [--info], [--target] or [--features].
+ * @author SIMONNOT Florent
  *
  */
 public class Option {

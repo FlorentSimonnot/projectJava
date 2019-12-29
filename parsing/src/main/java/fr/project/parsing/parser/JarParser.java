@@ -9,8 +9,8 @@ import fr.project.parsing.files.JarFileC;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that allows to parse a .jar file.
+ * @author SIMONNOT Florent
  *
  */
 public class JarParser implements FileParserInterface {

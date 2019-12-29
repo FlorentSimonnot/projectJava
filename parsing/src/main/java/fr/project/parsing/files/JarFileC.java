@@ -8,9 +8,9 @@ import org.objectweb.asm.ClassReader;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that describes a .jar file.
  * This class is used when you run the project Retro with a .jar file as argument.
+ * @author SIMONNOT Florent
  *
  */
 public class JarFileC implements FileInterface {
@@ -21,7 +21,7 @@ public class JarFileC implements FileInterface {
     /**
      * Creates a new JarFileC.
      * @param name - the name of the .class file from the .jar file
-     * @param entry - 
+     * @param entry - the name of a jar's entry
      * @param zipName - the name of .jar file
      */
     public JarFileC(String name, String entry, String zipName){
@@ -56,7 +56,7 @@ public class JarFileC implements FileInterface {
 
     /**
      * Gets the ClassReader of the .jar file.
-     * @throws IOException 
+     * @throws IOException - if the JarFile cannot be opened
      */
     public ClassReader getClassReader() throws IOException{
         try (var jar = new JarFile(zipName)) {

@@ -1,13 +1,13 @@
-package fr.project.options;
+package fr.project.optionsCommand;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that stores all options given when you run the project Retro.
  * It is mainly used by the OptionsParser.
+ * @author SIMONNOT Florent
  *
  */
 public class Options {
@@ -17,6 +17,7 @@ public class Options {
     /**
      * Creates a new Options.
      * @param options - a list of Option
+     * @param file - the file you want to parse with Retro
      */
     public Options(List<Option> options, String file){
         this.options = options;

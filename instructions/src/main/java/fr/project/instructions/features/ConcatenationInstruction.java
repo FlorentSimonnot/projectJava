@@ -12,10 +12,10 @@ import java.util.List;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that allows to write a concatenation instruction in bytecode into different versions.
  * It is stored as an Instruction of a Method. And this Method object is used into a MethodVisitor also used into a ClassVisitor.
  * The ClassVisitor will visit a .class file and write a code block in bytecode corresponding to a concatenation from the .class file on a new .class file according to the version required.
+ * @author SIMONNOT Florent
  *
  */
 
@@ -26,7 +26,6 @@ public class ConcatenationInstruction implements Instruction {
 
     /**
      * Creates a new ConcatenationInstruction.
-     * @param nArgs - the number of arguments of the concatenation operation
      * @param instructions - the instructions block attached to this concatenation instruction
      * @param format - the format of the line corresponding to the concatenation code block
      */

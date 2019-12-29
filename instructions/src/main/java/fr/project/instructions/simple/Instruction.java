@@ -4,8 +4,8 @@ import org.objectweb.asm.MethodVisitor;
 
 /**
  * 
- * @author CHU Jonathan
  * An interface that represents any type of instruction of a .class file.
+ * @author CHU Jonathan
  *
  */
 public interface Instruction {

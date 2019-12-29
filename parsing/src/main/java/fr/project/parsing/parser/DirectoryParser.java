@@ -10,9 +10,9 @@ import java.util.Objects;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that allows to parse a directory.
  * The main goal of this class is to create a list of .class files contained by the directory.
+ * @author SIMONNOT Florent
  */
 public class DirectoryParser implements FileParserInterface {
 

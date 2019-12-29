@@ -5,9 +5,9 @@ import org.objectweb.asm.MethodVisitor;
 
 /**
  * 
- * @author CHU Jonathan
  * A class that allows to detect and write a lookup switch instruction of a .class file.
  * It is stored as an Instruction of a Method.
+ * @author CHU Jonathan
  *
  */
 public class LookupSwitchInstruction implements Instruction {

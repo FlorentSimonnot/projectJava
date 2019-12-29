@@ -23,8 +23,8 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>options</groupId>
-            <artifactId>options</artifactId>
+            <groupId>optionsCommand</groupId>
+            <artifactId>optionsCommand</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

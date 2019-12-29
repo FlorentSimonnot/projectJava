@@ -6,9 +6,9 @@ import java.util.*;
 
 /**
  * 
- * @author CHU Jonathan
  * A class that represents a method of a .class file.
  * It contains method that allow to detect and write all instructions of the method.
+ * @author CHU Jonathan
  *
  */
 public class Method {

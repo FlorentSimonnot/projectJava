@@ -1,4 +1,4 @@
-package fr.project.options;
+package fr.project.optionsCommand;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,8 +7,8 @@ import java.util.Objects;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that provides tools to verify all the options given by the user when you run the project Retro.
+ * @author SIMONNOT Florent
  *
  */
 public class OptionUtils {
