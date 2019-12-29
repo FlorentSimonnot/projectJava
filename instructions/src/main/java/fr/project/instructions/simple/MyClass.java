@@ -1,13 +1,18 @@
 package fr.project.instructions.simple;
 
+import fr.project.instructions.features.LambdaCollector;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MyClass {
     private final String className;
     private String sourceName;
     private final List<Field> fields;
     private final List<Method> methods;
+    private final List<InnerClass> innerClasses;
+    private LambdaCollector lambdaCollector = new LambdaCollector();
     private final String ownerClassName;
     private final int privacy;
     private int lineNumber;
@@ -19,6 +24,7 @@ public class MyClass {
         this.ownerClassName = ownerClassName;
         this.fields = new ArrayList<>();
         this.methods = new ArrayList<>();
+        this.innerClasses = new ArrayList<>();
         this.interfaces = interfaces;
     }
 
@@ -54,6 +60,12 @@ public class MyClass {
         return notConstructors;
     }
 
+    public LambdaCollector getLambdaCollector(){return lambdaCollector;}
+
+    public List<InnerClass> getInnerClasses(){
+        return new ArrayList<>(innerClasses);
+    }
+
     public int getPrivacy() {
         return privacy;
     }
@@ -63,6 +75,10 @@ public class MyClass {
     public void setSourceName(String sourceName){this.sourceName = sourceName;}
 
     public void setLineNumber(int lineNumber){this.lineNumber = lineNumber;}
+
+    public void setLambdaCollector(LambdaCollector lambdaCollector){
+        this.lambdaCollector = lambdaCollector;
+    }
 
     public int getLineNumber(){return lineNumber;}
 

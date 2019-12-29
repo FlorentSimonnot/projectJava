@@ -1,5 +1,9 @@
 package fr.project.detection.methodVisitor;
 
+import fr.project.instructions.features.CalledLambdaInstruction;
+import fr.project.instructions.features.InstantiateLambdaInstruction;
+import fr.project.instructions.features.LambdaCollector;
+import fr.project.instructions.features.LambdaInstruction;
 import fr.project.instructions.simple.*;
 import fr.project.instructions.simple.Utils;
 import fr.project.detection.observers.FeatureObserver;
@@ -14,18 +18,21 @@ public class MyMethodVisitor extends MethodVisitor{
     private final List<Method> methods;
     private final Method myMethod;
     private final MyClass ownerClass;
+
     private String lastInvoke = "";
     private final Map<Label, TryCatchBlockInstruction> tryCatchBlockList = new HashMap<>();
     private boolean inTryCatchBlock = false;
     private boolean closeCalled = false;
     private TryCatchBlock tryCatchBlock = null;
+    private final LambdaCollector lambdaCollector;
 
-    public MyMethodVisitor(MethodVisitor methodVisitor, List<FeatureObserver> observers, List<Method> methods, Method myMethod, MyClass ownerClass, String[] exceptions) {
+    public MyMethodVisitor(MethodVisitor methodVisitor, List<FeatureObserver> observers, List<Method> methods, LambdaCollector lambdaCollector, Method myMethod, MyClass ownerClass, String[] exceptions) {
         super(Opcodes.ASM7, methodVisitor);
         this.observers = observers;
         this.methods = methods;
         this.myMethod = myMethod;
         this.ownerClass = ownerClass;
+        this.lambdaCollector = lambdaCollector;
     }
 
     private void addInstruction(Instruction instruction){
@@ -126,30 +133,31 @@ public class MyMethodVisitor extends MethodVisitor{
         myMethod.createConcatenationInstruction(Utils.numberOfOccurrence(listFormat, "arg"), listFormat);
     }
 
-    private void getInstructionCalledBeforeLambda(Object... args){
-    }
-
     @Override
     public void visitInvokeDynamicInsn(String name, String descriptor, Handle bootstrapMethodHandle, Object... bootstrapMethodArguments) {
-        //System.out.println("\tINVOKE DYNAMIC INSN\t" + name + " " + descriptor + " " + bootstrapMethodHandle.getName() + " " +bootstrapMethodHandle.getDesc());
-        addInstruction(new InvokeDynamicInstruction(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments));
-
         if(bootstrapMethodHandle.getName().equals("makeConcatWithConstants")){
+            addInstruction(new InvokeDynamicInstruction(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments));
             observers.forEach(o -> o.onFeatureDetected(
                     "CONCATENATION at " + ownerClass.getClassName() + "." + myMethod.getName() + myMethod.getDescriptor() + " (" + ownerClass.getSourceName() + ":"+ownerClass.getLineNumber()+") : pattern " + bootstrapMethodArguments[0].toString().replace("\u0001", "%1")
                     , "concatenation"));
             getInstructionCalledBeforeConcatenation(bootstrapMethodArguments);
         }
 
-        if(bootstrapMethodHandle.getName().equals("metafactory")){
-            var split = descriptor.split("/");
-            var type = split[split.length-1].replace(";", "");
+        else if(bootstrapMethodHandle.getName().equals("metafactory")){
             var bootstrap = bootstrapMethodArguments[1].toString();
             observers.forEach(o -> o.onFeatureDetected(
-                    "LAMBDA at " + ownerClass.getClassName() + "." + myMethod.getName() + myMethod.getDescriptor() + " (" + ownerClass.getSourceName() + ":"+ownerClass.getLineNumber()+ ") : lambda " + Utils.takeOwnerFunction(descriptor) + " calling " + bootstrap.split(" ")[0],
+                    "LAMBDA at " + ownerClass.getClassName() + "." + myMethod.getName() + myMethod.getDescriptor() + " (" + ownerClass.getSourceName() + ":"+ownerClass.getLineNumber()+ ") : lambda " + Utils.takeOwnerFunction(descriptor) + Utils.takeCapture(descriptor) + " calling " + bootstrap.split(" ")[0],
                     "lambda"));
-            getInstructionCalledBeforeLambda(bootstrapMethodArguments);
+
+            var myLambda = new LambdaInstruction(name, Utils.takeOwnerFunction(descriptor), descriptor, bootstrapMethodHandle, bootstrapMethodArguments);
+            var index = lambdaCollector.addLambda(myLambda);
+            addInstruction(new InstantiateLambdaInstruction(myLambda, index));
         }
+
+        else{
+            addInstruction(new InvokeDynamicInstruction(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments));
+        }
+
         super.visitInvokeDynamicInsn(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments);
     }
 
@@ -177,27 +185,35 @@ public class MyMethodVisitor extends MethodVisitor{
                     , name));
         }
 
-        addInstruction(new MethodInstruction(opcode, owner, name, descriptor, isInterface));
+        if(opcode == Opcodes.INVOKEINTERFACE && owner.startsWith("java/util/function")){
+            if(lambdaCollector.lambdaAlreadyExists(name, owner)){
+                var myLambda = lambdaCollector.getLambda(name, owner);
+                addInstruction(new CalledLambdaInstruction(myLambda, descriptor));
+            }
+            else{
+                addInstruction(new MethodInstruction(opcode, owner, name, descriptor, isInterface));
+            }
+        }else{
+            addInstruction(new MethodInstruction(opcode, owner, name, descriptor, isInterface));
+        }
+
         super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
     }
 
     @Override
     public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
-//        System.out.println("\tLOOKUP SWITCH INSN\t" + dflt + " " + keys + " " + labels);
         addInstruction(new LookupSwitchInstruction(dflt, keys, labels));
     	super.visitLookupSwitchInsn(dflt, keys, labels);
     }
 
     @Override
     public void visitMultiANewArrayInsn(String descriptor, int numDimensions) {
-//        System.out.println("\tMULTI A NEW ARRAY INSN\t" + descriptor + " " + numDimensions);
     	addInstruction(new MultiANewArrayInstruction(descriptor, numDimensions));
         super.visitMultiANewArrayInsn(descriptor, numDimensions);
     }
 
     @Override
     public void visitTableSwitchInsn(int min, int max, Label dflt, Label... labels) {
-//        System.out.println("\tTABLE SWITCH INSN\t" + min + " " + max + " " + dflt);
     	addInstruction(new TableSwitchInstruction(min, max, dflt, labels));
         super.visitTableSwitchInsn(min, max, dflt, labels);
     }

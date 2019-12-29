@@ -1,6 +1,7 @@
 package fr.project.detection.classVisitor;
 
 import fr.project.detection.methodVisitor.MyMethodVisitor;
+import fr.project.instructions.features.LambdaCollector;
 import fr.project.instructions.simple.Field;
 import fr.project.instructions.simple.Method;
 import fr.project.instructions.simple.MyClass;
@@ -21,6 +22,7 @@ import java.util.StringJoiner;
 public class MyClassVisitor extends ClassVisitor {
     private final List<FeatureObserver> observers;
     private final List<String> nestMates = new ArrayList<>();
+    private final LambdaCollector lambdaCollector = new LambdaCollector();
     private MyClass myClass;
 
     /**
@@ -128,7 +130,7 @@ public class MyClassVisitor extends ClassVisitor {
         MethodVisitor mv;
         mv = cv.visitMethod(access, name, descriptor, signature, exceptions);
         if (mv != null) {
-            mv = new MyMethodVisitor(mv, observers, myClass.getAllMethods(), new Method(access, name, descriptor, signature, false, exceptions), myClass, exceptions);
+            mv = new MyMethodVisitor(mv, observers, myClass.getAllMethods(), lambdaCollector, new Method(access, name, descriptor, signature, false, exceptions), myClass, exceptions);
         }
         return mv;
     }
@@ -140,6 +142,7 @@ public class MyClassVisitor extends ClassVisitor {
     public void visitEnd() {
         if(nestMates.size() > 0)
             addNestHost();
+        myClass.setLambdaCollector(lambdaCollector);
         super.visitEnd();
     }
 

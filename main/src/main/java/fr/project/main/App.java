@@ -67,8 +67,10 @@ public class App {
 				var myWriter = new MyWriter(cv.getMyClass(), version);
 				myWriter.createClass();
 				myWriter.writeFields();
+				myWriter.writeLambdaInnerClasses();
 				myWriter.writeConstructors();
 				myWriter.writeMethods();
+
 				String res = null;
 				try {
 					res = myWriter.createFile();
@@ -76,14 +78,16 @@ public class App {
 					e.printStackTrace();
 				}
 
-				MyVisitor mv2 = null;
+				/*MyVisitor mv2 = null;
 				try {
 					mv2 = new MyVisitor(FileParser.parseFile(res).get(0), observers);
 				} catch (IOException | ParserException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
+					return;
 				}
 				var cv2 = mv2.getClassVisitor();
-				mv2.getClassReader().accept(cv2, 0);
+				if(cv2 != null)
+					mv2.getClassReader().accept(cv2, 0);*/
 			});
 		}
 

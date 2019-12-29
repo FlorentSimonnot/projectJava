@@ -11,8 +11,15 @@ public class Utils {
         if(split.length != 2){
             throw new IllegalStateException();
         }
-        return split[1].replace(";", "") +
-                " capture [" + split[0].replace("(", "").replace(")", "") + "]";
+        return split[1].replace(";", "");
+    }
+
+    public static String takeCapture(String name){
+        var split = name.split("L");
+        if(split.length != 2){
+            throw new IllegalStateException();
+        }
+        return " capture [" + split[0].replace("(", "").replace(")", "") + "]";
     }
 
     public static String getOwnerOfVarInstruction(int opcode){
