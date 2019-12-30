@@ -1,6 +1,9 @@
 package fr.project.optionsCommand;
 
 import fr.project.optionsCommand.Option.OptionEnum;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * 
@@ -23,7 +26,8 @@ public class Option {
         INFO,
         TARGET,
         FEATURES,
-        NULL
+        NULL,
+        FORCE;
     }
 
     /**
@@ -32,6 +36,15 @@ public class Option {
      */
     public Option(OptionEnum option){
         this.option = option;
+    }
+    
+    public static void showHelp() throws IOException {
+        var path = Paths.get("optionsCommand/src/main/resources/help.txt");
+        try(var reader = Files.newBufferedReader(path)){
+            reader.lines().forEach(System.out::println);
+        }catch(IOException e){
+            throw new IOException("File help can't be read");
+        }
     }
 
     /**
@@ -76,6 +89,18 @@ public class Option {
         if(args.length() > 0)
             space = " " + args;
         return option.name() + space;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Option)) return false;
+        var opt = (Option) obj;
+        return opt.option == this.option;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
 }

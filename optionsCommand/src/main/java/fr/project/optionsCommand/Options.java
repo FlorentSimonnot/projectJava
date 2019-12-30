@@ -47,6 +47,10 @@ public class Options {
     public boolean rewritingIsDemanding(){
         return options.contains(new Option(Option.OptionEnum.TARGET));
     }
+    
+    public boolean forceIsDemanding(){
+        return options.contains(new Option(Option.OptionEnum.FORCE));
+    }
 
     public String getFile() {
         return file;
@@ -78,6 +82,14 @@ public class Options {
                 return true;
         }
         return false;
+    }
+    
+    @Override
+    public String toString() {
+        var sb = new StringBuilder();
+        options.forEach(o -> sb.append(o).append("\n"));
+        sb.append("File : ").append(file);
+        return sb.toString();
     }
 
     private Option findOption(Option.OptionEnum option){

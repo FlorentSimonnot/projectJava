@@ -59,4 +59,5 @@ public interface Instruction {
      * @return true if this Instruction is a try-catch block instruction, false if not
      */
     default boolean isTryCatchBlock(){return false;}
+    //default boolean isInstantiateLambdaInstruction(){return false;}
 }

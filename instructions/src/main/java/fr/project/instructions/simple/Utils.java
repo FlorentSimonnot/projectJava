@@ -35,7 +35,7 @@ public class Utils {
         if(split.length != 2){
             throw new IllegalStateException();
         }
-        return " capture [" + split[0].replace("(", "").replace(")", "") + "]";
+        return split[0].replace("(", "").replace(")", "");
     }
 
     /**
@@ -44,13 +44,42 @@ public class Utils {
      * @return the text format for the java opcode.
      */
     public static String getOwnerOfVarInstruction(int opcode){
-        System.out.println("MY OPCODE " + opcode);
         switch(opcode){
             case Opcodes.ILOAD : return "(I)";
             case Opcodes.LLOAD : return "(J)";
             case Opcodes.DLOAD : return "(D)";
             case Opcodes.ALOAD : return "(java/lang/Object;)";
             default: throw new IllegalArgumentException();
+        }
+    }
+
+    /**
+     * Gets the java opcode for a type.
+     * @param type - a type code
+     * @return the translation of a type code into java opcode
+     */
+    public static int getOpcodeOfType(String type){
+        switch(type){
+            case "J" : return Opcodes.LLOAD;
+            case "D" : return Opcodes.DLOAD;
+            case "I" : return Opcodes.ILOAD;
+            case "F" : return  Opcodes.FLOAD;
+            default : return Opcodes.ALOAD;
+        }
+    }
+
+    /**
+     * Gets the java opcode for a return type.
+     * @param type - a return type code
+     * @return the translation of a return type code into java opcode
+     */
+    public static int getOpcodeOfReturn(String type){
+        switch(type){
+            case "J" : return Opcodes.LRETURN;
+            case "D" : return Opcodes.DRETURN;
+            case "I" : return Opcodes.IRETURN;
+            case "F" : return Opcodes.FRETURN;
+            default : return Opcodes.ARETURN;
         }
     }
 

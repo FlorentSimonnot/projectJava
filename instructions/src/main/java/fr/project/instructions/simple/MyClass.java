@@ -153,6 +153,14 @@ public class MyClass {
     }
 
     /**
+     * Adds a method into the field methods.
+     * @param method - a Method object
+     */
+    public void addMethod(Method method){
+        methods.add(method);
+    }
+
+    /**
      * Gets all class's methods.
      * @return all class's methods
      */
