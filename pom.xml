@@ -125,17 +125,6 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 			</plugin>
 
-			<!--<plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jar-plugin</artifactId> 
-				<version>3.2.0</version> <configuration> <archive> <manifest> <addClasspath>true</addClasspath> 
-				<classpathPrefix>lib</classpathPrefix> <mainClass>fr.project.main.App</mainClass> 
-				</manifest> </archive> </configuration> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> 
-				<artifactId>maven-assembly-plugin</artifactId> <executions> <execution> <phase>package</phase> 
-				<goals> <goal>single</goal> </goals> <configuration> <appendAssemblyId>false</appendAssemblyId> 
-				<descriptors> <descriptor>src/main/assembly/zip.xml</descriptor> </descriptors> 
-				</configuration> </execution> </executions> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> 
-				<artifactId>maven-shade-plugin</artifactId> <version>1.6</version> <executions> 
-				<execution> <phase>package</phase> <goals> <goal>shade</goal> </goals> </execution> 
-				</executions> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -164,17 +153,25 @@
 				</executions>
 			</plugin>
 
-		</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>1.0.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>5.0.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
 
-
-		<!--<pluginManagement> <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> 
-			<artifactId>maven-assembly-plugin</artifactId> <version>3.2.0</version> <configuration> 
-			<descriptorRefs> <descriptorRef>jar-with-dependencies</descriptorRef> </descriptorRefs> 
-			<archive> <manifest> <mainClass>fr.project.main.App</mainClass> </manifest> 
-			</archive> <skipAssembly>false</skipAssembly> </configuration> <executions> 
-			<execution> <id>make-assembly</id> <phase>package</phase> <goals> <goal>single</goal> 
-			</goals> </execution> </executions> </plugin> </plugins> </pluginManagement> -->
-
-	</build>
+    </build>
 
 </project>

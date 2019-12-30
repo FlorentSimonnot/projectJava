@@ -14,7 +14,8 @@ import java.io.IOException;
 
 /**
  * 
- * A class that allows to visit a .class file, to detect features asked by the user of the project Retro and to rewrite them if the user wants it.
+ * A visitor to visit a .class file.
+ * It can detect the features asked by the user of the project Retro and write them if the user wants it.
  * @author CHU Jonathan
  *
  */

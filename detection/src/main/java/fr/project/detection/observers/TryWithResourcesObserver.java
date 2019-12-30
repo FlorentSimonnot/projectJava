@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * 
- * A class that allows to observe the behavior of a try-with-resources instruction.
+ * A observer that observes the behavior of a try-with-resources instruction.
  * It allows to notify the user when a try-with-resources instruction is detected in the .class file.
  * @author SIMONNOT Florent
  *

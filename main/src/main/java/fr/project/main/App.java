@@ -71,21 +71,14 @@ public class App {
 				var myWriter = new MyWriter(cv.getMyClass(), version);
 				myWriter.createClass();
 				myWriter.writeFields();
+				myWriter.writeLambdaInnerClasses();
 				myWriter.writeConstructors();
 				myWriter.writeMethods();
+
 				String res = null;
 				try {
 					res = myWriter.createFile();
 				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-				MyVisitor mv2 = null;
-				try {
-					mv2 = new MyVisitor(FileParser.parseFile(res).get(0), observers);
-					var cv2 = mv2.getClassVisitor();
-					mv2.getClassReader().accept(cv2, 0);
-				} catch (IOException | ParserException e) {
 					e.printStackTrace();
 				}
 			});
@@ -114,18 +107,7 @@ public class App {
 
 	private static int convertTargetToOpcode(String s){
 		return Integer.parseInt(s)+44;
-		/*switch(version){
-			case 5 : return Opcodes.V1_5;
-			case 6 : return Opcodes.V1_6;
-			case 7 : return Opcodes.V1_7;
-			case 8 : return Opcodes.V1_8;
-			case 9 : return Opcodes.V9;
-			case 10 : return Opcodes.V10;
-			case 11 : return Opcodes.V11;
-			case 12 : return Opcodes.V12;
-			case 13 : return Opcodes.V13;
-			default: throw new IllegalArgumentException("The version is incorrect");
-		}*/
+
 	}
 
 }

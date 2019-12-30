@@ -1,12 +1,11 @@
 package fr.project.writer;
 
+import fr.project.instructions.features.LambdaInstruction;
 import fr.project.instructions.simple.Field;
+import fr.project.instructions.simple.Instruction;
 import fr.project.instructions.simple.Method;
 import fr.project.instructions.simple.MyClass;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.FieldVisitor;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -40,6 +39,46 @@ public class MyWriter {
     public void createClass(){
         cw.visit(version, myClass.getPrivacy(), myClass.getClassName(), null, "java/lang/Object", myClass.getInterfaces());
     }
+
+    /**
+     * Writes all the lambdas of a .class file into a new .class file according to a target version.
+     */
+    public void writeLambdaInnerClasses(){
+        if(version < LambdaInstruction.VERSION)
+            myClass.getLambdaCollector().forEach(this::writeLambdaInnerClass);
+    }
+
+    private void writeLambdaInnerClass(LambdaInstruction lambdaInstruction, int index){
+        System.out.println("LAMBDA " + index);
+
+        var newClassVisitor = new ClassVisitor(Opcodes.ASM7){
+
+            @Override
+            public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
+                super.visit(version, access, name, signature, superName, interfaces);
+            }
+
+            @Override
+            public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+                return super.visitMethod(access, name, descriptor, signature, exceptions);
+            }
+
+            @Override
+            public void visitEnd() {
+                super.visitEnd();
+            }
+        };
+
+        newClassVisitor.visit(version, Opcodes.ACC_PRIVATE+Opcodes.ACC_STATIC, "MyLambda$"+index, null, "java/lang/Object", null);
+        var methodVisitor = newClassVisitor.visitMethod(
+                Opcodes.ACC_PRIVATE + Opcodes.ACC_STATIC,
+                "MyLambdaMethod"+index,
+                "(V)", null, new String[]{});
+        methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, myClass.getClassName(), "lambda$0", "(V)", false);
+        methodVisitor.visitEnd();
+        newClassVisitor.visitEnd();
+    }
+
 
     /**
      * Writes all fields of the current class.

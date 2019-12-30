@@ -1,6 +1,7 @@
 package fr.project.detection.classVisitor;
 
 import fr.project.detection.methodVisitor.MyMethodVisitor;
+import fr.project.instructions.features.LambdaCollector;
 import fr.project.instructions.simple.Field;
 import fr.project.instructions.simple.Method;
 import fr.project.instructions.simple.MyClass;
@@ -13,14 +14,17 @@ import java.util.StringJoiner;
 
 /**
  * 
- * A class that allows to visit a .class file. It contains observers that can react when the visitor detects some features.
+ * A visitor to visit a .class file.
+ * It contains observers that can react when the visitor detects some features.
  * It also contains a list of nest-mates of the class and store them into a field.
+ * A MyClassVisitor object is linked to a .class file and cannot be linked to another .class file when the project Retro is running.
  * @author CHU Jonathan
  *
  */
 public class MyClassVisitor extends ClassVisitor {
     private final List<FeatureObserver> observers;
     private final List<String> nestMates = new ArrayList<>();
+    private final LambdaCollector lambdaCollector = new LambdaCollector();
     private MyClass myClass;
 
     /**
@@ -42,7 +46,8 @@ public class MyClassVisitor extends ClassVisitor {
 
     @Override
     /**
-     * Visits the header of the .class file. Also, it tests if the class is a record class.
+     * Visits the header of the .class file.
+     * Tests if the class is a record class.
      */
     public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
         myClass = new MyClass(access, name, superName, interfaces);
@@ -59,6 +64,7 @@ public class MyClassVisitor extends ClassVisitor {
 
     @Override
     public void visitInnerClass(String name, String outerName, String innerName, int access) {
+        System.out.println(name + " " + outerName + " "  + innerName + " " + access);
         super.visitInnerClass(name, outerName, innerName, access);
     }
 
@@ -90,7 +96,8 @@ public class MyClassVisitor extends ClassVisitor {
 
     @Override
     /**
-     * Makes the observers (it detects a nest-host).
+     * Visits the nest host class of the .class file
+     * Notifies the observers that a nest mate feature is detected.
      */
     public void visitNestHost(String nestHost) {
         observers.forEach(o -> {
@@ -102,6 +109,7 @@ public class MyClassVisitor extends ClassVisitor {
 
     @Override
     /**
+     * Visits a member of the nest.
      * Adds a new nest-member into the field nestMates.
      */
     public void visitNestMember(String nestMember) {
@@ -111,7 +119,8 @@ public class MyClassVisitor extends ClassVisitor {
 
     @Override
     /**
-     * Adds a new field into the field fields of the class MyClass.
+     * Visits a field of the .class file.
+     * Adds a new Field object into the field myClass.
      */
     public FieldVisitor visitField(int access, String name, String descriptor, String signature, Object value) {
         myClass.addField(new Field(access, name, descriptor, signature, value));
@@ -120,24 +129,27 @@ public class MyClassVisitor extends ClassVisitor {
 
     @Override
     /**
-     * Returns a custom MethodVisitor (MyMethodVisitor) that contains methods that allow to detect features and write them.
+     * Visits a method of the .class file.
+     * Returns a custom MethodVisitor object (MyMethodVisitor) that contains methods that allow to detect features and write them.
      */
     public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
         MethodVisitor mv;
         mv = cv.visitMethod(access, name, descriptor, signature, exceptions);
         if (mv != null) {
-            mv = new MyMethodVisitor(mv, observers, myClass.getAllMethods(), new Method(access, name, descriptor, signature, false, exceptions), myClass, exceptions);
+            mv = new MyMethodVisitor(mv, observers, myClass.getAllMethods(), lambdaCollector, new Method(access, name, descriptor, signature, false, exceptions), myClass, exceptions);
         }
         return mv;
     }
 
     @Override
     /**
+     * Visits the end of the .class file.
      * Displays all the nest-hosts detected in the .class file.
      */
     public void visitEnd() {
         if(nestMates.size() > 0)
             addNestHost();
+        myClass.setLambdaCollector(lambdaCollector);
         super.visitEnd();
     }
 

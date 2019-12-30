@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 /**
  * 
- * A Factory that associate a feature as String with a FeatureObserver.
+ * A Factory that associate a feature with a observer.
  * It allows to check what features you want to detect and/or write in java bytecode.
  * This class is used in the class App.
  * @author SIMONNOT Florent

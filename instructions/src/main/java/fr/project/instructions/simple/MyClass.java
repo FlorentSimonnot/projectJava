@@ -1,7 +1,10 @@
 package fr.project.instructions.simple;
 
+import fr.project.instructions.features.LambdaCollector;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 
@@ -15,6 +18,8 @@ public class MyClass {
     private String sourceName;
     private final List<Field> fields;
     private final List<Method> methods;
+    private final List<InnerClass> innerClasses;
+    private LambdaCollector lambdaCollector = new LambdaCollector();
     private final String ownerClassName;
     private final int privacy;
     private int lineNumber;
@@ -33,6 +38,7 @@ public class MyClass {
         this.ownerClassName = ownerClassName;
         this.fields = new ArrayList<>();
         this.methods = new ArrayList<>();
+        this.innerClasses = new ArrayList<>();
         this.interfaces = interfaces;
     }
 
@@ -88,6 +94,20 @@ public class MyClass {
      * Gets the class's visibility.
      * @return the class's visibility
      */
+    public LambdaCollector getLambdaCollector(){return lambdaCollector;}
+
+    /**
+     * Gets the class's inner classes.
+     * @return the list of InnerClass of the .class file.
+     */
+    public List<InnerClass> getInnerClasses(){
+        return new ArrayList<>(innerClasses);
+    }
+
+    /**
+     * Gets the privacy of the class.
+     * @return the class's privacy
+     */
     public int getPrivacy() {
         return privacy;
     }
@@ -109,6 +129,14 @@ public class MyClass {
      * @param lineNumber - the new line number
      */
     public void setLineNumber(int lineNumber){this.lineNumber = lineNumber;}
+
+    /**
+     * Sets the lambdaCollector of the class.
+     * @param lambdaCollector - a LambdaCollector object
+     */
+    public void setLambdaCollector(LambdaCollector lambdaCollector){
+        this.lambdaCollector = lambdaCollector;
+    }
 
     /**
      * Gets the class's line number.

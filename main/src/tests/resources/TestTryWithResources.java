@@ -1,55 +1,41 @@
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.Socket;
 
 public class TestTryWithResources {
 
 	static String readFirstLineFromFile(String path) throws IOException {
-	    try(var br = new BufferedReader(new FileReader(path))){
+	    try(BufferedReader br = new BufferedReader(new FileReader("lol"))){
 	        return br.readLine();
-	    }catch(IOException e){
-		throw e;
 	    }
 	}
-
-	static String readFirstLineFromFile12(String path) throws IOException {
-	    var sb = new StringBuilder();
-	    try(var br = new BufferedReader(new FileReader(path))){
-	        sb.append(br.readLine());
-		BufferedReader br2 = null;
-		try{
-			br2 = new BufferedReader(new FileReader(path));
-			sb.append(br2.readLine());
-		 	try(var br3 = new BufferedReader(new FileReader(path))){
-				sb.append(br3.readLine());
-				return sb.toString();			
-
-			}catch(IOException e){
-				throw e;
+	
+	static void multipleTryWithResources() throws IOException {
+		try(var socket = new Socket();
+			var inputStream = new DataInputStream(socket.getInputStream()); 
+			var outputStream = new DataOutputStream(socket.getOutputStream());
+		){
+			System.out.println("bouh");
+		}
+	}
+	
+	static void tryWithResourcesInAnotherTrywithResources() throws IOException {
+		try(var socket = new Socket()){
+			try(var inputStream = new DataInputStream(socket.getInputStream())){
+				try(var outputStream = new DataOutputStream(socket.getOutputStream())) {
+					System.out.println("C");
+				}
 			}
-		}catch(IOException e){
-			throw e;
-		}
-	    }catch(IOException e){
-		throw e;
-	    }
-	}
-
-	static String readFirstLineFromFile2(String path) throws IOException {
-	    BufferedReader br = null;
-	    try{
-		br = new BufferedReader(new FileReader(path));
-	        return br.readLine();
-	    }catch(IOException e){
-		throw e;
-	    }
-	    finally{
-		br.close();
 		}
 	}
-
-	public static void main(String[] args) throws IOException{
-		System.out.println(new TestTryWithResources().readFirstLineFromFile("src/tests/resources/TestTryWithResources.java"));
+	
+	public static void main(String[] args) throws IOException {
+		
+		TestTryWithResources.readFirstLineFromFile("TestTryWithResources.class");
+		
 	}
 
 }
