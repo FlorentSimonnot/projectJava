@@ -36,6 +36,9 @@ public class ConcatenationInstruction implements Instruction {
 
     /**
      * Writes the bytecode corresponding to the concatenation instruction according to the version given.
+     * @param version - the target version
+     * @param mv - the MethodVisitor object attached to the .class file
+     * @param lastInstruction - the last instruction writen
      */
     @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
@@ -115,6 +118,7 @@ public class ConcatenationInstruction implements Instruction {
 
     /**
      * Returns if this instruction is an aload instruction.
+     * @return false
      */
     @Override
     public boolean isAloadInstruction() {

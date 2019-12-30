@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A Factory that associate a warning as String with a WarningObserver.
+ * @author SIMONNOT Florent
  *
  */
 public class WarningObserverFactory {

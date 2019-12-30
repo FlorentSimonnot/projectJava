@@ -4,7 +4,7 @@ package fr.project.instructions.simple;
 /**
  * 
  * A class that allows to represent a simple field of a .class file.
- * It is stored as an Field of a MyClass. And this MyClass object is used into a MyClassVisitor.
+ * It is stored as a Field of a MyClass. And this MyClass object is used into a MyClassVisitor.
  * @author CHU Jonathan
  *
  */
