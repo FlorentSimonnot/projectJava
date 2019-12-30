@@ -70,6 +70,24 @@ public class LambdaInstruction {
         return Type.getArgumentTypes(method.getDesc());
     }
 
+    public String getMethodCalledName(){
+        var methodCalled = (Handle) args[1];
+        return methodCalled.getName();
+    }
+
+    public String getMethodCalledOwnerName(){
+        var methodCalled = (Handle) args[1];
+        return methodCalled.getOwner();
+    }
+
+    public String getMethodCalledDescriptor(){
+        return Type.getMethodDescriptor(getReturnType(), getArgumentsType());
+    }
+
+    Type[] getCapture(){
+        return Type.getArgumentTypes(descriptor);
+    }
+
     @Override
     public int hashCode() {
         return name.hashCode() ^ methodHandle.hashCode() ^ ownerClass.hashCode() ^ Arrays.hashCode(args) ^ descriptor.hashCode();

@@ -46,6 +46,10 @@ public class Options {
         return options.contains(new Option(Option.OptionEnum.TARGET));
     }
 
+    public boolean forceIsDemanding(){
+        return options.contains(new Option(Option.OptionEnum.FORCE));
+    }
+
     public String getFile() {
         return file;
     }

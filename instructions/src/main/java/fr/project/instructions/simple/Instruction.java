@@ -13,4 +13,5 @@ public interface Instruction {
     default boolean isInvokeVirtual(){return false;}
     default boolean isNew(){return false;}
     default boolean isTryCatchBlock(){return false;}
+    //default boolean isInstantiateLambdaInstruction(){return false;}
 }

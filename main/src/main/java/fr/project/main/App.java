@@ -8,6 +8,7 @@ import fr.project.options.OptionFactory;
 import fr.project.options.OptionsParser;
 import fr.project.parsing.parser.FileParser;
 import fr.project.parsing.parser.ParserException;
+import fr.project.warningObservers.*;
 import fr.project.writer.MyWriter;
 import org.objectweb.asm.Opcodes;
 
@@ -37,10 +38,8 @@ public class App {
 
 		var options = OptionsParser.parseOptions(args, optionFactory);
 
-		System.out.println(options.helpIsDemanding());
-
 		if(options.helpIsDemanding()){
-			//Call help
+			Option.showHelp();
 			return;
 		}
 
@@ -63,31 +62,30 @@ public class App {
 
 		if(options.rewritingIsDemanding()){
 			var version = convertTargetToOpcode(options.getArgsOption(Option.OptionEnum.TARGET));
+			var warnings = WarningsManager.createObservers(options, createWarningFactory());
+
 			visitors.forEach(cv -> {
-				var myWriter = new MyWriter(cv.getMyClass(), version);
+				var myWriter = new MyWriter(cv.getMyClass(), version, warnings, options);
+
 				myWriter.createClass();
 				myWriter.writeFields();
 				myWriter.writeLambdaInnerClasses();
+				myWriter.writeLambdaFiles();
 				myWriter.writeConstructors();
 				myWriter.writeMethods();
 
-				String res = null;
-				try {
-					res = myWriter.createFile();
-				} catch (IOException e) {
-					e.printStackTrace();
+				if(warningsFound(warnings)){
+					System.out.println("We can't compile " + cv.getMyClass().getClassName() + ".java in java " + (version-44) + " because we found " + countWarningsFound(warnings) + " warnings");
+					warnings.forEach(WarningObserver::showWarning);
 				}
-
-				/*MyVisitor mv2 = null;
-				try {
-					mv2 = new MyVisitor(FileParser.parseFile(res).get(0), observers);
-				} catch (IOException | ParserException e) {
-					//e.printStackTrace();
-					return;
+				else{
+					String res = null;
+					try {
+						res = myWriter.createFile();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
-				var cv2 = mv2.getClassVisitor();
-				if(cv2 != null)
-					mv2.getClassReader().accept(cv2, 0);*/
 			});
 		}
 
@@ -99,6 +97,7 @@ public class App {
 		optionFactory.register("--info", new Option(Option.OptionEnum.INFO));
 		optionFactory.register("--target", new Option(Option.OptionEnum.TARGET));
 		optionFactory.register("--features", new Option(Option.OptionEnum.FEATURES));
+		optionFactory.register("--force", new Option(Option.OptionEnum.FORCE));
 		return optionFactory;
 	}
 
@@ -112,20 +111,27 @@ public class App {
 		return observersFactory;
 	}
 
+	private static WarningObserverFactory createWarningFactory(){
+		var observersFactory = new WarningObserverFactory();
+		observersFactory.register("try-with-resources", new WarningTryWithResourcesObserver());
+		observersFactory.register("nestMember", new WarningNestMemberObserver());
+		observersFactory.register("concatenation", new WarningConcatenationObserver());
+		observersFactory.register("lambda", new WarningLambdaObserver());
+		observersFactory.register("record", new WarningRecordObserver());
+		return observersFactory;
+	}
+
 	private static int convertTargetToOpcode(String s){
 		return Integer.parseInt(s)+44;
-		/*switch(version){
-			case 5 : return Opcodes.V1_5;
-			case 6 : return Opcodes.V1_6;
-			case 7 : return Opcodes.V1_7;
-			case 8 : return Opcodes.V1_8;
-			case 9 : return Opcodes.V9;
-			case 10 : return Opcodes.V10;
-			case 11 : return Opcodes.V11;
-			case 12 : return Opcodes.V12;
-			case 13 : return Opcodes.V13;
-			default: throw new IllegalArgumentException("The version is incorrect");
-		}*/
 	}
+
+	private static boolean warningsFound(List<WarningObserver> warnings){
+		return warnings.stream().mapToInt(WarningObserver::numberOfWarningsDetected).sum() > 0;
+	}
+
+	private static int countWarningsFound(List<WarningObserver> warnings){
+		return warnings.stream().mapToInt(WarningObserver::numberOfWarningsDetected).sum();
+	}
+
 
 }

@@ -86,6 +86,10 @@ public class MyClass {
         fields.add(field);
     }
 
+    public void addMethod(Method method){
+        methods.add(method);
+    }
+
     public List<Method> getAllMethods() {
         return methods;
     }

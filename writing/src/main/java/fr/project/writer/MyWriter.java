@@ -1,14 +1,16 @@
 package fr.project.writer;
 
 import fr.project.instructions.features.LambdaInstruction;
-import fr.project.instructions.simple.Field;
-import fr.project.instructions.simple.Instruction;
-import fr.project.instructions.simple.Method;
-import fr.project.instructions.simple.MyClass;
+import fr.project.instructions.simple.*;
+import fr.project.options.Options;
+import fr.project.warningObservers.WarningNestMemberObserver;
+import fr.project.warningObservers.WarningObserver;
+import fr.project.warningObservers.WarningsManager;
 import org.objectweb.asm.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 
@@ -21,16 +23,20 @@ public class MyWriter {
     private final ClassWriter cw;
     private final int version;
     private MethodVisitor mw;
+    private final List<WarningObserver> warningObservers;
+    private final Options options;
 
     /**
      * Creates a new MyWriter.
      * @param myClass - the .class file you want to link your MyWriter with
      * @param version - the target version of your new .class file
      */
-    public MyWriter(MyClass myClass, int version){
+    public MyWriter(MyClass myClass, int version, List<WarningObserver> warningObservers, Options options){
         this.myClass = myClass;
         this.cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
         this.version = version;
+        this.warningObservers = warningObservers;
+        this.options = options;
     }
 
     /**
@@ -41,41 +47,61 @@ public class MyWriter {
     }
 
     public void writeLambdaInnerClasses(){
-        if(version < LambdaInstruction.VERSION)
+        if(version < LambdaInstruction.VERSION && options.forceIsDemanding())
             myClass.getLambdaCollector().forEach(this::writeLambdaInnerClass);
+        else{
+            myClass.getLambdaCollector().forEach( (l, k) -> {
+                warningObservers.forEach(o -> o.onWarningDetected("We have detected a lambda", "lambda"));
+            });
+        }
     }
 
     private void writeLambdaInnerClass(LambdaInstruction lambdaInstruction, int index){
-        System.out.println("LAMBDA " + index);
-
-        var newClassVisitor = new ClassVisitor(Opcodes.ASM7){
-
-            @Override
-            public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
-                super.visit(version, access, name, signature, superName, interfaces);
-            }
-
-            @Override
-            public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-                return super.visitMethod(access, name, descriptor, signature, exceptions);
-            }
-
-            @Override
-            public void visitEnd() {
-                super.visitEnd();
-            }
-        };
-
-        newClassVisitor.visit(version, Opcodes.ACC_PRIVATE+Opcodes.ACC_STATIC, "MyLambda$"+index, null, "java/lang/Object", null);
-        var methodVisitor = newClassVisitor.visitMethod(
-                Opcodes.ACC_PRIVATE + Opcodes.ACC_STATIC,
-                "MyLambdaMethod"+index,
-                "(V)", null, new String[]{});
-        methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, myClass.getClassName(), "lambda$0", "(V)", false);
-        methodVisitor.visitEnd();
-        newClassVisitor.visitEnd();
+        cw.visitInnerClass(myClass.getClassName()+"$MyLambda"+index, myClass.getClassName(), myClass.getClassName()+"$MyLambda"+index, Opcodes.ACC_PRIVATE+Opcodes.ACC_STATIC);
     }
 
+    public void writeLambdaFiles(){
+        if(version < LambdaInstruction.VERSION && options.forceIsDemanding())
+            myClass.getLambdaCollector().forEach(this::writeLambdaFile);
+    }
+
+    private void writeSourceFile(String name){
+        cw.visitSource(name, null);
+    }
+
+    private void writeNestHost(String host){
+        cw.visitNestHost(host);
+    }
+
+    private void writeInnerClass(String name){
+        cw.visitInnerClass(myClass.getClassName(), name, myClass.getClassName().split("\\$")[1], 10);
+    }
+
+    private void writeLambdaFile(LambdaInstruction lambdaInstruction, int index) {
+        var lambdaClass = new MyClass(Opcodes.ACC_STATIC+Opcodes.ACC_PRIVATE, myClass.getClassName()+"$MyLambda"+index, "java/lang/Object", null);
+
+        LambdaWriter.createFields(lambdaClass, lambdaInstruction);
+        LambdaWriter.createConstructor(lambdaClass, lambdaInstruction);
+        LambdaWriter.createLambdaFactory(lambdaClass, lambdaInstruction, myClass.getClassName(), index);
+        LambdaWriter.createLambdaCalledMethod(lambdaClass, lambdaInstruction, myClass.getClassName(), index);
+
+        var lambdaWriter = new MyWriter(lambdaClass, version, null, null);
+        lambdaWriter.createClass();
+
+        lambdaWriter.writeSourceFile(myClass.getClassName()+".java");
+        lambdaWriter.writeNestHost(myClass.getClassName());
+        lambdaWriter.writeInnerClass(myClass.getClassName());
+
+        lambdaWriter.writeFields();
+        lambdaWriter.writeConstructors();
+        lambdaWriter.writeMethods();
+
+        try {
+            lambdaWriter.createFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Writes all fields of the current class.
@@ -105,6 +131,7 @@ public class MyWriter {
 
     private void writeMethod(Method m) {
         if(myClass.isRecordClass()){
+            warningObservers.forEach(o -> o.onWarningDetected("We have detected a record class", "record"));
             switch(m.getName()){
                 case "<init>" : writeConstructor(m); break;
                 case "toString" : writeToStringMethodForRecord(m); break;
@@ -187,8 +214,5 @@ public class MyWriter {
         mw.visitEnd();
     }
 
-    private void writeEqualsMethodForRecord(){
-
-    }
 
 }

@@ -146,12 +146,12 @@ public class MyMethodVisitor extends MethodVisitor{
         else if(bootstrapMethodHandle.getName().equals("metafactory")){
             var bootstrap = bootstrapMethodArguments[1].toString();
             observers.forEach(o -> o.onFeatureDetected(
-                    "LAMBDA at " + ownerClass.getClassName() + "." + myMethod.getName() + myMethod.getDescriptor() + " (" + ownerClass.getSourceName() + ":"+ownerClass.getLineNumber()+ ") : lambda " + Utils.takeOwnerFunction(descriptor) + Utils.takeCapture(descriptor) + " calling " + bootstrap.split(" ")[0],
+                    "LAMBDA at " + ownerClass.getClassName() + "." + myMethod.getName() + myMethod.getDescriptor() + " (" + ownerClass.getSourceName() + ":"+ownerClass.getLineNumber()+ ") : lambda " + Utils.takeOwnerFunction(descriptor) + " capture [" + Utils.takeCapture(descriptor) + "]" + " calling " + bootstrap.split(" ")[0],
                     "lambda"));
 
             var myLambda = new LambdaInstruction(name, Utils.takeOwnerFunction(descriptor), descriptor, bootstrapMethodHandle, bootstrapMethodArguments);
             var index = lambdaCollector.addLambda(myLambda);
-            addInstruction(new InstantiateLambdaInstruction(myLambda, index));
+            addInstruction(new InstantiateLambdaInstruction(myLambda, index, ownerClass.getClassName()));
         }
 
         else{
@@ -188,7 +188,8 @@ public class MyMethodVisitor extends MethodVisitor{
         if(opcode == Opcodes.INVOKEINTERFACE && owner.startsWith("java/util/function")){
             if(lambdaCollector.lambdaAlreadyExists(name, owner)){
                 var myLambda = lambdaCollector.getLambda(name, owner);
-                addInstruction(new CalledLambdaInstruction(myLambda, descriptor));
+                var index = lambdaCollector.getLambdaIndex(name, owner);
+                addInstruction(new CalledLambdaInstruction(myLambda, descriptor, index, ownerClass.getClassName()));
             }
             else{
                 addInstruction(new MethodInstruction(opcode, owner, name, descriptor, isInterface));
@@ -243,7 +244,7 @@ public class MyMethodVisitor extends MethodVisitor{
 
     @Override
     public void visitFrame(int type, int numLocal, Object[] local, int numStack, Object[] stack) {
-        addInstruction(new FrameInstruction(type, numLocal, local, numStack, stack));
+        //addInstruction(new FrameInstruction(type, numLocal, local, numStack, stack));
         super.visitFrame(type, numLocal, local, numStack, stack);
     }
 

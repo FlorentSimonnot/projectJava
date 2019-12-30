@@ -1,5 +1,12 @@
 package fr.project.options;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.nio.Buffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 /**
  * 
  * @author SIMONNOT Florent
@@ -19,7 +26,8 @@ public class Option {
         INFO,
         TARGET,
         FEATURES,
-        NULL
+        NULL,
+        FORCE;
     }
 
     /**
@@ -28,6 +36,15 @@ public class Option {
      */
     public Option(OptionEnum option){
         this.option = option;
+    }
+
+    public static void showHelp() throws IOException {
+        var path = Paths.get("options/src/main/resources/help.txt");
+        try(var reader = Files.newBufferedReader(path)){
+            reader.lines().forEach(System.out::println);
+        }catch(IOException e){
+            throw new IOException("File help can't be read");
+        }
     }
 
     /**
