@@ -1,3 +1,8 @@
+/**
+ * Parses a .class file, detects the version, features and writes them.
+ * @author CHU Jonathan
+ *
+ */
 module detection {
     requires org.objectweb.asm;
 
