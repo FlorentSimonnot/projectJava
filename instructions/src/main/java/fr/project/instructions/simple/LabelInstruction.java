@@ -26,10 +26,10 @@ public class LabelInstruction implements Instruction {
         return "LABEL INSN " + label;
     }
 
-    @Override
     /**
      * Writes the label instruction into a .class file.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitLabel(label);
     }

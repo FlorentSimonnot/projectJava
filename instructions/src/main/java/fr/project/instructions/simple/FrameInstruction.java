@@ -37,10 +37,10 @@ public class FrameInstruction implements Instruction {
         return "Frame Instruction " + type;
     }
 
-    @Override
     /**
      * Writes the frame instruction into a .class file.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitFrame(type, numLocal, local, numStack, stack);
     }

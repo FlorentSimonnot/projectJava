@@ -29,10 +29,10 @@ public class LineNumberInstruction implements Instruction {
         return "VISIT LINE " + lineNumber + " BEGIN LABEL " + start;
     }
 
-    @Override
     /**
      * Writes the line number instruction into a .class file.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitLineNumber(lineNumber, start);
     }

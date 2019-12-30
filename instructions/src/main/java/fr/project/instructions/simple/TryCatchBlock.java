@@ -113,10 +113,10 @@ public class TryCatchBlock implements Instruction {
         return tryCatchBlockGroup.isClosed;
     }
 
-    @Override
     /**
      * Writes all the try catch block instructions into a .class file.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         tryCatchBlockGroup.writeAllInstruction(version, mv, lastInstruction);
         for(var g = tryCatchBlockGroup; g != null; g = g.next){

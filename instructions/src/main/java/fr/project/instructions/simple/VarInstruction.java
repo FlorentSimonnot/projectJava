@@ -24,10 +24,10 @@ public class VarInstruction implements Instruction {
         this.var = var;
     }
 
-    @Override
     /**
      * Gets the type of the variable instruction.
      */
+    @Override
     public String getType() {
         switch(opcode){
             case Opcodes.ILOAD : return "(I)";
@@ -43,18 +43,18 @@ public class VarInstruction implements Instruction {
         return "VAR INSN " + opcode + " name : " + var;
     }
 
-    @Override
     /**
      * Tests if the variable instruction is an load instruction.
      */
+    @Override
     public boolean isAloadInstruction() {
         return opcode == Opcodes.ALOAD || opcode == Opcodes.ILOAD || opcode == Opcodes.DLOAD || opcode == Opcodes.LLOAD;
     }
 
-    @Override
     /**
      * Writes the variable instruction into a .class file.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitVarInsn(opcode, var);
     }

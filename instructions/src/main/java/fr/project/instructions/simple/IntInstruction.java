@@ -43,10 +43,10 @@ public class IntInstruction implements Instruction {
         return "INT INSN " + opcode + " name : " + operand;
     }
 
-    @Override
     /**
      * Writes the int instruction into a .class file.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitIntInsn(opcode, operand);
     }

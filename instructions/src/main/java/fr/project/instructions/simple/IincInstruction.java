@@ -23,10 +23,10 @@ public class IincInstruction implements Instruction {
 		this.increment = increment;
 	}
 	
-	@Override
 	/**
 	 * Writes the increment instruction into a .class file.
 	 */
+	@Override
 	public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
 		mv.visitIincInsn(var, increment);
 	}

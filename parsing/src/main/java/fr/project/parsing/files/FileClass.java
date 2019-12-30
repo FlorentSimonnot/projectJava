@@ -30,10 +30,10 @@ public class FileClass implements FileInterface{
      */
     public String getName(){return name;}
 
-    @Override
     /**
      * Gets the java version of the .class file.
      */
+    @Override
     public int getVersion(){
         return getClassReader().readByte(7)-44;
     }
@@ -43,10 +43,10 @@ public class FileClass implements FileInterface{
         return name;
     }
 
-    @Override
     /**
      * Gets the full path of the .class file.
      */
+    @Override
     public String getPath() {
         var split = name.split("/");
         var sb = new StringBuilder("");

@@ -34,10 +34,10 @@ public class ConcatenationInstruction implements Instruction {
         this.format = format;
     }
 
-    @Override
     /**
      * Writes the bytecode corresponding to the concatenation instruction according to the version given.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         if(version < VERSION){
             writeInstructionOldVersion(version, mv, lastInstruction);
@@ -113,10 +113,10 @@ public class ConcatenationInstruction implements Instruction {
         return "Concatenation : \n---> " + joiner;
     }
 
-    @Override
     /**
      * Returns if this instruction is an aload instruction.
      */
+    @Override
     public boolean isAloadInstruction() {
         return false;
     }

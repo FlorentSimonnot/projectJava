@@ -26,18 +26,18 @@ public class NopInstruction implements Instruction {
         return "NOP INSN " + opcode;
     }
 
-    @Override
     /**
      * Tests if the zero instruction is an aload instruction.
      */
+    @Override
     public boolean isAloadInstruction() {
         return opcode == Opcodes.ALOAD;
     }
 
-    @Override
     /**
      * Writes the zero instruction into a .class file.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitInsn(opcode);
     }

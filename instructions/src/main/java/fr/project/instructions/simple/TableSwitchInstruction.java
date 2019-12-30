@@ -30,10 +30,10 @@ public class TableSwitchInstruction implements Instruction {
 		this.labels = labels;
 	}
 	
-	@Override
 	/**
 	 * Writes the table switch instruction into a .class file.
 	 */
+	@Override
 	public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
 		mv.visitTableSwitchInsn(min, max, dflt, labels);
 	}

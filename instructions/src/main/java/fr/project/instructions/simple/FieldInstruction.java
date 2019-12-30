@@ -51,10 +51,10 @@ public class FieldInstruction implements Instruction {
         }
     }
 
-    @Override
     /**
      * Writes the field instruction into a .class file.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         if(opcode == Opcodes.GETFIELD && !lastInstruction.isAloadInstruction()) {
             mv.visitVarInsn(Opcodes.ALOAD, 0);

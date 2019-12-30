@@ -80,21 +80,21 @@ public class MyMethodVisitor extends MethodVisitor{
 		return super.visitAnnotationDefault();
 	}
 
-	@Override
 	/**
 	 * Visits a line number declaration.
 	 * Sets the line number of the method you are visiting.
 	 */
+	@Override
 	public void visitLineNumber(int line, Label start) {
 		super.visitLineNumber(line, start);
 		ownerClass.setLineNumber(line);
 	}
 
-	@Override
 	/**
 	 * Visits a label.
 	 * Adds a LabelInstruction into the field instructions of the field myMethod.
 	 */
+	@Override
 	public void visitLabel(Label label){
         /* Add a new try catch block or create a try catch block */
        if(tryCatchBlockList.containsKey(label)){
@@ -123,21 +123,21 @@ public class MyMethodVisitor extends MethodVisitor{
        super.visitLabel(label);
    }	
 
-	@Override
 	/**
 	 * Visits a field instruction.
 	 * Adds a FieldInstruction into the field instructions of the field myMethod.
 	 */
+	@Override
 	public void visitFieldInsn(int opcode, String owner, String name, String descriptor) {
 		addInstruction(new FieldInstruction(name, owner, opcode, descriptor));
 		super.visitFieldInsn(opcode, owner, name, descriptor);
 	}
 
-	@Override
 	/**
 	 * Visits an IINC instruction.
 	 * Adds a IincInstruction into the field instructions of the field myMethod.
 	 */
+	@Override
 	public void visitIincInsn(int var, int increment) {
 		addInstruction(new IincInstruction(var, increment));
 		super.visitIincInsn(var, increment);
@@ -148,21 +148,21 @@ public class MyMethodVisitor extends MethodVisitor{
 		return super.visitInsnAnnotation(typeRef, typePath, descriptor, visible);
 	}
 
-	@Override
 	/**
 	 * Visits an instruction with a single int operand.
 	 * Adds a IntInstruction into the field instructions of the field myMethod.
 	 */
+	@Override
 	public void visitIntInsn(int opcode, int operand) {
 		addInstruction(new IntInstruction(opcode, operand));
 		super.visitIntInsn(opcode, operand);
 	}
 
-	@Override
 	/**
 	 * Visits a jump instruction.
 	 * Adds a JumpInstruction into the field instructions of the field myMethod and adds Label into the field jumpLabels.
 	 */
+	@Override
 	public void visitJumpInsn(int opcode, Label label) {
 		jumpLabels.add(label);
 		addInstruction(new JumpInstruction(opcode, label));
@@ -179,12 +179,12 @@ public class MyMethodVisitor extends MethodVisitor{
 
 	}
 
-	@Override
 	/**
 	 * Visits an invokedynamic instruction.
 	 * Adds a InvokeDynamicInstruction into the field instructions of the field myMethod.
 	 * Makes the observers react when you detect a concatenation or a lambda feature.
 	 */
+	@Override
 	public void visitInvokeDynamicInsn(String name, String descriptor, Handle bootstrapMethodHandle, Object... bootstrapMethodArguments) {
         if(bootstrapMethodHandle.getName().equals("makeConcatWithConstants")){
             addInstruction(new InvokeDynamicInstruction(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments));
@@ -212,23 +212,23 @@ public class MyMethodVisitor extends MethodVisitor{
         super.visitInvokeDynamicInsn(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments);
     }
 
-	@Override
 	/**
 	 * Visits a LDC instruction.
 	 * Adds a LdcInstruction into the field instructions of the field myMethod.
 	 */
+	@Override
 	public void visitLdcInsn(Object value) {
 		addInstruction(new LdcInstruction(value));
 		super.visitLdcInsn(value);
 	}
 
-	@Override
 	/**
 	 * Visits a method instruction.
 	 * Adds a MethodInstruction into the field instructions of the field myMethod.
 	 * Makes the observers react when you detect a try-with-resources feature and updates the method that calls the addSuppressed.
 	 * 
 	 */
+	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
         //System.out.println(opcode + " " + owner + " " + name + " " + descriptor);
         if(opcode == Opcodes.INVOKEVIRTUAL || opcode == Opcodes.INVOKEINTERFACE){
@@ -261,61 +261,61 @@ public class MyMethodVisitor extends MethodVisitor{
         super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
     }
 
-	@Override
 	/**
 	 * Visits a LOOKUPSWITCH instruction
 	 * Adds a LookupSwitchInstruction into the field instructions of the field myMethod.
 	 */
+	@Override
 	public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
 		addInstruction(new LookupSwitchInstruction(dflt, keys, labels));
 		super.visitLookupSwitchInsn(dflt, keys, labels);
 	}
 
-	@Override
 	/**
 	 * Visits a MULTIANEWARRAY instruction.
 	 * Adds a MultiANewArrayInstruction into the field instructions of the field myMethod.
 	 */
+	@Override
 	public void visitMultiANewArrayInsn(String descriptor, int numDimensions) {
 		addInstruction(new MultiANewArrayInstruction(descriptor, numDimensions));
 		super.visitMultiANewArrayInsn(descriptor, numDimensions);
 	}
 
-	@Override
 	/**
 	 * Visits a TABLESWITCH instruction.
 	 * Adds a TableSwitchInstruction into the field instructions of the field myMethod.
 	 */
+	@Override
 	public void visitTableSwitchInsn(int min, int max, Label dflt, Label... labels) {
 		addInstruction(new TableSwitchInstruction(min, max, dflt, labels));
 		super.visitTableSwitchInsn(min, max, dflt, labels);
 	}
 
-	@Override
 	/**
 	 * Visits a type instruction.
 	 * Adds a TypeInstruction into the field instructions of the field myMethod.
 	 */
+	@Override
 	public void visitTypeInsn(int opcode, String type) {
 		addInstruction(new TypeInstruction(opcode, type));
 		super.visitTypeInsn(opcode, type);
 	}
 
-	@Override
 	/**
 	 * Visits a local variable instruction.
 	 * Adds a VarInstruction into the field instructions of the field myMethod.
 	 */
+	@Override
 	public void visitVarInsn(int opcode, int var) {
 		addInstruction(new VarInstruction(opcode, var));
 		super.visitVarInsn(opcode, var);
 	}
 
-	@Override
 	/**
 	 * Visits a zero operand instruction.
 	 * Adds a NopInstruction into the field instructions of the field myMethod when the opcode is not a athrow instruction.
 	 */
+	@Override
 	public void visitInsn(int opcode) {
 		if(opcode != Opcodes.ATHROW)
 			addInstruction(new NopInstruction(opcode));
@@ -337,11 +337,11 @@ public class MyMethodVisitor extends MethodVisitor{
 		super.visitLocalVariable(name, descriptor, signature, start, end, index);
 	}
 
-	@Override
 	/**
 	 * Visits a try catch block.
 	 * Sets the start and the end of a try catch block when you detect it.
 	 */
+	@Override
 	public void visitTryCatchBlock(Label start, Label end, Label handler, String type) {
 		labelBeginTry.add(start);
 		labelEndTry.put(end, start);
@@ -353,11 +353,11 @@ public class MyMethodVisitor extends MethodVisitor{
 		super.visitParameter(name, access);
 	}
 
-	@Override
 	/**
 	 * Visits the end of the method.
 	 * Displays all the instructions of the method after visiting it.
 	 */
+	@Override
 	public void visitEnd() {
 		methods.add(myMethod);
 		myMethod.printInstructions();

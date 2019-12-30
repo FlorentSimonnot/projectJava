@@ -37,11 +37,11 @@ public class InstructionsCollector {
         throw new IllegalArgumentException("Index out of Bounds in instructions collector");
     }
 
-//    private Instruction getLastInstruction() {
-//        if(instructions.size() == 0)
-//            throw new IllegalArgumentException("List of instructions is empty");
-//        return instructions.get(instructions.size()-1);
-//    }
+    private Instruction getLastInstruction() {
+        if(instructions.size() == 0)
+            throw new IllegalArgumentException("List of instructions is empty");
+        return instructions.get(instructions.size()-1);
+    }
 
     /**
      * Adds an Instruction into the list of Instruction.

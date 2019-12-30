@@ -35,10 +35,10 @@ public class InvokeDynamicInstruction implements Instruction {
         return "INDI INSN name " + name + " descriptor " + descriptor + " methodHandle " + bootstrapMethodHandle.getName();
     }
 
-    @Override
     /**
      * Writes the invoke dynamic instruction into a .class file.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitInvokeDynamicInsn(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments);
     }

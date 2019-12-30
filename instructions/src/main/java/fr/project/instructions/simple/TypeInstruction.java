@@ -29,26 +29,26 @@ public class TypeInstruction implements Instruction {
         return "TYPE INSN " + opcode + " owner : " + owner;
     }
 
-    @Override
     /**
      * Tests if the type instruction is an load instruction.
      */
+    @Override
     public boolean isAloadInstruction() {
         return opcode == Opcodes.ALOAD || opcode == Opcodes.ILOAD || opcode == Opcodes.DLOAD || opcode == Opcodes.LLOAD;
     }
 
-    @Override
     /**
      * Writes the type instruction into a .class file.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitTypeInsn(opcode, owner);
     }
 
-    @Override
     /**
      * Tests if the type instruction is a new instruction.
      */
+    @Override
     public boolean isNew() {
         return opcode == Opcodes.NEW;
     }

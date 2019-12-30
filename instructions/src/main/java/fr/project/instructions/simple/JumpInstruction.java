@@ -32,10 +32,10 @@ public class JumpInstruction implements Instruction {
         return "JUMP INSN " + label;
     }
 
-    @Override
     /**
      * Writes the jump instruction into a .class file.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitJumpInsn(opcode, label);
     }

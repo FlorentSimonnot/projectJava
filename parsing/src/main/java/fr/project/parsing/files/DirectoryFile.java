@@ -26,26 +26,26 @@ public class DirectoryFile implements FileInterface {
         this.path = path;
     }
 
-    @Override
     /**
      * Gets the full name of the directory.
      */
+    @Override
     public String getName() {
         return path+name;
     }
 
-    @Override
     /**
      * Gets the java version of the DirectoryFile.
      */
+    @Override
     public int getVersion() {
         return getClassReader().readByte(7)-44;
     }
 
-    @Override
     /**
      * Gets the full path of the directory.
      */
+    @Override
     public String getPath() {
         return  path;
     }

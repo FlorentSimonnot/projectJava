@@ -30,26 +30,26 @@ public class JarFileC implements FileInterface {
         this.zipName = zipName;
     }
 
-    @Override
     /**
      * Gets the name of the .jar file.
      */
+    @Override
     public String getName() {
         return zipName+"/"+entry+"/"+name;
     }
 
-    @Override
     /**
      * Gets the java version of the .jar file.
      */
+    @Override
     public int getVersion() throws IOException{
         return getClassReader().readByte(7)-44;
     }
 
-    @Override
     /**
      * Gets the full path of the .jar file.
      */
+    @Override
     public String getPath() {
         return zipName;
     }

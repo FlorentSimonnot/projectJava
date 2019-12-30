@@ -20,10 +20,10 @@ public class LdcInstruction implements Instruction {
         this.value = value;
     }
 
-    @Override
     /**
      * Writes the ldc instruction into a .class file.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         mv.visitLdcInsn(value);
     }

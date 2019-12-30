@@ -46,10 +46,10 @@ public class TryCatchBlockInstruction implements Instruction {
 		return end;
 	}
 
-	@Override
 	/**
 	 * Writes the try catch block instruction into a .class file.
 	 */
+	@Override
 	public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
 		mv.visitTryCatchBlock(start, end, handler, type);
 	}

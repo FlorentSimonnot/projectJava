@@ -23,10 +23,10 @@ public class MultiANewArrayInstruction implements Instruction {
 		this.numDimensions = numDimensions;
 	}
 	
-	@Override
 	/**
 	 * Writes the multi a new array instruction into a .class file.
 	 */
+	@Override
 	public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
 		mv.visitMultiANewArrayInsn(descriptor, numDimensions);
 	}

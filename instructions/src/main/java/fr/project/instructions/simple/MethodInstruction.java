@@ -56,18 +56,18 @@ public class MethodInstruction implements Instruction {
         return "name : " + name + " owner : " + owner + " opcode : " + opcode + " descriptor : " + descriptor;
     }
 
-    @Override
     /**
      * Tests if the method instruction is an aload instruction.
      */
+    @Override
     public boolean isAloadInstruction() {
         return opcode == Opcodes.ALOAD;
     }
 
-    @Override
     /**
      * Writes the method instruction into a .class file.
      */
+    @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         if(isRecordInvokeInit()){
             mv.visitMethodInsn(opcode, "java/lang/Object", name, descriptor, isInterface);
@@ -76,10 +76,10 @@ public class MethodInstruction implements Instruction {
         mv.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
     }
 
-    @Override
     /**
      * Tests if the method instruction is a record invoke init instruction.
      */
+    @Override
     public boolean isRecordInvokeInit() {
         return owner.equals("java/lang/Record");
     }
