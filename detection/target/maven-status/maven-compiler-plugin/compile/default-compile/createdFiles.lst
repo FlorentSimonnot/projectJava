@@ -1,0 +1,12 @@
+fr/project/detection/observers/NestMemberObserver.class
+fr/project/detection/observers/FeatureObserver.class
+fr/project/detection/observers/LambdaObserver.class
+module-info.class
+fr/project/detection/observers/FeaturesObserverFactory.class
+fr/project/detection/visitor/MyVisitor.class
+fr/project/detection/observers/ConcatenationObserver.class
+fr/project/detection/observers/FeaturesManager.class
+fr/project/detection/classVisitor/MyClassVisitor.class
+fr/project/detection/observers/RecordObserver.class
+fr/project/detection/observers/TryWithResourcesObserver.class
+fr/project/detection/methodVisitor/MyMethodVisitor.class

@@ -1,0 +1,13 @@
+/home/administrateur/git/projectJava/parsing/src/main/java/fr/project/parsing/parser/DirectoryParser.java
+/home/administrateur/git/projectJava/parsing/src/main/java/fr/project/parsing/files/DirectoryFile.java
+/home/administrateur/git/projectJava/parsing/src/main/java/fr/project/parsing/parser/ParserException.java
+/home/administrateur/git/projectJava/parsing/src/main/java/fr/project/parsing/parser/JarParser.java
+/home/administrateur/git/projectJava/parsing/src/main/java/fr/project/parsing/parser/FileParserInterface.java
+/home/administrateur/git/projectJava/parsing/src/main/java/module-info.java
+/home/administrateur/git/projectJava/parsing/src/main/java/fr/project/parsing/files/FilesCollector.java
+/home/administrateur/git/projectJava/parsing/src/main/java/fr/project/parsing/files/FileClass.java
+/home/administrateur/git/projectJava/parsing/src/main/java/fr/project/parsing/files/FileInterface.java
+/home/administrateur/git/projectJava/parsing/src/main/java/fr/project/parsing/parser/FileClassParser.java
+/home/administrateur/git/projectJava/parsing/src/main/java/fr/project/parsing/parser/FileParser.java
+/home/administrateur/git/projectJava/parsing/src/main/java/fr/project/parsing/parser/ParserFactory.java
+/home/administrateur/git/projectJava/parsing/src/main/java/fr/project/parsing/files/JarFileC.java
