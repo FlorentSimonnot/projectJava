@@ -230,7 +230,6 @@ public class MyMethodVisitor extends MethodVisitor{
 	 */
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
-        //System.out.println(opcode + " " + owner + " " + name + " " + descriptor);
         if(opcode == Opcodes.INVOKEVIRTUAL || opcode == Opcodes.INVOKEINTERFACE){
             if(!name.equals("addSuppressed"))
                 lastInvoke = owner;
