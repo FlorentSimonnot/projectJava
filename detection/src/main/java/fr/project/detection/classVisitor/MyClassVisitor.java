@@ -14,9 +14,11 @@ import java.util.StringJoiner;
 
 /**
  * 
- * @author CHU Jonathan
- * A class that allows to visit a .class file. It contains observers that can react when the visitor detects some features.
+ * A visitor to visit a .class file.
+ * It contains observers that can react when the visitor detects some features.
  * It also contains a list of nest-mates of the class and store them into a field.
+ * A MyClassVisitor object is linked to a .class file and cannot be linked to another .class file when the project Retro is running.
+ * @author CHU Jonathan
  *
  */
 public class MyClassVisitor extends ClassVisitor {
@@ -42,10 +44,11 @@ public class MyClassVisitor extends ClassVisitor {
      */
     public MyClass getMyClass(){return myClass;}
 
-    @Override
     /**
-     * Visits the header of the .class file. Also, it tests if the class is a record class.
+     * Visits the header of the .class file.
+     * Tests if the class is a record class.
      */
+    @Override
     public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
         myClass = new MyClass(access, name, superName, interfaces);
         if(myClass.isRecordClass()){
@@ -75,6 +78,10 @@ public class MyClassVisitor extends ClassVisitor {
         return super.visitModule(name, access, version);
     }
 
+    /**
+     * Visits the source of the class.
+     * Sets the .class file's name.
+     */
     @Override
     public void visitSource(String source, String debug) {
         myClass.setSourceName(source);
@@ -92,10 +99,11 @@ public class MyClassVisitor extends ClassVisitor {
         super.visitAttribute(attribute);
     }
 
-    @Override
     /**
-     * Makes the observers (it detects a nest-host).
+     * Visits the nest host class of the .class file
+     * Notifies the observers that a nest mate feature is detected.
      */
+    @Override
     public void visitNestHost(String nestHost) {
         observers.forEach(o -> {
             o.onFeatureDetected("NESTMATES at " + myClass.getClassName() + " nestmate of " + nestHost
@@ -104,30 +112,32 @@ public class MyClassVisitor extends ClassVisitor {
         super.visitNestHost(nestHost);
     }
 
-    @Override
     /**
+     * Visits a member of the nest.
      * Adds a new nest-member into the field nestMates.
      */
+    @Override
     public void visitNestMember(String nestMember) {
         nestMates.add(nestMember);
         super.visitNestMember(nestMember);
     }
 
-    @Override
     /**
-     * Adds a new field into the field fields of the class MyClass.
+     * Visits a field of the .class file.
+     * Adds a new Field object into the field myClass.
      */
+    @Override
     public FieldVisitor visitField(int access, String name, String descriptor, String signature, Object value) {
         myClass.addField(new Field(access, name, descriptor, signature, value));
         return super.visitField(access, name, descriptor, signature, value);
     }
 
-    @Override
     /**
-     * Returns a custom MethodVisitor (MyMethodVisitor) that contains methods that allow to detect features and write them.
+     * Visits a method of the .class file.
+     * Returns a custom MethodVisitor object (MyMethodVisitor) that contains methods that allow to detect features and write them.
      */
+    @Override
     public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-        //allows to provide a custom MethodVisitor that can transform actual methods
         MethodVisitor mv;
         mv = cv.visitMethod(access, name, descriptor, signature, exceptions);
         if (mv != null) {
@@ -136,10 +146,11 @@ public class MyClassVisitor extends ClassVisitor {
         return mv;
     }
 
-    @Override
     /**
+     * Visits the end of the .class file.
      * Displays all the nest-hosts detected in the .class file.
      */
+    @Override
     public void visitEnd() {
         if(nestMates.size() > 0)
             addNestHost();

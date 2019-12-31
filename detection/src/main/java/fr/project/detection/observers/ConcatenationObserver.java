@@ -5,8 +5,9 @@ import java.util.List;
 
 /**
  * 
+ * A observer that observes the behavior of a concatenation instruction.
+ * It allows to notify the user when a concatenation instruction is detected in the .class file.
  * @author SIMONNOT Florent
- * A class that allows to observe the behavior of a concatenation instruction.
  *
  */
 public class ConcatenationObserver implements FeatureObserver {

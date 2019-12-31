@@ -2,7 +2,7 @@ package fr.project.writer;
 
 import fr.project.instructions.features.LambdaInstruction;
 import fr.project.instructions.simple.*;
-import fr.project.options.Options;
+import fr.project.optionsCommand.Options;
 import fr.project.warningObservers.WarningNestMemberObserver;
 import fr.project.warningObservers.WarningObserver;
 import fr.project.warningObservers.WarningsManager;
@@ -14,8 +14,8 @@ import java.util.List;
 
 /**
  * 
- * @author CHU Jonathan
  * A class that allows to write a new .class file according to a .class file you visit.
+ * @author CHU Jonathan
  *
  */
 public class MyWriter {
@@ -30,6 +30,8 @@ public class MyWriter {
      * Creates a new MyWriter.
      * @param myClass - the .class file you want to link your MyWriter with
      * @param version - the target version of your new .class file
+     * @param warningObservers - a list of WarningObserver
+     * @param options - an Options object
      */
     public MyWriter(MyClass myClass, int version, List<WarningObserver> warningObservers, Options options){
         this.myClass = myClass;
@@ -46,6 +48,9 @@ public class MyWriter {
         cw.visit(version, myClass.getPrivacy(), myClass.getClassName(), null, "java/lang/Object", myClass.getInterfaces());
     }
 
+    /**
+     * Writes all the lambdas of a .class file into a new .class file according to a target version.
+     */
     public void writeLambdaInnerClasses(){
         if(version < LambdaInstruction.VERSION && options.forceIsDemanding())
             myClass.getLambdaCollector().forEach(this::writeLambdaInnerClass);
@@ -293,7 +298,7 @@ public class MyWriter {
     }
 
     /**
-     * Create< a new .class file with the bytecode.
+     * Creates a new .class file with the bytecode.
      * @return the path of the file which contain the bytecode
      * @throws IOException - if problem occurred during the creating or writing of the file.
      */

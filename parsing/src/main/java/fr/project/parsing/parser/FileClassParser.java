@@ -7,8 +7,9 @@ import java.util.Objects;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that allows to parse a .class file.
+ * It simply creates a .class file according to a file name.
+ * @author SIMONNOT Florent
  *
  */
 public class FileClassParser implements FileParserInterface {
@@ -19,11 +20,11 @@ public class FileClassParser implements FileParserInterface {
      * @param name - the name of the file you want to collect
      * @return the FilesCollector of .class file of the file given
      */
-    public FilesCollector parseMyFile(String name) throws ParserException {
+    public FilesCollector parseMyFile(String name) {
         Objects.requireNonNull(name);
         var collector = new FilesCollector();
         if(!name.endsWith(".class"))
-            throw new ParserException();
+            throw new IllegalArgumentException();
         collector.addFile(new FileClass(name));
         return collector;
     }

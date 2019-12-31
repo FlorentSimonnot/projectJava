@@ -10,11 +10,13 @@ import org.objectweb.asm.Opcodes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.io.IOException;
 
 /**
  * 
+ * A visitor to visit a .class file.
+ * It can detect the features asked by the user of the project Retro and write them if the user wants it.
  * @author CHU Jonathan
- * A class that allows to visit a .class file, to detect features asked by the user of the project Retro and to rewrite them if the user wants it.
  *
  */
 public class MyVisitor {
@@ -46,8 +48,9 @@ public class MyVisitor {
     /**
      * Gets the ClassReader attached to the .class file.
      * @return the ClassReader attached to the file.
+     * @throws IOException - if the file cannot be opened
      */
-    public ClassReader getClassReader(){
+    public ClassReader getClassReader() throws IOException {
         return file.getClassReader();
     }
 

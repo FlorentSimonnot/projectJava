@@ -7,8 +7,9 @@ import java.io.IOException;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that describes a directory that contains the .class files.
+ * This class is used when you run the project Retro with a directory as argument.
+ * @author SIMONNOT Florent
  *
  */
 public class DirectoryFile implements FileInterface {
@@ -25,26 +26,26 @@ public class DirectoryFile implements FileInterface {
         this.path = path;
     }
 
-    @Override
     /**
      * Gets the full name of the directory.
      */
+    @Override
     public String getName() {
         return path+name;
     }
 
-    @Override
     /**
      * Gets the java version of the DirectoryFile.
      */
+    @Override
     public int getVersion() {
         return getClassReader().readByte(7)-44;
     }
 
-    @Override
     /**
      * Gets the full path of the directory.
      */
+    @Override
     public String getPath() {
         return  path;
     }

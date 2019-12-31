@@ -12,36 +12,33 @@ import java.util.List;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that allows to write a concatenation instruction in bytecode into different versions.
  * It is stored as an Instruction of a Method. And this Method object is used into a MethodVisitor also used into a ClassVisitor.
  * The ClassVisitor will visit a .class file and write a code block in bytecode corresponding to a concatenation from the .class file on a new .class file according to the version required.
+ * @author SIMONNOT Florent
  *
  */
 
 public class ConcatenationInstruction implements Instruction {
     private static final int VERSION = Opcodes.V9;
-    private final int nArgs;
     private final InstructionsCollector instructions;
     private final List<String> format;
 
     /**
      * Creates a new ConcatenationInstruction.
-     * @param nArgs - the number of arguments of the concatenation operation
      * @param instructions - the instructions block attached to this concatenation instruction
      * @param format - the format of the line corresponding to the concatenation code block
      */
-    public ConcatenationInstruction(int nArgs, InstructionsCollector instructions, List<String> format){
-        this.nArgs = nArgs;
+    public ConcatenationInstruction(InstructionsCollector instructions, List<String> format){
         this.instructions = instructions;
         this.format = format;
     }
 
     /**
      * Writes the bytecode corresponding to the concatenation instruction according to the version given.
-     * @param version - the target version of the concatenation instruction
-     * @param mv - the MethodVisitor attached to this ConcatenationInstruction
-     * @param lastInstruction - the instruction preceding this ConcatenationInstruction
+     * @param version - the target version
+     * @param mv - the MethodVisitor object attached to the .class file
+     * @param lastInstruction - the last instruction writen
      */
     @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
@@ -121,6 +118,7 @@ public class ConcatenationInstruction implements Instruction {
 
     /**
      * Returns if this instruction is an aload instruction.
+     * @return false
      */
     @Override
     public boolean isAloadInstruction() {

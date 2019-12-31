@@ -5,8 +5,8 @@ import java.util.List;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that allows to observe the behavior of a record.
+ * @author SIMONNOT Florent
  *
  */
 public class WarningRecordObserver implements WarningObserver {

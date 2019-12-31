@@ -5,9 +5,10 @@ import java.util.List;
 
 /**
  * 
+ * A observer that observes the behavior of a lambda instruction.
+ * It allows to notify the user when a lambda instruction is detected in the .class file.
  * @author SIMONNOT Florent
- * A class that allows to observe the behavior of a lambda instruction.
- *
+ * 
  */
 public class LambdaObserver implements FeatureObserver {
     private final List<String> features = new ArrayList<>();

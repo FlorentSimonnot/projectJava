@@ -7,10 +7,10 @@ import org.objectweb.asm.Opcodes;
 
 /**
  * 
- * @author SIMONNOT Florent
- * A Class that allows to write a try-with-resources in bytecode into different versions.
+ * A class that allows to write a try-with-resources in bytecode into different versions.
  * It is stored as an Instruction of a Method. And this Method object is used into a MethodVisitor also used into a ClassVisitor.
  * The ClassVisitor will visit a .class file and write a code block in bytecode corresponding to a try-with-resources from the .class file on a new .class file according to the version required.
+ * @author SIMONNOT Florent
  *
  */
 
@@ -28,6 +28,9 @@ public class TryWithResourcesInstruction implements Instruction {
 
     /**
      * Writes the bytecode corresponding to the try-with-resources instruction according to the version given.
+     * @param version - the target version
+     * @param mv - the MethodVisitor object attached to the .class file
+     * @param lastInstruction - the last instruction writen
      */
     @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
@@ -36,6 +39,7 @@ public class TryWithResourcesInstruction implements Instruction {
 
     /**
      * Returns if this instruction is an aload instruction.
+     * @return false
      */
     @Override
     public boolean isAloadInstruction() {

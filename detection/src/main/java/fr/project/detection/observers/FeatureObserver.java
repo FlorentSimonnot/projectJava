@@ -2,9 +2,11 @@ package fr.project.detection.observers;
 
 /**
  * 
+ * A observer that observes the behavior of an Instruction
+ * It allows to notify the user when an Instruction is detected in the .class file.
+ * This class is used by the classes MyMethodVisitor and MyClassVisitor.
  * @author SIMONNOT Florent
- * A class that allows to observe the behavior of an Instruction
- *
+ * 
  */
 public interface FeatureObserver {
 	

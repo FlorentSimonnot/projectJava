@@ -1,6 +1,6 @@
 package fr.project.warningObservers;
 
-import fr.project.options.Options;
+import fr.project.optionsCommand.Options;
 
 import java.net.SocketOptions;
 import java.util.ArrayList;
@@ -9,9 +9,9 @@ import java.util.List;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that allows to create a list of observers for the features.
  * This class will be used by the ClassVisitor and the MethodVisitor.
+ * @author SIMONNOT Florent
  *
  */
 public class WarningsManager {

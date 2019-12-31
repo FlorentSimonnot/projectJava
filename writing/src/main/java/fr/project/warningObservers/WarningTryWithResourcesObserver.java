@@ -5,8 +5,8 @@ import java.util.List;
 
 /**
  * 
- * @author SIMONNOT Florent
  * A class that allows to observe the behavior of a try-with-resources instruction.
+ * @author SIMONNOT Florent
  *
  */
 public class WarningTryWithResourcesObserver implements WarningObserver {
