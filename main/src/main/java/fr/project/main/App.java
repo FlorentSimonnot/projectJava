@@ -6,6 +6,7 @@ import fr.project.detection.visitor.MyVisitor;
 import fr.project.options.Option;
 import fr.project.options.OptionFactory;
 import fr.project.options.OptionsParser;
+import fr.project.parsing.files.FileClass;
 import fr.project.parsing.parser.FileParser;
 import fr.project.parsing.parser.ParserException;
 import fr.project.warningObservers.*;

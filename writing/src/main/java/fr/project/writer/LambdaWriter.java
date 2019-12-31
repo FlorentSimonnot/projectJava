@@ -41,10 +41,10 @@ class LambdaWriter {
     }
 
     static void createLambdaCalledMethod(MyClass lambdaClass, LambdaInstruction lambdaInstruction, String ownerFileClassName, int index){
-        var lambdaMethod = new Method(Opcodes.ACC_PRIVATE, "myLambdaFunction$"+index, lambdaInstruction.getMethodCalledDescriptor(), null, false, null);
-        lambdaMethod.addInstruction(new VarInstruction(Opcodes.ALOAD, 0));
+        var lambdaMethod = new Method(Opcodes.ACC_PUBLIC, "myLambdaFunction$"+index, lambdaInstruction.getMethodCalledDescriptor(), null, false, null);
+        //lambdaMethod.addInstruction(new VarInstruction(Opcodes.ALOAD, 0));
         for(Type t : Type.getArgumentTypes(lambdaInstruction.getMethodCalledDescriptor())){
-            lambdaMethod.addInstruction(new VarInstruction(Utils.getOpcodeOfType(t.toString()), 0));
+            lambdaMethod.addInstruction(new VarInstruction(Utils.getOpcodeOfType(t.toString()), 1));
         }
         lambdaMethod.addInstruction(new MethodInstruction(Opcodes.INVOKESTATIC, lambdaInstruction.getMethodCalledOwnerName(), lambdaInstruction.getMethodCalledName(), Type.getMethodDescriptor(lambdaInstruction.getReturnType(), lambdaInstruction.getArgumentsType()), false));
         lambdaMethod.addInstruction(new NopInstruction(Utils.getOpcodeOfReturn(lambdaInstruction.getReturnType().toString())));

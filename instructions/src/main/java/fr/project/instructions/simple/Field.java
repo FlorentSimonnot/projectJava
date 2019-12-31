@@ -1,5 +1,7 @@
 package fr.project.instructions.simple;
 
+import org.objectweb.asm.Opcodes;
+
 public class Field {
     private final int access;
     private final String name;
@@ -34,6 +36,7 @@ public class Field {
     public Object getValue() {
         return value;
     }
+
 
     @Override
     public String toString() {

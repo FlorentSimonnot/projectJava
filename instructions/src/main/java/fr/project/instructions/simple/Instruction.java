@@ -10,8 +10,5 @@ public interface Instruction {
     default boolean isAloadInstruction(){return false;}
     default boolean isRecordInvokeInit(){return false;}
     default String getType(){return "(V)";}
-    default boolean isInvokeVirtual(){return false;}
     default boolean isNew(){return false;}
-    default boolean isTryCatchBlock(){return false;}
-    //default boolean isInstantiateLambdaInstruction(){return false;}
 }

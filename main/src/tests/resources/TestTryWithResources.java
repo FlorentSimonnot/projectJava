@@ -8,7 +8,7 @@ import java.net.Socket;
 public class TestTryWithResources {
 
 	static String readFirstLineFromFile(String path) throws IOException {
-	    try(BufferedReader br = new BufferedReader(new FileReader("lol"))){
+	    try(BufferedReader br = new BufferedReader(new FileReader("main/src/tests/resources/TestTryWithResources.java"))){
 	        return br.readLine();
 	    }
 	}
@@ -34,7 +34,7 @@ public class TestTryWithResources {
 	
 	public static void main(String[] args) throws IOException {
 		
-		TestTryWithResources.readFirstLineFromFile("TestTryWithResources.class");
+		System.out.println(TestTryWithResources.readFirstLineFromFile("main/src/tests/resources/TestTryWithResources.java"));
 		
 	}
 

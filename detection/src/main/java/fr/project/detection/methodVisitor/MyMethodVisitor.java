@@ -9,6 +9,7 @@ import fr.project.instructions.simple.Utils;
 import fr.project.detection.observers.FeatureObserver;
 import org.objectweb.asm.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -244,7 +245,7 @@ public class MyMethodVisitor extends MethodVisitor{
 
     @Override
     public void visitFrame(int type, int numLocal, Object[] local, int numStack, Object[] stack) {
-        //addInstruction(new FrameInstruction(type, numLocal, local, numStack, stack));
+        addInstruction(new FrameInstruction(type, numLocal, local, numStack, stack));
         super.visitFrame(type, numLocal, local, numStack, stack);
     }
 
@@ -284,7 +285,6 @@ public class MyMethodVisitor extends MethodVisitor{
     @Override
     public void visitEnd() {
         methods.add(myMethod);
-        //myMethod.printInstructions();
         super.visitEnd();
     }
 

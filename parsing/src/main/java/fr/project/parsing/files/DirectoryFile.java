@@ -54,7 +54,7 @@ public class DirectoryFile implements FileInterface {
      */
     public ClassReader getClassReader(){
         try {
-            return new ClassReader(new FileInputStream(path+"/"+name));
+            return new ClassReader(new FileInputStream(path));
         } catch (IOException e) {
             throw new IllegalStateException("Can't read the file " + name + " in " + path);
         }

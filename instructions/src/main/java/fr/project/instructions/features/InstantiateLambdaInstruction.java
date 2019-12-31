@@ -36,5 +36,4 @@ public class InstantiateLambdaInstruction implements Instruction{
     private void writeNewVersion(MethodVisitor mv, Instruction lastInstruction){
         mv.visitInvokeDynamicInsn(lambda.getName(), lambda.getDescriptor(), lambda.getMethodHandle(), lambda.getBootstrapMethodArguments());
     }
-
 }
