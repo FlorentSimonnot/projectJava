@@ -1,8 +1,10 @@
 package fr.project.optionsCommand;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 
@@ -22,7 +24,7 @@ public class OptionsParser {
     public static Options parseOptions(String[] args, OptionFactory factory){
         Objects.requireNonNull(factory);
         var optionsList = new ArrayList<Option>();
-        for (String arg : Objects.requireNonNull(args)) {
+        for (String arg : Arrays.stream(args).limit(args.length-1).collect(Collectors.toList())) {
             if (arg.startsWith("--")) {
                 checkLastArgument(optionsList);
                 optionsList.add(factory.createOption(arg));

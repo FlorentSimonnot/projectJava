@@ -26,7 +26,7 @@ public class OptionFactory {
      * @param name - the name of the option
      * @return the Option corresponding to the name given.
      */
-    public Option createOption(String name){
+    Option createOption(String name){
         if(!map.containsKey(name))
             throw new IllegalStateException();
         return map.get(name);

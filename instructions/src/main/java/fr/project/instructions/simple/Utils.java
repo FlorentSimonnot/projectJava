@@ -92,9 +92,11 @@ public class Utils {
         var list = new ArrayList<String>();
         var word = new StringBuilder();
 
-        for(char c : format.toCharArray()){
+        for(var i = 0; i < format.toCharArray().length; i++){
+            char c = format.toCharArray()[i];
             if(c == '\u0001'){
-                list.add(word.toString());
+                if(word.length() > 0)
+                    list.add(word.toString());
                 list.add("arg");
                 word = new StringBuilder("");
             }
@@ -102,6 +104,8 @@ public class Utils {
                 word.append(c);
             }
         }
+        list.add(word.toString());
+
         return list;
     }
 

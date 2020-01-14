@@ -1,6 +1,6 @@
 /**
  * Parses a .class file, detects the version, features and writes them.
- * @author CHU Jonathan
+ * @author SIMONNOT Florent
  *
  */
 module detection {

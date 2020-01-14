@@ -3,16 +3,16 @@ package fr.project.main;
 import fr.project.detection.classVisitor.MyClassVisitor;
 import fr.project.detection.observers.*;
 import fr.project.detection.visitor.MyVisitor;
-import fr.project.options.Option;
-import fr.project.options.OptionFactory;
-import fr.project.options.OptionsParser;
-import fr.project.parsing.files.FileClass;
+import fr.project.optionsCommand.Option;
+import fr.project.optionsCommand.OptionFactory;
+import fr.project.optionsCommand.Options;
+import fr.project.optionsCommand.OptionsParser;
 import fr.project.parsing.parser.FileParser;
 import fr.project.parsing.parser.ParserException;
 import fr.project.warningObservers.*;
 import fr.project.writer.MyWriter;
-import org.objectweb.asm.Opcodes;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +46,35 @@ public class App {
 
 		var observers = FeaturesManager.createObservers(options.getArgsOption(Option.OptionEnum.FEATURES), observersFactory);
 
-		FileParser.parseFile(options.getFile()).forEach(f -> {
+		var files = FileParser.parseFile(options.getFile());
+
+		/*      ************************************************     */
+		/*         SHOW JAVA VERSION USE FOR WRITE THE FILE(S)       */
+		/*      ************************************************     */
+
+		if(options.noOptionsAreDemanding()){
+			files.forEach(f -> {
+				try {
+					System.out.println(f.getName() + " was written in Java " + f.getVersion());
+				} catch (IOException e) {
+					System.err.println("We can't read the file " + f.getName());
+				}
+			});
+			return;
+		}
+
+		/*      ************************************************     */
+		/*           GET INSTRUCTIONS AND OBSERVES FEATURES          */
+		/*      ************************************************     */
+
+		files.forEach(f -> {
 			var mv = new MyVisitor(f, observers);
 			var cv = mv.getClassVisitor();
-			mv.getClassReader().accept(cv, 0);
+			try {
+				mv.getClassReader().accept(cv, 0);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			visitors.add(cv);
 		});
 
@@ -76,13 +101,14 @@ public class App {
 				myWriter.writeMethods();
 
 				if(warningsFound(warnings)){
-					System.out.println("We can't compile " + cv.getMyClass().getClassName() + ".java in java " + (version-44) + " because we found " + countWarningsFound(warnings) + " warnings");
+					System.out.println("We can't compile " + cv.getMyClass().getClassName() + ".java in java " + (version-44) + " because we found " + countWarningsFound(warnings) + " warning(s)");
 					warnings.forEach(WarningObserver::showWarning);
 				}
 				else{
 					String res = null;
 					try {
 						res = myWriter.createFile();
+						showEndMessage(options, res);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -134,5 +160,10 @@ public class App {
 		return warnings.stream().mapToInt(WarningObserver::numberOfWarningsDetected).sum();
 	}
 
-
+	private static void showEndMessage(Options options, String file){
+		if(options.forceIsDemanding()){
+			System.out.println("Force option was used to retro compile your file(s).");
+		}
+		System.out.println("You can find your file in " + file);
+	}
 }

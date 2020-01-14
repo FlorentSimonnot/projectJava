@@ -4,6 +4,7 @@ import fr.project.instructions.features.LambdaCollector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -33,9 +34,10 @@ public class MyClass {
      * @param interfaces - the interface the class implements
      */
     public MyClass(int privacy, String className, String ownerClassName, String[] interfaces){
+        if(privacy < 0) throw new IllegalArgumentException("Privacy must be positive");
         this.privacy = privacy;
-        this.className = className;
-        this.ownerClassName = ownerClassName;
+        this.className = Objects.requireNonNull(className);
+        this.ownerClassName = Objects.requireNonNull(ownerClassName);
         this.fields = new ArrayList<>();
         this.methods = new ArrayList<>();
         this.innerClasses = new ArrayList<>();
@@ -122,20 +124,23 @@ public class MyClass {
      * Sets the .class file name.
      * @param sourceName - the target name of the .class file
      */
-    public void setSourceName(String sourceName){this.sourceName = sourceName;}
+    public void setSourceName(String sourceName){this.sourceName = Objects.requireNonNull(sourceName);}
 
     /**
      * Sets the line number of the class.
      * @param lineNumber - the new line number
      */
-    public void setLineNumber(int lineNumber){this.lineNumber = lineNumber;}
+    public void setLineNumber(int lineNumber){
+        if(lineNumber < 0) throw new IllegalArgumentException("Line number must be positive");
+        this.lineNumber = lineNumber;
+    }
 
     /**
      * Sets the lambdaCollector of the class.
      * @param lambdaCollector - a LambdaCollector object
      */
     public void setLambdaCollector(LambdaCollector lambdaCollector){
-        this.lambdaCollector = lambdaCollector;
+        this.lambdaCollector = Objects.requireNonNull(lambdaCollector);
     }
 
     /**

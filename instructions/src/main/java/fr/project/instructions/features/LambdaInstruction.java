@@ -50,7 +50,6 @@ public class LambdaInstruction {
     public boolean equals(Object obj) {
         if(!(obj instanceof LambdaInstruction)) return false;
         var lambda = (LambdaInstruction) obj;
-        System.err.println(lambda.name.equals(name) + " / " + getReturnType().equals(lambda.getReturnType()) + " / " + haveSameArgumentsType(lambda) + " / " + ownerClass.equals(lambda.ownerClass));
         return lambda.name.equals(name) &&
                 getReturnType().equals(lambda.getReturnType()) &&
                 haveSameArgumentsType(lambda) &&

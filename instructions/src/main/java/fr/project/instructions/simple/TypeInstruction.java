@@ -3,6 +3,8 @@ package fr.project.instructions.simple;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
+import java.util.Objects;
+
 /**
  * 
  * A class that allows to detect and write a type instruction of a .class file.
@@ -20,8 +22,9 @@ public class TypeInstruction implements Instruction {
      * @param owner - the operand of the instruction to be visited
      */
     public TypeInstruction(int opcode, String owner) {
+        if(opcode < 0) throw  new IllegalArgumentException("Opcode must be positive");
         this.opcode = opcode;
-        this.owner = owner;
+        this.owner = Objects.requireNonNull(owner);
     }
 
     @Override

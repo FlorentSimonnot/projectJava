@@ -33,7 +33,7 @@ public class MyVisitor {
     public MyVisitor(FileInterface file, List<FeatureObserver> observers){
         this.file = Objects.requireNonNull(file);
         this.writer = new ClassWriter(0);
-        this.visitor = new MyClassVisitor(Opcodes.ASM7, writer, observers);
+        this.visitor = new MyClassVisitor(Opcodes.ASM7, writer, Objects.requireNonNull(observers));
     }
 
     /**

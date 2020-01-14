@@ -2,6 +2,7 @@ package fr.project.detection.observers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 
@@ -18,9 +19,10 @@ public class ConcatenationObserver implements FeatureObserver {
      * 
      */
     @Override
-    public void onFeatureDetected(String methodName, String featureName) {
+    public void onFeatureDetected(String message, String featureName) {
+        Objects.requireNonNull(featureName);
         if(featureName.equals("concatenation"))
-            features.add(methodName);
+            features.add(Objects.requireNonNull(message));
     }
 
     /**
@@ -28,6 +30,6 @@ public class ConcatenationObserver implements FeatureObserver {
      */
     @Override
     public void showFeatures() {
-        features.forEach(f-> System.out.println(f));
+        features.forEach(System.out::println);
     }
 }

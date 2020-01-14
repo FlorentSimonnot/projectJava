@@ -23,9 +23,6 @@ import java.util.Map;
  *
  */
 public class MyMethodVisitor extends MethodVisitor{
-	private final List<Label> labelBeginTry = new ArrayList<>();
-	private final Map<Label, Label> labelEndTry = new HashMap<>();
-	private final List<Label> jumpLabels = new ArrayList<>();
     private final List<FeatureObserver> observers;
     private final List<Method> methods;
     private final Method myMethod;
@@ -164,7 +161,6 @@ public class MyMethodVisitor extends MethodVisitor{
 	 */
 	@Override
 	public void visitJumpInsn(int opcode, Label label) {
-		jumpLabels.add(label);
 		addInstruction(new JumpInstruction(opcode, label));
 		super.visitJumpInsn(opcode, label);
 	}
@@ -173,10 +169,6 @@ public class MyMethodVisitor extends MethodVisitor{
 		var arguments = (String) args[0];
 		var listFormat = Utils.createListOfConstantForConcatenation(arguments);
 		myMethod.createConcatenationInstruction(Utils.numberOfOccurrence(listFormat, "arg"), listFormat);
-	}
-
-	private void getInstructionCalledBeforeLambda(Object... args){
-
 	}
 
 	/**
@@ -317,13 +309,13 @@ public class MyMethodVisitor extends MethodVisitor{
 	 */
 	@Override
 	public void visitInsn(int opcode) {
-		if(opcode != Opcodes.ATHROW)
-			addInstruction(new NopInstruction(opcode));
+		addInstruction(new NopInstruction(opcode));
 		super.visitInsn(opcode);
 	}
 
 	@Override
 	public void visitFrame(int type, int numLocal, Object[] local, int numStack, Object[] stack) {
+		addInstruction(new FrameInstruction(type, numLocal, local, numStack, stack));
 		super.visitFrame(type, numLocal, local, numStack, stack);
 	}
 
@@ -343,8 +335,15 @@ public class MyMethodVisitor extends MethodVisitor{
 	 */
 	@Override
 	public void visitTryCatchBlock(Label start, Label end, Label handler, String type) {
-		labelBeginTry.add(start);
-		labelEndTry.put(end, start);
+		tryCatchBlockList.put(start, new TryCatchBlockInstruction(start, end, handler, type));
+
+		if(inTryCatchBlock){
+			closeCalled = false;
+		}
+		else{
+			inTryCatchBlock = true;
+		}
+
 		super.visitTryCatchBlock(start, end, handler, type);
 	}
 
@@ -360,7 +359,6 @@ public class MyMethodVisitor extends MethodVisitor{
 	@Override
 	public void visitEnd() {
 		methods.add(myMethod);
-		myMethod.printInstructions();
 		super.visitEnd();
 	}
 

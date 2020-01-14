@@ -59,5 +59,10 @@ public interface Instruction {
      * @return true if this Instruction is a try-catch block instruction, false if not
      */
     default boolean isTryCatchBlock(){return false;}
-    //default boolean isInstantiateLambdaInstruction(){return false;}
+
+    /**
+     * Tests if an Instruction is a Method instruction which invoke the addSuppressed method from java.lang.Throwable.
+     * @return true if this Instruction is a Method instruction which invoke the addSuppressed method from java.lang.Throwable, false if not
+     */
+    default boolean isAddSuppressedInvoke(){return false;}
 }

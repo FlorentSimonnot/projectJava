@@ -33,25 +33,49 @@ public class Options {
     }
 
     /**
+     * Tests if any option is asked.
+     * @return true if any option is asked, false if not.
+     */
+    public boolean noOptionsAreDemanding(){
+        return options.size() == 0;
+    }
+
+    /**
      * Tests if the option [--help] is asked.
      * @return true if the option [--help] is asked, false if not.
      */
     public boolean helpIsDemanding(){
         return options.contains(new Option(Option.OptionEnum.HELP));
     }
-    
+
+    /**
+     * Tests if the option [--info] is asked.
+     * @return true if the option [--info] is asked, false if not.
+     */
     public boolean infoIsDemanding(){
         return options.contains(new Option(Option.OptionEnum.INFO));
     }
 
+    /**
+     * Tests if the option [--target] is asked.
+     * @return true if the option [--target] is asked, false if not.
+     */
     public boolean rewritingIsDemanding(){
         return options.contains(new Option(Option.OptionEnum.TARGET));
     }
-    
+
+    /**
+     * Tests if the option [--force] is asked.
+     * @return true if the option [--force] is asked, false if not.
+     */
     public boolean forceIsDemanding(){
         return options.contains(new Option(Option.OptionEnum.FORCE));
     }
 
+    /**
+     * Get the path of file/Directory/Jar passed in argument.
+     * @return the name of the path.
+     */
     public String getFile() {
         return file;
     }

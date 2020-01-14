@@ -73,7 +73,6 @@ public class ConcatenationInstruction implements Instruction {
                     instructionsList.getInstruction(i).writeInstruction(version, mv, li);
                     li = instructionsList.getInstruction(i);
                 }
-                System.err.println(li + " " + li.getType());
                 mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, type.getInternalName(), "append", li.getType() + "Ljava/lang/StringBuilder;", false);
                 index++;
             }

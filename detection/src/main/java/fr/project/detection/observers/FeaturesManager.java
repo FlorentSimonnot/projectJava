@@ -26,7 +26,7 @@ public class FeaturesManager {
         if (!args.equals("")) {
         	var splitArgs = args.subSequence(1, args.length()-1).toString();
         	var argsArray = splitArgs.split(",");
-        	Arrays.stream(argsArray).map(a -> a.strip()).forEach(arg -> observers.add(factory.getObserver(arg)));
+        	Arrays.stream(argsArray).map(String::strip).forEach(arg -> observers.add(factory.getObserver(arg)));
         }
         else {
         	observers.add(new LambdaObserver());

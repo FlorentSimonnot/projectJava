@@ -119,9 +119,6 @@ public class TryCatchBlock implements Instruction {
     @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
         tryCatchBlockGroup.writeAllInstruction(version, mv, lastInstruction);
-        for(var g = tryCatchBlockGroup; g != null; g = g.next){
-            System.err.println("IS INSTACIATION BLOCK " + g.isInitializationBlock());
-        }
     }
 
     private static class TryCatchBlockGroup {
@@ -154,15 +151,5 @@ public class TryCatchBlock implements Instruction {
             this.instructions.writeAllInstruction(version, mv);
         }
 
-        private boolean isInitializationBlock(){
-            for(var i = 0; i < instructions.size(); i++){
-                var insn = instructions.getInstruction(i);
-                System.err.println(insn);
-                if(insn.isNew()){
-                    return true;
-                }
-            }
-            return false;
-        }
     }
 }

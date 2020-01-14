@@ -3,6 +3,8 @@ package fr.project.instructions.simple;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
+import java.util.Objects;
+
 /**
  * 
  * A class that allows to detect and write a variable instruction of a .class file.
@@ -20,6 +22,7 @@ public class VarInstruction implements Instruction {
      * @param var - the operand of the instruction to be visited
      */
     public VarInstruction(int opcode, int var) {
+        if(opcode < 0 || var < 0) throw new IllegalArgumentException("Opcode and Var must be positives");
         this.opcode = opcode;
         this.var = var;
     }
@@ -56,6 +59,7 @@ public class VarInstruction implements Instruction {
      */
     @Override
     public void writeInstruction(int version, MethodVisitor mv, Instruction lastInstruction) {
+        Objects.requireNonNull(mv);
         mv.visitVarInsn(opcode, var);
     }
 }

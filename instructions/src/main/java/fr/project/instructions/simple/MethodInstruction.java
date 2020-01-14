@@ -73,6 +73,11 @@ public class MethodInstruction implements Instruction {
             mv.visitMethodInsn(opcode, "java/lang/Object", name, descriptor, isInterface);
             return;
         }
+        //Delete addSuppressed Instruction
+        if(isAddSuppressedInvoke() && version < Opcodes.V1_7){
+            mv.visitInsn(Opcodes.POP2);
+            return;
+        }
         mv.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
     }
 
@@ -88,4 +93,9 @@ public class MethodInstruction implements Instruction {
      * Tests if the method instruction is an invoke virtual instruction.
      */
     public boolean isInvokeVirtual(){return !descriptor.equals("()V");}
+
+    @Override
+    public boolean isAddSuppressedInvoke() {
+        return name.equals("addSuppressed") && owner.equals("java/lang/Throwable");
+    }
 }

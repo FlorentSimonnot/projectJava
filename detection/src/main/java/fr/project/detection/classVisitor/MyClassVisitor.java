@@ -18,7 +18,7 @@ import java.util.StringJoiner;
  * It contains observers that can react when the visitor detects some features.
  * It also contains a list of nest-mates of the class and store them into a field.
  * A MyClassVisitor object is linked to a .class file and cannot be linked to another .class file when the project Retro is running.
- * @author CHU Jonathan
+ * @author SIMONNOT Florent
  *
  */
 public class MyClassVisitor extends ClassVisitor {

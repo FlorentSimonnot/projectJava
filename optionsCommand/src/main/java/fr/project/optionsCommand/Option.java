@@ -71,7 +71,7 @@ public class Option {
      * Tests if the arguments are empty.
      * @return true if the argument are empty, false if not
      */
-    public boolean argsIsEmpty(){
+    boolean argsIsEmpty(){
         return args.isEmpty();
     }
 

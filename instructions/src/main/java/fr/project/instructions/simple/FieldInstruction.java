@@ -3,6 +3,8 @@ package fr.project.instructions.simple;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
+import java.util.Objects;
+
 /**
  * 
  * A class that allows to detect and write a field instruction of a .class file.
@@ -24,10 +26,11 @@ public class FieldInstruction implements Instruction {
      * @param descriptor - the descriptor of the field
      */
     public FieldInstruction(String name, String owner, int opcode, String descriptor) {
-        this.name = name;
-        this.owner = owner;
+        if(opcode < 0) throw new IllegalArgumentException("Opcode must be positive");
+        this.name = Objects.requireNonNull(name);
+        this.owner = Objects.requireNonNull(owner);
         this.opcode = opcode;
-        this.descriptor = descriptor;
+        this.descriptor = Objects.requireNonNull(descriptor);
     }
 
     /**
@@ -44,6 +47,7 @@ public class FieldInstruction implements Instruction {
                 return "(D)";
             case Opcodes.ALOAD:
                 return "(Ljava/lang/Object;)";
+            case Opcodes.PUTFIELD :
             case Opcodes.GETFIELD :
                 return "("+descriptor+")";
             default:

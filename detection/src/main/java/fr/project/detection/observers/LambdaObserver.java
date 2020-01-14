@@ -30,6 +30,6 @@ public class LambdaObserver implements FeatureObserver {
      */
     @Override
     public void showFeatures() {
-        features.forEach(f-> System.out.println(f));
+        features.forEach(System.out::println);
     }
 }

@@ -1,6 +1,6 @@
 /**
  * Parses the options for the Retro command.
- * @author CHU Jonathan
+ * @author SIMONNOT Florent
  *
  */
 module optionsCommand {

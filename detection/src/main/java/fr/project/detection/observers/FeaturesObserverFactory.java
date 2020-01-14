@@ -24,7 +24,7 @@ public class FeaturesObserverFactory {
 
     /**
      * Gets the Observer according to the feature.
-     * @param feature - a fr.project.instructions.simple String
+     * @param feature - the name of a feature
      * @return the FeatureObserver asked.
      */
     FeatureObserver getObserver(String feature){

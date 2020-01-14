@@ -12,6 +12,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+
+/* *************************************** *\
+
+              NOTE FOR DEVELOPERS
+              *******************
+    Writer will be divided in a classWriter
+    and RecordClassWriter in order to simplify
+    methods.
+
+
+\* ****************************************** */
+
+
 /**
  * 
  * A class that allows to write a new .class file according to a .class file you visit.
@@ -45,6 +58,9 @@ public class MyWriter {
      * Creates the new .class file according to its privacy and its name.
      */
     public void createClass(){
+        if(myClass.isRecordClass()){
+            warningObservers.forEach(o -> o.onWarningDetected("[WARNING] : " + myClass.getClassName() + " is a record class", "record"));
+        }
         cw.visit(version, myClass.getPrivacy(), myClass.getClassName(), null, "java/lang/Object", myClass.getInterfaces());
     }
 
@@ -136,7 +152,6 @@ public class MyWriter {
 
     private void writeMethod(Method m) {
         if(myClass.isRecordClass()){
-            warningObservers.forEach(o -> o.onWarningDetected("We have detected a record class", "record"));
             switch(m.getName()){
                 case "<init>" : writeConstructor(m); break;
                 case "toString" : writeToStringMethodForRecord(m); break;

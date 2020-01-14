@@ -1,6 +1,8 @@
 package fr.project.instructions.simple;
 
 
+import java.util.Objects;
+
 /**
  * 
  * A class that allows to represent a simple field of a .class file.
@@ -24,9 +26,10 @@ public class Field {
      * @param value - the value of the field
      */
     public Field(int access, String name, String descriptor, String signature, Object value){
+        if(access < 0) throw new IllegalArgumentException("Access must be positive");
         this.access = access;
-        this.name = name;
-        this.descriptor = descriptor;
+        this.name = Objects.requireNonNull(name);
+        this.descriptor = Objects.requireNonNull(descriptor);
         this.signature = signature;
         this.value = value;
     }
