@@ -1,0 +1,4 @@
+--patch-module
+parsing=_
+--add-reads
+parsing=ALL-UNNAMED
